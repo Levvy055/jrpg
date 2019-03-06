@@ -1,11 +1,14 @@
 package pl.hopelew.jrpg;
 
+import java.net.URL;
+
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.Group;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
@@ -18,17 +21,16 @@ public class Main extends Application {
 		instance = this;
 		Platform.setImplicitExit(false);
 		Thread.currentThread().setName("JavaFx Thread");
-		Group root = new Group();
-		Scene scene = new Scene(root, 300, 250);
-		Button btn = new Button();
-		btn.setLayoutX(100);
-		btn.setLayoutY(80);
-		btn.setText("Hello World");
-		btn.setOnAction(actionEvent -> System.out.println("Hello World"));
-		root.getChildren().add(btn);
+		primaryStage.setTitle("jRPG NoName");
+		primaryStage.setWidth(1100);
+		primaryStage.setHeight(900);
+		primaryStage.initStyle(StageStyle.TRANSPARENT);
+		URL uri = getClass().getResource("/pl/hopelew/jrpg/MainWindow.fxml");
+		Parent root=FXMLLoader.load(uri);
+		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		System.out.println("a");
+		System.out.println("end main thread");
 	}
 
 	public static void main(String[] args) {
