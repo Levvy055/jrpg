@@ -23,3 +23,13 @@
 #header {
 	-fx-background-color : rgba(92, 89, 83, 0.5);
 }
+
+.start-window-btn {
+    -fx-background-color : rgba(92, 89, 83, 0.5);
+    -fx-background-insets: 0,1,2;
+    -fx-background-radius: 3,2,1;
+    -fx-padding: 3 30 3 30;
+    -fx-font-size: 20px;
+    -fx-text-inner-color: black;
+    -fx-text-fill: -fx-text-inner-color;
+}
