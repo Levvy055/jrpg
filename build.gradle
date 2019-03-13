@@ -8,35 +8,60 @@ plugins {
     id 'idea'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.7'
+    id "com.github.ben-manes.versions" version "0.21.0"
+    //id "io.freefair.lombok" version "3.1.4"
+    id 'net.ltgt.apt' version '0.21'
 }
 
 repositories {
     mavenLocal()
-    maven {
-        url = 'http://jcenter.bintray.com'
-    }
-    maven {
-        url = 'http://repo.maven.apache.org/maven2'
-    }
+    maven { url = 'http://jcenter.bintray.com' }
+    maven { url = 'http://repo.maven.apache.org/maven2' }
+    maven { url 'https://projectlombok.org/edge-releases' }
 }
 
 javafx {
     modules = [ 'javafx.controls',
-    			'javafx.fxml' ]
+    			'javafx.fxml',
+    			'javafx.graphics',
+    			'javafx.swing',
+    			'javafx.web']
 }
 
 dependencies {
-    compile 'org.controlsfx:controlsfx:9.0.0'
+    compile 'org.controlsfx:controlsfx:11.0.0-RC2'
     compile 'com.jfoenix:jfoenix:9.0.8'
     compile 'org.fxmisc.richtext:richtextfx:0.9.3'
     compile 'com.1stleg:jnativehook:2.1.0'
     compile 'commons-io:commons-io:2.6'
-    compile 'org.json:json:20180130'
+    compile 'org.json:json:20180813'
+    compile group: 'eu.hansolo', name: 'Medusa', version: '8.3'
+   
+    compile files('libs/scenicview.jar')
+    
+    compileOnly 'org.projectlombok:lombok:edge-SNAPSHOT'
+    compileOnly group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.3.0.Final'
+    
+	annotationProcessor 'org.projectlombok:lombok:edge-SNAPSHOT'
+    annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.3.0.Final'
+}
+
+eclipse {
+    classpath {
+        file {
+            whenMerged {
+                entries.findAll { 
+                	it.kind == 'src' || it.kind == 'lib' 
+                }.each { it.entryAttributes['module'] = 'true' }
+            }
+        }
+    }
 }
 
 group = 'pl.hopelew'
 version = '0.1'
 description = 'jRPG NoName Game'
+mainClassName = 'pl.hopelew.jrpg.Main'
 
 sourceCompatibility = '11'
 targetCompatibility = '11'

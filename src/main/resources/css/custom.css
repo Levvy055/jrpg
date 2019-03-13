@@ -1,0 +1,25 @@
+
+
+#startup-bg-pane {
+    -fx-background-image : url("../img/window/startup.jpg");
+    -fx-background-size : cover;
+}
+
+.header-button:focused, .header-button:hover {
+    -fx-border-width : 2;
+    -fx-cursor : hand;
+    -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
+}
+
+.header-button {
+    -fx-effect : null;
+    -fx-background-color : transparent;
+}
+
+.button {
+	/*-fx-effect : innershadow( gaussian , -gn-fill , 10,1,21,21 );*/
+}
+
+#header {
+	-fx-background-color : rgba(92, 89, 83, 0.5);
+}
