@@ -10,11 +10,12 @@ import javafx.scene.control.Button;
 public class StartWindowController implements Initializable {
 	@FXML private Button btnNewGame;
 	@FXML private Button btnExit;
+	@FXML private Button btnLoadGame;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-
+		btnExit.setOnMouseClicked(event->Main.exit());
+		btnNewGame.setOnMouseClicked(event->Main.exit());
 	}
 
 }

@@ -33,3 +33,7 @@
     -fx-text-inner-color: black;
     -fx-text-fill: -fx-text-inner-color;
 }
+
+.start-window-btn:hover, .start-window-btn:focused {
+    -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
+}

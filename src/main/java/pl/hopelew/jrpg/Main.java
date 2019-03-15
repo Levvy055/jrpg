@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lombok.Getter;
@@ -16,14 +17,16 @@ import pl.hopelew.jrpg.utils.Strings;
 
 public class Main extends Application {
 
-	private static @Getter Main instance;
+	private static Main instance;
 	private @Getter Stage stage;
+	private static double initX;
+	private static double initY;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.stage = primaryStage;
 		instance = this;
-		//Platform.setImplicitExit(false);
+		// Platform.setImplicitExit(false);
 		Thread.currentThread().setName("JavaFx Thread");
 
 		URL uri = getClass().getResource("/pl/hopelew/jrpg/MainWindow.fxml");
@@ -43,14 +46,14 @@ public class Main extends Application {
 		stage.setScene(scene);
 		stage.show();
 
-		//ScenicView.show(scene);
+		// ScenicView.show(scene);
 		System.out.println("Main thread finished");
 	}
 
 	public static void main(String[] args) {
 		try {
 			Thread.currentThread().setName("Main Thread");
-		initConfig(args);
+			initConfig(args);
 			Application.launch(args);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,8 +61,26 @@ public class Main extends Application {
 	}
 
 	private static void initConfig(String[] args) {
-		Locale locale=Locale.getDefault();
+		Locale locale = Locale.getDefault();
 		Strings.init(locale);
+	}
+
+	public static void exit() {
+		instance.getStage().close();
+	}
+
+	public static void minimize() {
+		instance.getStage().setIconified(true);
+	}
+
+	public static void beginDragging(MouseEvent event) {
+		initX = event.getSceneX();
+		initY = event.getSceneY();
+	}
+
+	public static void endDragging(MouseEvent event) {
+		instance.getStage().setX(event.getScreenX() - initX);
+		instance.getStage().setY(event.getScreenY() - initY);
 	}
 
 }
