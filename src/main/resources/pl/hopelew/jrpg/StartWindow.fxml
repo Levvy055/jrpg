@@ -3,10 +3,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308" spacing="20.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.hopelew.jrpg.StartWindowController">
+<VBox alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308" spacing="20.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.hopelew.jrpg.controllers.StartWindowController">
 	<children>
-		<Button fx:id="btnNewGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="start-window-btn" text="new_game" />
-      <Button fx:id="btnLoadGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="start-window-btn" text="load_game" />
-		<Button fx:id="btnExit" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="start-window-btn" text="exit" />
+		<Button fx:id="btnNewGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="start-window-btn" text="%new_game" />
+      <Button fx:id="btnLoadGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="start-window-btn" text="%load_game" />
+		<Button fx:id="btnExit" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="start-window-btn" text="%exit" />
 	</children>
 </VBox>

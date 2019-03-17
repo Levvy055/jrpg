@@ -8,18 +8,18 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane id="startup-bg-pane" minHeight="800.0" minWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.hopelew.jrpg.MainWindowController">
+<BorderPane id="startup-bg-pane" fx:id="pane" minHeight="800.0" minWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.hopelew.jrpg.controllers.MainWindowController">
    <top>
       <HBox id="header" fx:id="header" alignment="TOP_RIGHT" maxHeight="30.0" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-         <Button id="btnClosea" maxHeight="5.0" maxWidth="5.0" mnemonicParsing="false" styleClass="header-button">
+         <Button id="btnClosea" focusTraversable="false" maxHeight="5.0" maxWidth="5.0" mnemonicParsing="false" styleClass="header-button">
                <graphic>
                   <ImageView fitHeight="1.0" fitWidth="1.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../img/window/f.png" />
                      </image></ImageView>
                </graphic></Button>
-            <Button id="btnMinimize" fx:id="btnMinimize" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" styleClass="header-button">
+            <Button id="btnMinimize" fx:id="btnMinimize" focusTraversable="false" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" styleClass="header-button">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -27,7 +27,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button id="btnClose" fx:id="btnClose" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" styleClass="header-button">
+            <Button id="btnClose" fx:id="btnClose" focusTraversable="false" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" styleClass="header-button">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>

@@ -29,4 +29,8 @@ public class Strings {
 	public static String get(String key) {
 		return resources.getString(key);
 	}
+
+	public static ResourceBundle currentBundle() {
+		return resources;
+	}
 }

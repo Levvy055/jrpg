@@ -12,13 +12,11 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import lombok.Getter;
 import pl.hopelew.jrpg.utils.Strings;
 
 public class Main extends Application {
-
 	private static Main instance;
-	private @Getter Stage stage;
+	private Stage stage;
 	private static double initX;
 	private static double initY;
 
@@ -30,9 +28,9 @@ public class Main extends Application {
 		Thread.currentThread().setName("JavaFx Thread");
 
 		URL uri = getClass().getResource("/pl/hopelew/jrpg/MainWindow.fxml");
-		Parent root = FXMLLoader.load(uri);
+		Parent root = FXMLLoader.load(uri, Strings.currentBundle());
 
-		stage.setTitle("jRPG NoName");
+		stage.setTitle(Strings.get("title"));
 		stage.setWidth(1100);
 		stage.setHeight(900);
 		if (Platform.isSupported(ConditionalFeature.TRANSPARENT_WINDOW)) {
@@ -66,11 +64,11 @@ public class Main extends Application {
 	}
 
 	public static void exit() {
-		instance.getStage().close();
+		instance.stage.close();
 	}
 
 	public static void minimize() {
-		instance.getStage().setIconified(true);
+		instance.stage.setIconified(true);
 	}
 
 	public static void beginDragging(MouseEvent event) {
@@ -79,8 +77,16 @@ public class Main extends Application {
 	}
 
 	public static void endDragging(MouseEvent event) {
-		instance.getStage().setX(event.getScreenX() - initX);
-		instance.getStage().setY(event.getScreenY() - initY);
+		instance.stage.setX(event.getScreenX() - initX);
+		instance.stage.setY(event.getScreenY() - initY);
+	}
+
+	public static void startNewGame() {
+		// TODO Auto-generated method stub
+	}
+
+	public static void loadGame() {
+		// TODO Auto-generated method stub
 	}
 
 }

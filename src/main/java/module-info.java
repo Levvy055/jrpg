@@ -15,5 +15,5 @@ module jrpg {
 	
 	requires static lombok;
 		
-	opens pl.hopelew.jrpg to javafx.fxml;
+	opens pl.hopelew.jrpg.controllers to javafx.fxml;
 }
