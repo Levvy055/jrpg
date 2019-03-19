@@ -43,7 +43,7 @@
    <bottom>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <fx:include fx:id="startWindow" maxHeight="150.0" maxWidth="300.0" minHeight="20.0" minWidth="120.0" source="StartWindow.fxml" AnchorPane.rightAnchor="60.0" />
+            <fx:include fx:id="startWindow" minHeight="20.0" minWidth="120.0" source="StartWindow.fxml" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="60.0" />
          </children>
       </AnchorPane>
    </bottom>

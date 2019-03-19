@@ -7,6 +7,7 @@
 	<children>
 		<Button fx:id="btnNewGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="start-window-btn" text="%new_game" />
       <Button fx:id="btnLoadGame" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="start-window-btn" text="%load_game" />
+      <Button fx:id="btnOptions" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="start-window-btn" text="%options" />
 		<Button fx:id="btnExit" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="start-window-btn" text="%exit" />
 	</children>
 </VBox>

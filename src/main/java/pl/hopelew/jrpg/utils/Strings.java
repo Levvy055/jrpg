@@ -18,7 +18,6 @@ public class Strings {
 	private static String name="strings.Strings";
 
 	public static void init(Locale locale) {
-		// TODO: check if locale is supported
 		if (supportedLocales.containsKey(locale.getCountry())) {
 			resources = ResourceBundle.getBundle(name, locale);
 		} else {

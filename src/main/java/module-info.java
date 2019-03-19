@@ -11,9 +11,11 @@ module jrpg {
 	requires java.logging;
 	
 	requires transitive org.scenicview.scenicview;
+	
 	requires org.controlsfx.controls;
 	
 	requires static lombok;
+	requires org.apache.commons.lang3;
 		
 	opens pl.hopelew.jrpg.controllers to javafx.fxml;
 }

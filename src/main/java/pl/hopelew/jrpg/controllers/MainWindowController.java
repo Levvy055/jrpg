@@ -27,16 +27,15 @@ public class MainWindowController implements Initializable {
 	private @FXML VBox startWindow;
 	private @FXML BorderPane pane;
 
+	private Node newGameNode;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		instance = this;
 		initHeader();
-
 		try {
-			Node newGameNode = FXMLLoader.load(getClass().getResource("/pl/hopelew/jrpg/NewGameWindow.fxml"),
-					resources);
-			newGameNode.setVisible(false);
-			newGameNode.setDisable(true);
-			pane.setCenter(newGameNode);
+			newGameNode = FXMLLoader.load(getClass().getResource("/pl/hopelew/jrpg/NewGameWindow.fxml"), resources);
+			// newGameNode.disableProperty().addListener((e,oldV,newV)->{if();});
 		} catch (IOException e) {
 			e.printStackTrace();
 			Main.exit();
@@ -71,15 +70,17 @@ public class MainWindowController implements Initializable {
 	public void showSubWindow(SubWindows sub) {
 		switch (sub) {
 		case NONE:
-
+			pane.setCenter(null);
 			break;
 		case CONFIRM:
 			break;
-		case LOAD:
+		case LOAD:// TODO: implement load game screen
 			break;
 		case NEW:
+			pane.setCenter(newGameNode);
+			NewGameWindowController.getInstance().requestFocus();
 			break;
-		case OPTIONS:
+		case OPTIONS:// TODO: implement options screen
 			break;
 		default:
 			break;
