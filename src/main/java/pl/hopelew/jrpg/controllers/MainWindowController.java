@@ -67,6 +67,10 @@ public class MainWindowController implements Initializable {
 		});
 	}
 
+	/**
+	 * Changes the MainWindow subwindow into one specified by sub parameter
+	 * @param sub
+	 */
 	public void showSubWindow(SubWindows sub) {
 		switch (sub) {
 		case NONE:

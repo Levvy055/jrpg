@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import lombok.Getter;
+import pl.hopelew.jrpg.Main;
 import pl.hopelew.jrpg.controllers.MainWindowController.SubWindows;
 import pl.hopelew.jrpg.utils.Strings;
 
@@ -36,8 +37,12 @@ public class NewGameWindowController implements Initializable {
 				btnCreate.setDisable(true);
 			}
 		});
+		btnCreate.setOnAction(event -> Main.startNewGame(tfHeroName.getText(), !tbSex.isSelected()));
 	}
 
+	/**
+	 * Moves focus to text field of Hero Name
+	 */
 	public void requestFocus() {
 		tfHeroName.requestFocus();
 	}
