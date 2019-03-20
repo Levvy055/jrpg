@@ -64,10 +64,19 @@ group = 'pl.hopelew'
 version = '0.1'
 description = 'jRPG NoName Game'
 mainClassName = 'pl.hopelew.jrpg.Main'
+ext.moduleName = 'jrpg'
 
 sourceCompatibility = '11'
 targetCompatibility = '11'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+        attributes 'Automatic-Module-Name': moduleName
+    }
+    inputs.property("moduleName", moduleName)
 }
