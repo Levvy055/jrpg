@@ -1,4 +1,4 @@
-package pl.hopelew.jrpg.controllers;
+package pl.hopelew.jrpg.controllers.mainmenu;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import pl.hopelew.jrpg.Main;
-import pl.hopelew.jrpg.controllers.MainWindowController.SubWindows;
+import pl.hopelew.jrpg.controllers.mainmenu.MainWindowController.SubWindows;
 
 public class StartWindowController implements Initializable {
 	private @FXML Button btnNewGame;

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane id="startup-bg-pane" fx:id="pane" minHeight="800.0" minWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.hopelew.jrpg.controllers.mainmenu.MainWindowController">
+   <top>
+      <fx:include fx:id="header" source="../Header.fxml"  BorderPane.alignment="CENTER"/>
+   </top>
+   <bottom>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <fx:include fx:id="startWindow" minHeight="20.0" minWidth="120.0" source="StartWindow.fxml" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="60.0" />
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>

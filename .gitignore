@@ -157,3 +157,5 @@ gradle-app.setting
 *.ipr
 .vscode/settings.json
 .project
+
+.vscode/

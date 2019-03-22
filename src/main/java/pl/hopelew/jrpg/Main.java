@@ -21,6 +21,8 @@ public class Main extends Application {
 	private static double initY;
 	private static Game game;
 	private static Thread gameThread;
+	private Scene sceneMainMenu;
+	private Scene sceneGame;
 
 	/**
 	 * {@inheritDoc}
@@ -32,9 +34,6 @@ public class Main extends Application {
 		// Platform.setImplicitExit(false);
 		Thread.currentThread().setName("JavaFx Thread");
 
-		URL uri = getClass().getResource("/pl/hopelew/jrpg/MainWindow.fxml");
-		Parent root = FXMLLoader.load(uri, Strings.currentBundle());
-
 		stage.setTitle(Strings.get("title"));
 		stage.setWidth(1100);
 		stage.setHeight(900);
@@ -44,9 +43,11 @@ public class Main extends Application {
 			stage.initStyle(StageStyle.UTILITY);
 		}
 
-		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("/css/custom.css").toExternalForm());
-		stage.setScene(scene);
+		URL uri = getClass().getResource("/pl/hopelew/jrpg/MainWindow.fxml");
+		Parent root = FXMLLoader.load(uri, Strings.currentBundle());
+		sceneMainMenu = new Scene(root);
+		sceneMainMenu.getStylesheets().add(getClass().getResource("/css/custom.css").toExternalForm());
+
 		stage.show();
 
 		// ScenicView.show(scene);
@@ -68,7 +69,7 @@ public class Main extends Application {
 	 */
 	public static void exit() {
 		System.out.println("Closing the game");
-		if(game!=null) {
+		if (game != null) {
 			game.stop();
 		}
 		instance.stage.close();
@@ -99,6 +100,14 @@ public class Main extends Application {
 	public static void endDragging(MouseEvent event) {
 		instance.stage.setX(event.getScreenX() - initX);
 		instance.stage.setY(event.getScreenY() - initY);
+	}
+
+	private void goToMainMenuScene() {
+		stage.setScene(sceneMainMenu);
+	}
+
+	private void goToGameScene() {
+		stage.setScene(sceneGame);
 	}
 
 	/**

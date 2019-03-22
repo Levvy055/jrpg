@@ -1,4 +1,4 @@
-package pl.hopelew.jrpg.controllers;
+package pl.hopelew.jrpg.controllers.mainmenu;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import lombok.Getter;
 import pl.hopelew.jrpg.Main;
-import pl.hopelew.jrpg.controllers.MainWindowController.SubWindows;
+import pl.hopelew.jrpg.controllers.mainmenu.MainWindowController.SubWindows;
 import pl.hopelew.jrpg.utils.Strings;
 
 public class NewGameWindowController implements Initializable {
