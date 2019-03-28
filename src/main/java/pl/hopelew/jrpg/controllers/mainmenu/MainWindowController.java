@@ -27,7 +27,7 @@ public class MainWindowController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		instance = this;
 		try {
-			newGameNode = FXMLLoader.load(getClass().getResource("/pl/hopelew/jrpg/NewGameWindow.fxml"), resources);
+			newGameNode = FXMLLoader.load(getClass().getResource("/pl/hopelew/jrpg/mainmenu/NewGameWindow.fxml"), resources);
 			// newGameNode.disableProperty().addListener((e,oldV,newV)->{if();});
 		} catch (IOException e) {
 			e.printStackTrace();

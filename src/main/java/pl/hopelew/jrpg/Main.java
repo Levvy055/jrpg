@@ -43,11 +43,12 @@ public class Main extends Application {
 			stage.initStyle(StageStyle.UTILITY);
 		}
 
-		URL uri = getClass().getResource("/pl/hopelew/jrpg/MainWindow.fxml");
+		URL uri = getClass().getResource("/pl/hopelew/jrpg/mainmenu/MainWindow.fxml");
 		Parent root = FXMLLoader.load(uri, Strings.currentBundle());
 		sceneMainMenu = new Scene(root);
 		sceneMainMenu.getStylesheets().add(getClass().getResource("/css/custom.css").toExternalForm());
 
+		stage.setScene(sceneMainMenu);
 		stage.show();
 
 		// ScenicView.show(scene);

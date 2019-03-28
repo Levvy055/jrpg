@@ -18,4 +18,5 @@ module jrpg {
 	requires org.apache.commons.lang3;
 		
 	opens pl.hopelew.jrpg.controllers to javafx.fxml;
+	opens pl.hopelew.jrpg.controllers.mainmenu to javafx.fxml;
 }
