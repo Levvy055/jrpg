@@ -19,4 +19,5 @@ module jrpg {
 		
 	opens pl.hopelew.jrpg.controllers to javafx.fxml;
 	opens pl.hopelew.jrpg.controllers.mainmenu to javafx.fxml;
+	opens pl.hopelew.jrpg.controllers.game to javafx.fxml;
 }

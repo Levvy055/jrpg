@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import lombok.Getter;
 import pl.hopelew.jrpg.Main;
-import pl.hopelew.jrpg.controllers.mainmenu.MainWindowController.SubWindows;
+import pl.hopelew.jrpg.controllers.mainmenu.MainMenuWindowController.SubWindows;
 import pl.hopelew.jrpg.utils.Strings;
 
 public class NewGameWindowController implements Initializable {
@@ -29,7 +29,7 @@ public class NewGameWindowController implements Initializable {
 			tbSex.setText(Strings.get(tbSex.isSelected() ? "female" : "male"));
 		});
 		tbSex.setText(Strings.get(tbSex.isSelected() ? "female" : "male"));
-		btnCancel.setOnAction(event -> MainWindowController.getInstance().showSubWindow(SubWindows.NONE));
+		btnCancel.setOnAction(event -> MainMenuWindowController.getInstance().showSubWindow(SubWindows.NONE));
 		tfHeroName.textProperty().addListener((e, o, n) -> {
 			if (!StringUtils.isBlank(n)) {
 				btnCreate.setDisable(n.trim().length() < 3);

@@ -43,10 +43,15 @@ public class Main extends Application {
 			stage.initStyle(StageStyle.UTILITY);
 		}
 
-		URL uri = getClass().getResource("/pl/hopelew/jrpg/mainmenu/MainWindow.fxml");
-		Parent root = FXMLLoader.load(uri, Strings.currentBundle());
-		sceneMainMenu = new Scene(root);
+		URL mmUri = getClass().getResource("/pl/hopelew/jrpg/mainmenu/MainWindow.fxml");
+		Parent mmRoot = FXMLLoader.load(mmUri, Strings.currentBundle());
+		sceneMainMenu = new Scene(mmRoot);
 		sceneMainMenu.getStylesheets().add(getClass().getResource("/css/custom.css").toExternalForm());
+		
+		URL mgUri = getClass().getResource("/pl/hopelew/jrpg/game/GameWindow.fxml");
+		Parent mgRoot = FXMLLoader.load(mgUri, Strings.currentBundle());
+		sceneGame = new Scene(mgRoot);
+		sceneGame.getStylesheets().add(getClass().getResource("/css/custom.css").toExternalForm());
 
 		stage.setScene(sceneMainMenu);
 		stage.show();
@@ -122,6 +127,7 @@ public class Main extends Application {
 		game = new Game(player);
 		gameThread = new Thread(game, "Game Loop Thread");
 		gameThread.start();
+		instance.goToGameScene();
 	}
 
 	/**

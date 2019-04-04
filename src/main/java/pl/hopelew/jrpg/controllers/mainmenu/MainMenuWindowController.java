@@ -15,8 +15,8 @@ import javafx.scene.layout.VBox;
 import lombok.Getter;
 import pl.hopelew.jrpg.Main;
 
-public class MainWindowController implements Initializable {
-	private @Getter static MainWindowController instance;
+public class MainMenuWindowController implements Initializable {
+	private @Getter static MainMenuWindowController instance;
 
 	private @FXML VBox startWindow;
 	private @FXML BorderPane pane;
