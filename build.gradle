@@ -38,6 +38,7 @@ dependencies {
     compile group: 'eu.hansolo', name: 'Medusa', version: '8.3'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
     compile group: 'com.google.guava', name: 'guava', version: '27.1-jre'
+    //compile 'com.github.almasb:fxgl:11.1-beta'
        
     compile files('libs/scenicview.jar')
     
@@ -63,8 +64,8 @@ eclipse {
 group = 'pl.hopelew'
 version = '0.1'
 description = 'jRPG NoName Game'
-mainClassName = 'pl.hopelew.jrpg.Main'
 ext.moduleName = 'jrpg'
+mainClassName = moduleName + '/pl.hopelew.jrpg.Main'
 
 sourceCompatibility = '11'
 targetCompatibility = '11'
