@@ -1,4 +1,4 @@
-package pl.hopelew.jrpg;
+package pl.hopelew.jrpg.world;
 
 public abstract class World {
 

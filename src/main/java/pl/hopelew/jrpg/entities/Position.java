@@ -1,6 +1,7 @@
-package pl.hopelew.jrpg;
+package pl.hopelew.jrpg.entities;
 
 import lombok.Data;
+import pl.hopelew.jrpg.world.World;
 
 public @Data class Position {
 	private int x;

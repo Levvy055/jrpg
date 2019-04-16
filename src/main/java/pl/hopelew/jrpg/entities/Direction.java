@@ -1,4 +1,4 @@
-package pl.hopelew.jrpg;
+package pl.hopelew.jrpg.entities;
 
 public enum Direction {
 	NORTH, EAST, SOUTH, WEST;

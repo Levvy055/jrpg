@@ -1,4 +1,4 @@
-package pl.hopelew.jrpg;
+package pl.hopelew.jrpg.entities;
 
 public class Player {
 	private String name;

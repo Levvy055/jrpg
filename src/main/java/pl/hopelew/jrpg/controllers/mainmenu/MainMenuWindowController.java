@@ -42,7 +42,7 @@ public class MainMenuWindowController implements Initializable {
 				startWindow.setVisible(true);
 			}
 		}, 3000l);
-		System.out.println("MW initialized");
+		System.out.println("MW Initialized");
 	}
 
 	/**
@@ -67,9 +67,5 @@ public class MainMenuWindowController implements Initializable {
 		default:
 			break;
 		}
-	}
-
-	public enum SubWindows {
-		NONE, NEW, LOAD, OPTIONS, CONFIRM,
 	}
 }

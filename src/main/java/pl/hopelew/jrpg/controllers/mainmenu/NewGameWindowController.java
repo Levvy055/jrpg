@@ -12,7 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import lombok.Getter;
 import pl.hopelew.jrpg.Main;
-import pl.hopelew.jrpg.controllers.mainmenu.MainMenuWindowController.SubWindows;
 import pl.hopelew.jrpg.utils.Strings;
 
 public class NewGameWindowController implements Initializable {

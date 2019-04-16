@@ -12,17 +12,33 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import pl.hopelew.jrpg.controllers.game.GameWindowController;
+import pl.hopelew.jrpg.entities.Player;
 import pl.hopelew.jrpg.utils.Strings;
 
+/**
+ * Start class of App with main method.
+ * 
+ * @author lluka
+ *
+ */
 public class Main extends Application {
 	private static Main instance;
 	private Stage stage;
-	private static double initX;
-	private static double initY;
+	private static double initX, initY;
 	private static Game game;
 	private static Thread gameThread;
-	private Scene sceneMainMenu;
-	private Scene sceneGame;
+	private Scene sceneMainMenu, sceneGame;
+
+	/**
+	 * Initializes things like locale, translations, game options
+	 * 
+	 * @param args
+	 */
+	private static void initConfig(String[] args) {
+		Locale locale = Locale.getDefault();
+		Strings.init(locale);
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -32,7 +48,6 @@ public class Main extends Application {
 		this.stage = primaryStage;
 		instance = this;
 		// Platform.setImplicitExit(false);
-		Thread.currentThread().setName("JavaFx Thread");
 
 		stage.setTitle(Strings.get("title"));
 		stage.setWidth(1100);
@@ -47,7 +62,7 @@ public class Main extends Application {
 		Parent mmRoot = FXMLLoader.load(mmUri, Strings.currentBundle());
 		sceneMainMenu = new Scene(mmRoot);
 		sceneMainMenu.getStylesheets().add(getClass().getResource("/css/custom.css").toExternalForm());
-		
+
 		URL mgUri = getClass().getResource("/fxmls/game/GameWindow.fxml");
 		Parent mgRoot = FXMLLoader.load(mgUri, Strings.currentBundle());
 		sceneGame = new Scene(mgRoot);
@@ -57,17 +72,7 @@ public class Main extends Application {
 		stage.show();
 
 		// ScenicView.show(scene);
-		System.out.println("Main Thread finished");
-	}
-
-	/**
-	 * Initializes things like locale, translations, game options
-	 * 
-	 * @param args
-	 */
-	private static void initConfig(String[] args) {
-		Locale locale = Locale.getDefault();
-		Strings.init(locale);
+		System.out.println("MW Ready");
 	}
 
 	/**
@@ -114,6 +119,7 @@ public class Main extends Application {
 
 	private void goToGameScene() {
 		stage.setScene(sceneGame);
+		GameWindowController.getInstance().initGame(game);
 	}
 
 	/**
@@ -143,8 +149,8 @@ public class Main extends Application {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		Thread.currentThread().setName("Main Thread");
 		try {
-			Thread.currentThread().setName("Main Thread");
 			initConfig(args);
 			Application.launch(args);
 		} catch (Exception e) {
