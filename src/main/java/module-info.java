@@ -17,11 +17,11 @@ open module jrpg {
 	requires static lombok;
 	requires org.apache.commons.lang3;
 	requires com.jfoenix;
-	// requires fxgl.all;
+	
+//  requires fxgl.all;
 
-	/*
-	 * opens pl.hopelew.jrpg.controllers to javafx.fxml; opens
-	 * pl.hopelew.jrpg.controllers.mainmenu to javafx.fxml; opens
-	 * pl.hopelew.jrpg.controllers.game to javafx.fxml, fxgl.all;
-	 */
+//  opens pl.hopelew.jrpg.controllers to javafx.fxml;
+//  opens pl.hopelew.jrpg.controllers.mainmenu to javafx.fxml; 
+//  opens pl.hopelew.jrpg.controllers.game to javafx.fxml, fxgl.all;
+
 }

@@ -20,7 +20,7 @@ public class GameWindowController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		instance = this;
-		Resources.validate();
+		Resources.validateAndLoad();
 		System.out.println("GW Initialized");
 	}
 

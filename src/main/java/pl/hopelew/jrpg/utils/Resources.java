@@ -1,21 +1,44 @@
 package pl.hopelew.jrpg.utils;
 
+import java.net.URI;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 import javafx.scene.image.Image;
 
 public class Resources {
+	private static Map<Res, Image> images = new HashMap<>();
 
-	public static void validate() {
+	public static void validateAndLoad() {
 		for (Res res : Res.values()) {
-			if (!Files.exists(Paths.get(res.getPath()))) {
-				System.out.println("Can't load resource: '" + res.getPath() + "'");
+			try {
+				URI url = Resources.class.getClassLoader().getResource(res.getPath()).toURI();
+				Path path;
+				if (url.getScheme().contentEquals("file")) {
+					path = Paths.get(url);
+				} else {
+					FileSystem fs = FileSystems.getFileSystem(URI.create("jrt:/"));
+					path = fs.getPath("modules", "jrpg", res.getPath());
+				}
+				if (Files.notExists(path)) {
+					System.out.println("Can't load resource: '" + path + "'");
+				} else {
+					if (res.isImage()) {
+						images.put(res, getFxImage(res));
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 	}
 
 	public static Image getFxImage(Res key) {
-		return new Image(Resources.class.getResourceAsStream(key.getPath()));
+		return new Image(Resources.class.getClassLoader().getResourceAsStream(key.getPath()));
 	}
 }
