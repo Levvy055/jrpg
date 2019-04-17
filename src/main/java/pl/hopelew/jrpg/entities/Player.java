@@ -1,5 +1,8 @@
 package pl.hopelew.jrpg.entities;
 
+import lombok.Data;
+
+@Data
 public class Player {
 	private String name;
 	private Sex sex;

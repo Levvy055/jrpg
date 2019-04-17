@@ -14,7 +14,7 @@ import pl.hopelew.jrpg.entities.Player;
  */
 public class Game implements Runnable {
 	private static @Getter Game instance;
-	private Player player;
+	private @Getter Player player;
 	private boolean running;
 	private static long TPS = 10L;
 	private @Getter @Setter GameWindowController window;

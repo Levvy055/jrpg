@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import lombok.Getter;
 import pl.hopelew.jrpg.Game;
+import pl.hopelew.jrpg.utils.Resources;
 
 public class GameWindowController implements Initializable {
 	private @FXML BorderPane pane;
@@ -19,6 +20,7 @@ public class GameWindowController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		instance = this;
+		Resources.validate();
 		System.out.println("GW Initialized");
 	}
 
@@ -30,5 +32,16 @@ public class GameWindowController implements Initializable {
 		this.game.setWindow(this);
 		win = new Pane();
 		pane.setCenter(win);
+		
+		sidebar().setAvatar(game.getPlayer().getSex());
+	}
+
+	/**
+	 * Gets access to Sidebar fxml controller
+	 * 
+	 * @return
+	 */
+	private SidebarController sidebar() {
+		return SidebarController.getInstance();
 	}
 }
