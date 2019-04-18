@@ -28,8 +28,8 @@ public class Resources {
 				if (Files.notExists(path)) {
 					System.out.println("Can't load resource: '" + path + "'");
 				} else {
-					if (res.isImage()) {
-						images.put(res, getFxImage(res));
+					if (res.getType() == ResType.IMAGE) {
+						images.put(res, new Image(Resources.class.getClassLoader().getResourceAsStream(res.getPath())));
 					}
 				}
 			} catch (Exception e) {
@@ -39,6 +39,6 @@ public class Resources {
 	}
 
 	public static Image getFxImage(Res key) {
-		return new Image(Resources.class.getClassLoader().getResourceAsStream(key.getPath()));
+		return images.get(key);
 	}
 }

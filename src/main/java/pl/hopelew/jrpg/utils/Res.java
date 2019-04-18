@@ -3,14 +3,19 @@ package pl.hopelew.jrpg.utils;
 import lombok.Getter;
 
 public enum Res {
-	HERO_AVATAR_FEMALE("img/hero_avatars/f_06.png", true), HERO_AVATAR_MALE("img/hero_avatars/m_40.png", true);
+	HERO_AVATAR_FEMALE("img/hero_avatars/f_06.png", ResType.IMAGE),
+	HERO_AVATAR_MALE("img/hero_avatars/m_40.png", ResType.IMAGE);
 
 	private @Getter String path;
-	private @Getter boolean isImage;
+	private @Getter ResType type;
 
-	private Res(String path, boolean isImage) {
+	private Res(String path, ResType type) {
 		this.path = path;
-		this.isImage = isImage;
+		this.type = type;
 
 	}
+}
+
+enum ResType {
+	AUDIO, VIDEO, IMAGE
 }
