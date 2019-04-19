@@ -1,7 +1,11 @@
 package pl.hopelew.jrpg.controllers.game;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javax.swing.Timer;
 
 import com.jfoenix.controls.JFXProgressBar;
 
@@ -16,6 +20,8 @@ import pl.hopelew.jrpg.entities.Player;
 import pl.hopelew.jrpg.entities.data.Sex;
 import pl.hopelew.jrpg.utils.Res;
 import pl.hopelew.jrpg.utils.Resources;
+import pl.hopelew.jrpg.utils.eventhandlers.EventType;
+import pl.hopelew.jrpg.utils.eventhandlers.ValueChangedGameEvent;
 
 public class SidebarController implements Initializable {
 	private static @Getter SidebarController instance;
@@ -34,20 +40,21 @@ public class SidebarController implements Initializable {
 	public void init(Player player) {
 		setAvatar(player.getSex());
 		setHp(player.getHp());
-		player.addListener(ge -> {
+		player.addListener(EventType.HP_CHANGED, ge -> {
+			var vge = (ValueChangedGameEvent) ge;
 			Platform.runLater(() -> {
-				pbHp.setProgress((double) ge.getValue("newV") / 100d);
-				pbHp.setSecondaryProgress((double) ge.getValue("oldV") / 100d);
-				lblHp.setText(ge.getValue("newV") + "");
+				pbHp.setProgress((double) vge.getNewValue() / 100d);
+				pbHp.setSecondaryProgress((double) vge.getOldValue() / 100d);
+				lblHp.setText(vge.getNewValue() + "");
 			});
 		});
-//		new Timer(1000, new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				player.changeHp(-1);
-//			}
-//		}).start();
+		new Timer(1000, new ActionListener() { // TODO: remove as for tests it is only
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				player.changeHp(-1);
+			}
+		}).start();
 	}
 
 	private void setHp(double hp) {

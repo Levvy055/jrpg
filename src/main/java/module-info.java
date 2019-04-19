@@ -18,6 +18,7 @@ open module jrpg {
 	requires org.apache.commons.lang3;
 	requires com.jfoenix;
 	requires com.google.common;
+	requires java.desktop;
 	
 //  requires fxgl.all;
 

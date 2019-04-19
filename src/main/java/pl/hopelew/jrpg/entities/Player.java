@@ -10,13 +10,14 @@ import pl.hopelew.jrpg.entities.data.Sex;
 import pl.hopelew.jrpg.utils.eventhandlers.EventHandler;
 import pl.hopelew.jrpg.utils.eventhandlers.EventType;
 import pl.hopelew.jrpg.utils.eventhandlers.GameEvent;
+import pl.hopelew.jrpg.utils.eventhandlers.ValueChangedGameEvent;
 
 public class Player {
 	private @Getter String name;
 	private @Getter Sex sex;
 	private @Getter double hp = 100;
 	private @Getter double mp;
-	private List<EventHandler> listeners = new ArrayList<>();
+	private Map<EventType, List<EventHandler>> listeners = new HashMap<>();
 
 	public Player(String name, Sex sex) {
 		this.name = name;
@@ -24,8 +25,11 @@ public class Player {
 
 	}
 
-	public void addListener(EventHandler l) {
-		listeners.add(l);
+	public void addListener(EventType event, EventHandler l) {
+		if (!listeners.containsKey(event)) {
+			listeners.put(event, new ArrayList<>());
+		}
+		listeners.get(event).add(l);
 	}
 
 	public double changeHp(double hpChange) {
@@ -35,17 +39,15 @@ public class Player {
 			hp = 0;
 		}
 		System.out.println("Player HP: " + oldHp + "->" + hp);
-		Map<String, Object> values = new HashMap<>();
-		values.put("oldV", oldHp);
-		values.put("newV", hp);
-		var ge = new GameEvent(this, EventType.HP_CHANGED, values);
+		var ge = new ValueChangedGameEvent(EventType.HP_CHANGED,this, oldHp, hp);
 		fireEvent(ge);
 		return hp;
 	}
 
 	private void fireEvent(GameEvent ge) {
-		for (EventHandler h : listeners) {
-			h.actionPerformed(ge);
+		if (!listeners.containsKey(ge.getType())) {
+			return;
 		}
+		listeners.get(ge.getType()).forEach(eh -> eh.actionPerformed(ge));
 	}
 }
