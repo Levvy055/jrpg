@@ -1,7 +1,6 @@
 package pl.hopelew.jrpg.utils.eventhandlers;
 
-public interface EventHandler {
-
+@FunctionalInterface
+public interface GameEventHandler {
 	void actionPerformed(GameEvent ge);
-
 }

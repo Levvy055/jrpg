@@ -29,8 +29,12 @@ public class SidebarController implements Initializable {
 	private @FXML ImageView avatar;
 	private @FXML GridPane eqGrid;
 	private @FXML GridPane invGrid;
+	
 	private @FXML Label lblHp;
 	private @FXML JFXProgressBar pbHp;
+	
+	private @FXML Label lblMp;
+	private @FXML JFXProgressBar pbMp;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -40,19 +44,26 @@ public class SidebarController implements Initializable {
 	public void init(Player player) {
 		setAvatar(player.getSex());
 		setHp(player.getHp());
+		pbHp.setSecondaryProgress(player.getHp() / 100d);
 		player.addListener(EventType.HP_CHANGED, ge -> {
 			var vge = (ValueChangedGameEvent) ge;
 			Platform.runLater(() -> {
-				pbHp.setProgress((double) vge.getNewValue() / 100d);
+				setHp((double) vge.getNewValue());
 				pbHp.setSecondaryProgress((double) vge.getOldValue() / 100d);
-				lblHp.setText(vge.getNewValue() + "");
+			});
+		});
+		player.addListener(EventType.MP_CHANGED, ge -> {
+			var vge = (ValueChangedGameEvent) ge;
+			Platform.runLater(() -> {
+				setMp((double) vge.getNewValue());
+				pbMp.setSecondaryProgress((double) vge.getOldValue() / 100d);
 			});
 		});
 		new Timer(1000, new ActionListener() { // TODO: remove as for tests it is only
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				player.changeHp(-1);
+				player.changeMp(-1);
 			}
 		}).start();
 	}
@@ -60,6 +71,11 @@ public class SidebarController implements Initializable {
 	private void setHp(double hp) {
 		pbHp.setProgress(hp / 100d);
 		lblHp.setText(hp + "");
+	}
+
+	private void setMp(double mp) {
+		pbMp.setProgress(mp / 100d);
+		lblMp.setText(mp + "");
 	}
 
 	private void setAvatar(Sex sex) {

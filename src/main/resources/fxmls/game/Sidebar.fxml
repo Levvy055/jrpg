@@ -20,20 +20,27 @@
          <tabs>
           <Tab text="%sidebar.hero">
             <content>
-                  <VBox>
+                  <VBox spacing="2.0">
                      <children>
                         <ImageView fx:id="avatar" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                         <Separator prefWidth="200.0" />
-                        <HBox prefWidth="200.0" spacing="10.0">
+                        <HBox prefWidth="200.0" spacing="5.0">
                            <children>
                               <Label text="%sidebar.hp" />
-                              <Label fx:id="lblHp" text="0000" />
+                              <Label fx:id="lblHp" minWidth="26.0" text="0000" />
                               <JFXProgressBar fx:id="pbHp" maxWidth="120.0" minHeight="20.0" progress="0.24" />
                            </children></HBox>
+                        <HBox prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <Label minWidth="35.0" text="%sidebar.mp" />
+                              <Label fx:id="lblMp" minWidth="26.0" text="0000" />
+                              <JFXProgressBar fx:id="pbMp" maxWidth="120.0" minHeight="20.0" progress="0.24" styleClass="mana-bar" />
+                           </children>
+                        </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0" />
                      </children>
                      <padding>
-                        <Insets right="5.0" />
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </padding>
                   </VBox>
             </content>

@@ -1,6 +1,5 @@
 package pl.hopelew.jrpg;
 
-import java.net.URL;
 import java.util.Locale;
 
 import javafx.application.Application;
@@ -59,12 +58,12 @@ public class Main extends Application {
 			stage.initStyle(StageStyle.UTILITY);
 		}
 
-		URL mmUri = getClass().getResource("/fxmls/mainmenu/MainWindow.fxml");
+		var mmUri = getClass().getResource("/fxmls/mainmenu/MainWindow.fxml");
 		Parent mmRoot = FXMLLoader.load(mmUri, Strings.currentBundle());
 		sceneMainMenu = new Scene(mmRoot);
 		sceneMainMenu.getStylesheets().add(getClass().getResource("/css/custom.css").toExternalForm());
 
-		URL mgUri = getClass().getResource("/fxmls/game/GameWindow.fxml");
+		var mgUri = getClass().getResource("/fxmls/game/GameWindow.fxml");
 		Parent mgRoot = FXMLLoader.load(mgUri, Strings.currentBundle());
 		sceneGame = new Scene(mgRoot);
 		sceneGame.getStylesheets().add(getClass().getResource("/css/custom.css").toExternalForm());
@@ -74,6 +73,7 @@ public class Main extends Application {
 
 		// ScenicView.show(scene);
 		System.out.println("MW Ready");
+		startNewGame("Levvy", true);// TODO: remove in production
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class Main extends Application {
 	 * @param isMale
 	 */
 	public static void startNewGame(String name, boolean isMale) {
-		Player player = new Player(name, isMale ? Sex.MALE : Sex.FEMALE);
+		var player = new Player(name, isMale ? Sex.MALE : Sex.FEMALE);
 		game = new Game(player);
 		gameThread = new Thread(game, "Game Loop Thread");
 		gameThread.start();
