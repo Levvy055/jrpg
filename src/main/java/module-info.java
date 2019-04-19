@@ -17,6 +17,7 @@ open module jrpg {
 	requires static lombok;
 	requires org.apache.commons.lang3;
 	requires com.jfoenix;
+	requires com.google.common;
 	
 //  requires fxgl.all;
 

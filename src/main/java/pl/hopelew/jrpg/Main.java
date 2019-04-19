@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import pl.hopelew.jrpg.controllers.game.GameWindowController;
 import pl.hopelew.jrpg.entities.Player;
+import pl.hopelew.jrpg.entities.data.Sex;
 import pl.hopelew.jrpg.utils.Strings;
 
 /**
@@ -129,7 +130,7 @@ public class Main extends Application {
 	 * @param isMale
 	 */
 	public static void startNewGame(String name, boolean isMale) {
-		Player player = new Player(name, isMale ? Player.Sex.MALE : Player.Sex.FEMALE);
+		Player player = new Player(name, isMale ? Sex.MALE : Sex.FEMALE);
 		game = new Game(player);
 		gameThread = new Thread(game, "Game Loop Thread");
 		gameThread.start();

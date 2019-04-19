@@ -1,4 +1,4 @@
-package pl.hopelew.jrpg.entities;
+package pl.hopelew.jrpg.entities.data;
 
 import lombok.Data;
 import pl.hopelew.jrpg.world.World;

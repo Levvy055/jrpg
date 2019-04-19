@@ -33,7 +33,7 @@ public class GameWindowController implements Initializable {
 		win = new Pane();
 		pane.setCenter(win);
 		
-		sidebar().setAvatar(game.getPlayer().getSex());
+		sidebar().init(game.getPlayer());
 	}
 
 	/**
