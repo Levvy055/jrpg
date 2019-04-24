@@ -160,3 +160,4 @@ gradle-app.setting
 
 .vscode/
 scenicView.properties
+*.config

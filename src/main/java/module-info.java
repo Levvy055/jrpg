@@ -1,5 +1,6 @@
 open module jrpg {
 	exports pl.hopelew.jrpg;
+	exports pl.hopelew.jrpg.entities;
 
 	requires transitive javafx.base;
 	requires transitive javafx.graphics;
@@ -19,6 +20,8 @@ open module jrpg {
 	requires com.jfoenix;
 	requires com.google.common;
 	requires java.desktop;
+	requires gson;
+	requires java.sql;
 	
 //  requires fxgl.all;
 

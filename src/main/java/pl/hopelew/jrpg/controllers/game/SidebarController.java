@@ -29,10 +29,10 @@ public class SidebarController implements Initializable {
 	private @FXML ImageView avatar;
 	private @FXML GridPane eqGrid;
 	private @FXML GridPane invGrid;
-	
+
 	private @FXML Label lblHp;
 	private @FXML JFXProgressBar pbHp;
-	
+
 	private @FXML Label lblMp;
 	private @FXML JFXProgressBar pbMp;
 
@@ -41,6 +41,11 @@ public class SidebarController implements Initializable {
 		instance = this;
 	}
 
+	/**
+	 * Initializes sidebar with player data and adds listeners to it.
+	 * 
+	 * @param player
+	 */
 	public void init(Player player) {
 		setAvatar(player.getSex());
 		setHp(player.getHp());

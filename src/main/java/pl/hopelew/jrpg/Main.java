@@ -1,6 +1,9 @@
 package pl.hopelew.jrpg;
 
+import java.io.IOException;
 import java.util.Locale;
+
+import com.google.gson.JsonSyntaxException;
 
 import javafx.application.Application;
 import javafx.application.ConditionalFeature;
@@ -14,6 +17,7 @@ import javafx.stage.StageStyle;
 import pl.hopelew.jrpg.controllers.game.GameWindowController;
 import pl.hopelew.jrpg.entities.Player;
 import pl.hopelew.jrpg.entities.data.Sex;
+import pl.hopelew.jrpg.utils.FilesManager;
 import pl.hopelew.jrpg.utils.Strings;
 
 /**
@@ -38,6 +42,15 @@ public class Main extends Application {
 	private static void initConfig(String[] args) {
 		Locale locale = Locale.getDefault();
 		Strings.init(locale);
+		try {
+			FilesManager.getInstance().loadConfig();
+		} catch (JsonSyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
