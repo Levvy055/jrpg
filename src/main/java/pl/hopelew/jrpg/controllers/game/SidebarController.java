@@ -1,11 +1,7 @@
 package pl.hopelew.jrpg.controllers.game;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import javax.swing.Timer;
 
 import com.jfoenix.controls.JFXProgressBar;
 
@@ -18,8 +14,8 @@ import javafx.scene.layout.GridPane;
 import lombok.Getter;
 import pl.hopelew.jrpg.entities.Player;
 import pl.hopelew.jrpg.entities.data.Sex;
+import pl.hopelew.jrpg.utils.FileHandler;
 import pl.hopelew.jrpg.utils.Res;
-import pl.hopelew.jrpg.utils.Resources;
 import pl.hopelew.jrpg.utils.eventhandlers.EventType;
 import pl.hopelew.jrpg.utils.eventhandlers.ValueChangedGameEvent;
 
@@ -64,13 +60,6 @@ public class SidebarController implements Initializable {
 				pbMp.setSecondaryProgress((double) vge.getOldValue() / 100d);
 			});
 		});
-		new Timer(1000, new ActionListener() { // TODO: remove as for tests it is only
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				player.changeMp(-1);
-			}
-		}).start();
 	}
 
 	private void setHp(double hp) {
@@ -84,7 +73,7 @@ public class SidebarController implements Initializable {
 	}
 
 	private void setAvatar(Sex sex) {
-		avatar.setImage(Resources.getFxImage(sex == Sex.MALE ? Res.HERO_AVATAR_MALE : Res.HERO_AVATAR_FEMALE));
+		avatar.setImage(FileHandler.getFxImage(sex == Sex.MALE ? Res.HERO_AVATAR_MALE : Res.HERO_AVATAR_FEMALE));
 	}
 
 }

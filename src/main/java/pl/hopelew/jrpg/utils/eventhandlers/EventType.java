@@ -1,5 +1,5 @@
 package pl.hopelew.jrpg.utils.eventhandlers;
 
 public enum EventType {
-	HP_CHANGED, MP_CHANGED, STAMINA_CHANGED
+	HP_CHANGED, MP_CHANGED, STAMINA_CHANGED, MAP_CHANGED
 }

@@ -3,8 +3,6 @@ package pl.hopelew.jrpg;
 import java.io.IOException;
 import java.util.Locale;
 
-import com.google.gson.JsonSyntaxException;
-
 import javafx.application.Application;
 import javafx.application.ConditionalFeature;
 import javafx.application.Platform;
@@ -17,7 +15,6 @@ import javafx.stage.StageStyle;
 import pl.hopelew.jrpg.controllers.game.GameWindowController;
 import pl.hopelew.jrpg.entities.Player;
 import pl.hopelew.jrpg.entities.data.Sex;
-import pl.hopelew.jrpg.utils.FilesManager;
 import pl.hopelew.jrpg.utils.Strings;
 
 /**
@@ -35,22 +32,13 @@ public class Main extends Application {
 	private Scene sceneMainMenu, sceneGame;
 
 	/**
-	 * Initializes things like locale, translations, game options
+	 * Initializes locale translations
 	 * 
 	 * @param args
 	 */
-	private static void initConfig(String[] args) {
+	private static void initLocale(String[] args) {
 		Locale locale = Locale.getDefault();
-		Strings.init(locale);
-		try {
-			FilesManager.getInstance().loadConfig();
-		} catch (JsonSyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Strings.init(locale);		
 	}
 
 	/**
@@ -141,8 +129,9 @@ public class Main extends Application {
 	 * 
 	 * @param name
 	 * @param isMale
+	 * @throws IOException 
 	 */
-	public static void startNewGame(String name, boolean isMale) {
+	public static void startNewGame(String name, boolean isMale) throws IOException {
 		var player = new Player(name, isMale ? Sex.MALE : Sex.FEMALE);
 		game = new Game(player);
 		gameThread = new Thread(game, "Game Loop Thread");
@@ -165,7 +154,7 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		Thread.currentThread().setName("Main Thread");
 		try {
-			initConfig(args);
+			initLocale(args);
 			Application.launch(args);
 		} catch (Exception e) {
 			e.printStackTrace();

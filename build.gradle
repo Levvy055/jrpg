@@ -28,6 +28,8 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
     implementation group: 'com.google.guava', name: 'guava', version: '27.1-jre'
     implementation 'com.google.code.gson:gson:2.8.5'
+    implementation group: 'org.mapeditor', name: 'libtiled', version: '1.0.2'
+    
     
     //implementation 'com.github.almasb:fxgl:11.1-beta'
        
@@ -86,7 +88,7 @@ jlink {
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
     launcher {
         name = 'jrpg'
-        jvmArgs = ['--add-exports javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix', '--add-exports javafx.controls/com.sun.javafx.scene.control=com.jfoenix', '--add-exports javafx.base/com.sun.javafx.binding=com.jfoenix', '--add-exports javafx.graphics/com.sun.javafx.stage=com.jfoenix', '--add-exports javafx.base/com.sun.javafx.event=com.jfoenix -Dprism.verbose=true']
+        jvmArgs = ['--add-exports javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix', '--add-exports javafx.controls/com.sun.javafx.scene.control=com.jfoenix', '--add-exports javafx.base/com.sun.javafx.binding=com.jfoenix', '--add-exports javafx.graphics/com.sun.javafx.stage=com.jfoenix', '--add-exports javafx.base/com.sun.javafx.event=com.jfoenix', '--add-exports javafx.graphics/com.sun.javafx.scene=com.jfoenix', '-Dprism.verbose=true']
         
     }
     addExtraDependencies("javafx")

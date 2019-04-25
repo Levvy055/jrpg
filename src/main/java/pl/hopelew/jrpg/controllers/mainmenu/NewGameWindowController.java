@@ -1,5 +1,6 @@
 package pl.hopelew.jrpg.controllers.mainmenu;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -36,7 +37,13 @@ public class NewGameWindowController implements Initializable {
 				btnCreate.setDisable(true);
 			}
 		});
-		btnCreate.setOnAction(event -> Main.startNewGame(tfHeroName.getText(), !tbSex.isSelected()));
+		btnCreate.setOnAction(event -> {
+			try {
+				Main.startNewGame(tfHeroName.getText(), !tbSex.isSelected());
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		});
 	}
 
 	/**

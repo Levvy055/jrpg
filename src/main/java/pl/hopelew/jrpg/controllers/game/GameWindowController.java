@@ -6,21 +6,21 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import lombok.Getter;
 import pl.hopelew.jrpg.Game;
-import pl.hopelew.jrpg.utils.Resources;
+import pl.hopelew.jrpg.utils.FileHandler;
+import pl.hopelew.jrpg.utils.eventhandlers.EventType;
+import pl.hopelew.jrpg.utils.eventhandlers.MapChangedGameEvent;
 
 public class GameWindowController implements Initializable {
 	private @FXML BorderPane pane;
 	private @Getter static GameWindowController instance;
 	private Game game;
-	private Pane win;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		instance = this;
-		Resources.validateAndLoad();
+		FileHandler.validateResourcesAndLoad();
 		System.out.println("GW Initialized");
 	}
 
@@ -30,9 +30,10 @@ public class GameWindowController implements Initializable {
 		}
 		this.game = game;
 		this.game.setWindow(this);
-		win = new Pane();
-		pane.setCenter(win);
-		
+		this.game.addListener(EventType.MAP_CHANGED, e -> {
+					pane.setCenter(((MapChangedGameEvent)e).getMap().getGrid());
+		});
+
 		sidebar().init(game.getPlayer());
 	}
 

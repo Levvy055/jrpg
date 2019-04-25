@@ -46,7 +46,7 @@ public class Player {
 			hp = 0;
 		}
 		System.out.println("Player HP: " + oldHp + "->" + hp);
-		var ge = new ValueChangedGameEvent(EventType.HP_CHANGED, this, oldHp, hp);
+		var ge = new ValueChangedGameEvent(this, EventType.HP_CHANGED, oldHp, hp);
 		fireEvent(ge);
 		return hp;
 	}
@@ -62,7 +62,7 @@ public class Player {
 			mp = 0;
 		}
 		System.out.println("Player MP: " + oldMp + "->" + mp);
-		var ge = new ValueChangedGameEvent(EventType.MP_CHANGED, this, oldMp, mp);
+		var ge = new ValueChangedGameEvent(this, EventType.MP_CHANGED, oldMp, mp);
 		fireEvent(ge);
 		return mp;
 	}
