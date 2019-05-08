@@ -10,18 +10,19 @@ open module jrpg {
 	requires javafx.web;
 
 	requires java.logging;
+	requires java.desktop;
+	requires java.sql;
 
 	requires transitive org.scenicview.scenicview;
 
 	requires org.controlsfx.controls;
+	requires com.jfoenix;
 
 	requires static lombok;
-	requires org.apache.commons.lang3;
-	requires com.jfoenix;
-	requires com.google.common;
-	requires java.desktop;
+	
 	requires gson;
-	requires java.sql;
+	requires com.google.common;
+	requires org.apache.commons.lang3;
 	requires org.apache.logging.log4j;
 	
 //  requires fxgl.all;

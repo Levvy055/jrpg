@@ -97,7 +97,7 @@ jlink {
     }
     addExtraDependencies("javafx")
     imageName = 'jrpg-SNAPSHOT'
-    
+    forceMerge 'log4j-api'
 }
 
 /*
