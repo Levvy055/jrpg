@@ -22,6 +22,7 @@ open module jrpg {
 	requires java.desktop;
 	requires gson;
 	requires java.sql;
+	requires org.apache.logging.log4j;
 	
 //  requires fxgl.all;
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="SHORT_LOG_PATTERN">%d{HH:mm:ss.SSS} %p %m%n</Property>
+        <Property name="LONG_LOG_PATTERN">[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %m%n</Property>
+        <Property name="APP_LOG_ROOT">logs</Property>
+    </Properties>
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${SHORT_LOG_PATTERN}"/>
+        </Console>
+        <RollingFile name="debugLog" fileName="${APP_LOG_ROOT}/app-debug.log" filePattern="${APP_LOG_ROOT}/app-debug-%d{yyyy-MM-dd}-%i.log.zip">
+            <LevelRangeFilter minLevel="DEBUG" maxLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LONG_LOG_PATTERN}"/>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="19500KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+        <RollingFile name="infoLog" fileName="${APP_LOG_ROOT}/app-info.log" filePattern="${APP_LOG_ROOT}/app-info-%d{yyyy-MM-dd}-%i.log.zip">
+            <LevelRangeFilter minLevel="INFO" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LONG_LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="19500KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+        <RollingFile name="errorLog" fileName="${APP_LOG_ROOT}/app-error.log" filePattern="${APP_LOG_ROOT}/app-error-%d{yyyy-MM-dd}-%i.log.zip">
+            <LevelRangeFilter minLevel="WARN" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LONG_LOG_PATTERN} %ex{full}%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="19500KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+        <RollingFile name="traceLog" fileName="${APP_LOG_ROOT}/app-trace.log" filePattern="${APP_LOG_ROOT}/app-trace-%d{yyyy-MM-dd}-%i.log.zip">
+            <PatternLayout pattern="${LONG_LOG_PATTERN}"/>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="19500KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="2"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="pl.hopelew.jrpg" additivity="false" level="trace">
+            <AppenderRef ref="traceLog" />
+            <AppenderRef ref="debugLog" />
+            <AppenderRef ref="infoLog" />
+            <AppenderRef ref="errorLog" />
+            <AppenderRef ref="Console" />
+        </Logger>
+        <Root level="warn">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

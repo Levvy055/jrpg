@@ -9,6 +9,7 @@ import java.util.Stack;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.controllers.game.GameWindowController;
 import pl.hopelew.jrpg.entities.Player;
 import pl.hopelew.jrpg.utils.FileHandler;
@@ -25,6 +26,7 @@ import pl.hopelew.jrpg.world.MapBase;
  * @author lluka
  *
  */
+@Log4j2
 public class Game implements Runnable {
 	private static @Getter Game instance;
 	private static final long TPS = 10L;
@@ -76,7 +78,7 @@ public class Game implements Runnable {
 	 */
 	@Override
 	public void run() {
-		System.out.println("Game Loop started.");
+		log.info("Game Loop started.");
 		running = true;
 		try {
 			while (running) {
@@ -86,7 +88,7 @@ public class Game implements Runnable {
 			e.printStackTrace();
 			stop();
 		}
-		System.out.println("Game Loop finished.");
+		log.info("Game Loop finished.");
 	}
 
 	/**

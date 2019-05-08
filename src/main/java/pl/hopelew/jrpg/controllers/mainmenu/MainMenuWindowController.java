@@ -13,8 +13,10 @@ import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
+import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.Main;
 
+@Log4j2
 public class MainMenuWindowController implements Initializable {
 	private @Getter static MainMenuWindowController instance;
 
@@ -42,7 +44,7 @@ public class MainMenuWindowController implements Initializable {
 				startWindow.setVisible(true);
 			}
 		}, 3000l);
-		System.out.println("MW Initialized");
+		log.info("MW Initialized");
 	}
 
 	/**

@@ -21,8 +21,10 @@ import com.google.gson.JsonSyntaxException;
 
 import javafx.scene.image.Image;
 import lombok.Getter;
+import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.world.MapBase;
 
+@Log4j2
 public class FileHandler {
 	private static @Getter FileHandler instance;
 	private static final String FILENAME = "app.config";
@@ -56,7 +58,7 @@ public class FileHandler {
 			var br = new BufferedReader(new FileReader(FILENAME));
 			config = gson.fromJson(br, Configuration.class);
 			if (config == null || config.isValid()) {
-				System.out.println("Wrong config file! Rewriting.");
+				log.warn("Wrong config file! Rewriting.");
 				config = new Configuration();
 				saveConfig();
 			}
@@ -86,7 +88,7 @@ public class FileHandler {
 			try {
 				var path = getPath(res.getPath());
 				if (Files.notExists(path)) {
-					System.out.println("Can't load resource: '" + path + "'");
+					log.error("Can't load resource {}: '{}'", res, path);
 				} else {
 					if (res.getType() == ResType.IMAGE) {
 						images.put(res,

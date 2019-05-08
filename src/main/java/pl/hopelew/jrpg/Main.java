@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.controllers.game.GameWindowController;
 import pl.hopelew.jrpg.entities.Player;
 import pl.hopelew.jrpg.entities.data.Sex;
@@ -23,6 +24,7 @@ import pl.hopelew.jrpg.utils.Strings;
  * @author lluka
  *
  */
+@Log4j2
 public class Main extends Application {
 	private static Main instance;
 	private Stage stage;
@@ -73,7 +75,7 @@ public class Main extends Application {
 		stage.show();
 
 		// ScenicView.show(scene);
-		System.out.println("MW Ready");
+		log.info("MW Ready");
 		startNewGame("Levvy", true);// TODO: remove in production
 	}
 
@@ -81,7 +83,7 @@ public class Main extends Application {
 	 * Closes the game
 	 */
 	public static void exit() {
-		System.out.println("Closing the game");
+		log.info("Closing the game");
 		if (game != null) {
 			game.stop();
 		}
