@@ -16,7 +16,7 @@ import pl.hopelew.jrpg.utils.eventhandlers.EventType;
 import pl.hopelew.jrpg.utils.eventhandlers.GameEvent;
 import pl.hopelew.jrpg.utils.eventhandlers.GameEventHandler;
 import pl.hopelew.jrpg.utils.eventhandlers.MapChangedGameEvent;
-import pl.hopelew.jrpg.world.MapBase;
+import pl.hopelew.jrpg.world.GameMap;
 
 /**
  * Main Game thread loop container Started by {@link Thread} method
@@ -34,7 +34,7 @@ public class Game implements Runnable {
 	private @Getter Player player;
 	private FileHandler fileHandler;
 	private Map<EventType, List<GameEventHandler>> listeners = new HashMap<>();
-	private Stack<MapBase> currentMap = new Stack<>();
+	private Stack<GameMap> currentMap = new Stack<>();
 
 	public Game(Player player) throws Exception {
 		instance = this;
@@ -95,6 +95,12 @@ public class Game implements Runnable {
 	public void run() {
 		log.info("Game Loop started.");
 		running = true;
+		try {
+			goIn("world_map");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 			while (running) {
 				loopBody();

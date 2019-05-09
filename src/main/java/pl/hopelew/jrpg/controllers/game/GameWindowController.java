@@ -3,6 +3,7 @@ package pl.hopelew.jrpg.controllers.game;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
@@ -33,7 +34,7 @@ public class GameWindowController implements Initializable {
 		this.game = game;
 		this.game.setWindow(this);
 		this.game.addListener(EventType.MAP_CHANGED, e -> {
-					pane.setCenter(((MapChangedGameEvent)e).getMap().getGrid());
+			Platform.runLater(() -> pane.setCenter(((MapChangedGameEvent) e).getMap().getGrid()));
 		});
 
 		sidebar().init(game.getPlayer());

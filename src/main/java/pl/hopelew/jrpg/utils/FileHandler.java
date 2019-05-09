@@ -22,7 +22,7 @@ import com.google.gson.JsonSyntaxException;
 import javafx.scene.image.Image;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
-import pl.hopelew.jrpg.world.MapBase;
+import pl.hopelew.jrpg.world.GameMap;
 import pl.hopelew.jrpg.world.MapBuilder;
 
 @Log4j2
@@ -87,22 +87,18 @@ public class FileHandler {
 	 * @return
 	 * @throws Exception
 	 */
-	public MapBase getMap(String id) throws Exception {
+	public GameMap getMap(String id) throws Exception {
 		var pathname = "maps/" + id + ".tmx";
 		Path path;
 		try {
 			path = getPath(pathname);
+			if (Files.exists(path)) {
+				return MapBuilder.build(path);
+			}
+			throw new IOException("Map " + id + " does not exists! >" + path.toString());
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 			throw new IOException("Map " + id + " read error! >" + pathname, e);
-		}
-		if (Files.notExists(path)) {
-			throw new IOException("Map " + id + " does not exists! >" + path.toString());
-		}
-		if(id=="world_map") {
-			return MapBuilder.buildWorldMap(path);
-		}else {
-			return MapBuilder.buildMap(path);			
 		}
 	}
 
