@@ -34,8 +34,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'org.json:json:20180813'
     
-    implementation group: 'org.mapeditor', name: 'libtiled', version: '1.0.2' 
-    
+    implementation group: 'org.glassfish.jaxb', name: 'jaxb-xjc', version: '2.3.2'    
+            
     implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.2' 
     implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.2'
     

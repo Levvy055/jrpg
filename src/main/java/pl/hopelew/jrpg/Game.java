@@ -44,6 +44,11 @@ public class Game implements Runnable {
 		currentMap.add(fileHandler.getMap("world_map"));
 	}
 
+	/**
+	 * Changes map to specified map id
+	 * @param id
+	 * @throws IOException
+	 */
 	public void goIn(String id) throws IOException {
 		currentMap.add(fileHandler.getMap(id));
 		fireEvent(new MapChangedGameEvent(this, currentMap.lastElement()));
@@ -59,6 +64,13 @@ public class Game implements Runnable {
 		Thread.sleep(1000 / TPS);
 	}
 
+	/**
+	 * Adds event handler to specified event type of Game. If game does not have the
+	 * type it will be never fired.
+	 * 
+	 * @param event Type of event for handler to be fired on.
+	 * @param l     event handler
+	 */
 	public void addListener(EventType event, GameEventHandler l) {
 		if (!listeners.containsKey(event)) {
 			listeners.put(event, new ArrayList<>());
@@ -66,6 +78,10 @@ public class Game implements Runnable {
 		listeners.get(event).add(l);
 	}
 
+	/**
+	 * Fires events of specified event
+	 * @param ge
+	 */
 	private void fireEvent(GameEvent ge) {
 		if (!listeners.containsKey(ge.getType())) {
 			return;

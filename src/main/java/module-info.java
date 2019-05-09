@@ -1,10 +1,10 @@
 open module jrpg {
 	exports pl.hopelew.jrpg;
 	exports pl.hopelew.jrpg.entities;
+	exports org.mapeditor.core;
 
 	requires transitive javafx.base;
 	requires transitive javafx.graphics;
-
 	requires javafx.controls;
 	requires javafx.fxml;
 	requires javafx.web;
@@ -12,6 +12,8 @@ open module jrpg {
 	requires java.logging;
 	requires java.desktop;
 	requires java.sql;
+	requires java.xml.bind;
+	requires java.compiler;	
 
 	requires transitive org.scenicview.scenicview;
 

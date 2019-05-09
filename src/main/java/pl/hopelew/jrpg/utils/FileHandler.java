@@ -23,11 +23,12 @@ import javafx.scene.image.Image;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.world.MapBase;
+import pl.hopelew.jrpg.world.MapBuilder;
 
 @Log4j2
 public class FileHandler {
 	private static @Getter FileHandler instance;
-	private static final String FILENAME = "app.config";
+	private static final String FILENAME = "config.json";
 	private static @Getter Configuration config;
 	private static Map<Res, Image> images = new HashMap<>();
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -37,6 +38,11 @@ public class FileHandler {
 		loadConfig();
 	}
 
+	/**
+	 * Saves config to file
+	 * 
+	 * @throws IOException when no access to file
+	 */
 	public void saveConfig() throws IOException {
 		if (config == null) {
 			throw new IOException("No Config to save! null");
@@ -49,24 +55,40 @@ public class FileHandler {
 		}
 	}
 
+	/**
+	 * Loads configuration from file
+	 * 
+	 * @throws JsonSyntaxException
+	 * @throws IOException         when no access to file
+	 */
 	public void loadConfig() throws JsonSyntaxException, IOException {
 		var file = new File(FILENAME);
 		if (file.createNewFile()) {
+			log.info("Config file does not exist. Creating ...");
 			config = new Configuration();
 			saveConfig();
 		} else {
 			var br = new BufferedReader(new FileReader(FILENAME));
 			config = gson.fromJson(br, Configuration.class);
-			if (config == null || config.isValid()) {
+			if (config == null || !config.isValid()) {
 				log.warn("Wrong config file! Rewriting.");
 				config = new Configuration();
 				saveConfig();
+			} else {
+				log.info("Configuration file loaded.");
 			}
 		}
 	}
 
+	/**
+	 * Gets game map from .map file
+	 * 
+	 * @param id
+	 * @return
+	 * @throws IOException
+	 */
 	public MapBase getMap(String id) throws IOException {
-		var pathname = "maps/" + id + ".map";
+		var pathname = "maps/" + id + ".tmx";
 		Path path;
 		try {
 			path = getPath(pathname);
@@ -77,11 +99,11 @@ public class FileHandler {
 		if (Files.notExists(path)) {
 			throw new IOException("Map " + id + " does not exists! >" + path.toString());
 		}
-		return null;
+		return MapBuilder.build(path);
 	}
 
 	/**
-	 * Checks if all resources are available and load them to map
+	 * Checks if all resources are available and load them to corresponding maps
 	 */
 	public static void validateResourcesAndLoad() {
 		for (Res res : Res.values()) {
@@ -101,10 +123,24 @@ public class FileHandler {
 		}
 	}
 
+	/**
+	 * Returns Image object
+	 * 
+	 * @param key associated with image
+	 * @return Image from cached map
+	 */
 	public static Image getFxImage(Res key) {
 		return images.get(key);
 	}
 
+	/**
+	 * Gets Path object from relative String path. It's different when running from
+	 * jar and IDE.
+	 * 
+	 * @param relPath relative path to resource
+	 * @return absolute Path to resource
+	 * @throws URISyntaxException when wrong path
+	 */
 	public static Path getPath(String relPath) throws URISyntaxException {
 		URI url = FileHandler.class.getClassLoader().getResource(relPath).toURI();
 		Path path;
