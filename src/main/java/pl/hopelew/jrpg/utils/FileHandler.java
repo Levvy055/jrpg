@@ -85,9 +85,9 @@ public class FileHandler {
 	 * 
 	 * @param id
 	 * @return
-	 * @throws IOException
+	 * @throws Exception
 	 */
-	public MapBase getMap(String id) throws IOException {
+	public MapBase getMap(String id) throws Exception {
 		var pathname = "maps/" + id + ".tmx";
 		Path path;
 		try {
@@ -99,7 +99,11 @@ public class FileHandler {
 		if (Files.notExists(path)) {
 			throw new IOException("Map " + id + " does not exists! >" + path.toString());
 		}
-		return MapBuilder.build(path);
+		if(id=="world_map") {
+			return MapBuilder.buildWorldMap(path);
+		}else {
+			return MapBuilder.buildMap(path);			
+		}
 	}
 
 	/**

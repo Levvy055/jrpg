@@ -1,10 +1,10 @@
 package pl.hopelew.jrpg.controllers.mainmenu;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.Level;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,9 +12,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import lombok.Getter;
+import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.Main;
 import pl.hopelew.jrpg.utils.Strings;
 
+@Log4j2
 public class NewGameWindowController implements Initializable {
 	private static @Getter NewGameWindowController instance;
 	private @FXML Button btnCreate;
@@ -40,8 +42,9 @@ public class NewGameWindowController implements Initializable {
 		btnCreate.setOnAction(event -> {
 			try {
 				Main.startNewGame(tfHeroName.getText(), !tbSex.isSelected());
-			} catch (IOException e1) {
+			} catch (Exception e1) {
 				e1.printStackTrace();
+				log.throwing(Level.ERROR, e1);
 			}
 		});
 	}

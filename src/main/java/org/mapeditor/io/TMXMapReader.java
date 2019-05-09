@@ -813,6 +813,24 @@ public class TMXMapReader {
         //
         return unmarshalledMap;
     }
+    
+    /**
+     * <p>readMap.</p>
+     *
+     * @param in a {@link java.io.InputStream} object.
+     * @return a {@link org.mapeditor.core.Map} object.
+     * @throws java.lang.Exception if any.
+     */
+    public Map readMap(InputStream in, String xmlPath) throws Exception {
+        //xmlPath = makeUrl(".");
+        this.xmlPath = xmlPath;
+
+        Map unmarshalledMap = unmarshal(in);
+
+        //unmarshalledMap.setFilename(xmlFile)
+        //
+        return unmarshalledMap;
+    }
 
     /**
      * <p>readTileset.</p>

@@ -1,6 +1,5 @@
 package pl.hopelew.jrpg;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +36,7 @@ public class Game implements Runnable {
 	private Map<EventType, List<GameEventHandler>> listeners = new HashMap<>();
 	private Stack<MapBase> currentMap = new Stack<>();
 
-	public Game(Player player) throws IOException {
+	public Game(Player player) throws Exception {
 		instance = this;
 		this.player = player;
 		fileHandler = new FileHandler();
@@ -47,9 +46,9 @@ public class Game implements Runnable {
 	/**
 	 * Changes map to specified map id
 	 * @param id
-	 * @throws IOException
+	 * @throws Exception
 	 */
-	public void goIn(String id) throws IOException {
+	public void goIn(String id) throws Exception {
 		currentMap.add(fileHandler.getMap(id));
 		fireEvent(new MapChangedGameEvent(this, currentMap.lastElement()));
 	}

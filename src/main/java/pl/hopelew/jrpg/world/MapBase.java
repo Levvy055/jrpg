@@ -8,11 +8,13 @@ public abstract class MapBase {
 	private @Getter int vSize;
 	private @Getter int hSize;
 	private @Getter String name;
+	private @Getter String backgroundColor;
 
-	protected MapBase(int id, int vSize, int hSize, String name) {
+	protected MapBase(int id, int vSize, int hSize, String name, String backgroundColor) {
 		this.vSize = vSize;
 		this.hSize = hSize;
 		this.name = name;
+		this.backgroundColor = backgroundColor;
 	}
 
 	public Node getGrid() {

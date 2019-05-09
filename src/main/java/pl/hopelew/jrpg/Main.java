@@ -1,6 +1,5 @@
 package pl.hopelew.jrpg;
 
-import java.io.IOException;
 import java.util.Locale;
 
 import javafx.application.Application;
@@ -131,9 +130,9 @@ public class Main extends Application {
 	 * 
 	 * @param name
 	 * @param isMale
-	 * @throws IOException 
+	 * @throws Exception 
 	 */
-	public static void startNewGame(String name, boolean isMale) throws IOException {
+	public static void startNewGame(String name, boolean isMale) throws Exception {
 		var player = new Player(name, isMale ? Sex.MALE : Sex.FEMALE);
 		game = new Game(player);
 		gameThread = new Thread(game, "Game Loop Thread");
