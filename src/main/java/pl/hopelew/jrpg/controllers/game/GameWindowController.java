@@ -3,9 +3,9 @@ package pl.hopelew.jrpg.controllers.game;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
@@ -17,6 +17,7 @@ import pl.hopelew.jrpg.utils.eventhandlers.MapChangedGameEvent;
 @Log4j2
 public class GameWindowController implements Initializable {
 	private @FXML BorderPane pane;
+	private @FXML Canvas canvas;
 	private @Getter static GameWindowController instance;
 	private Game game;
 
@@ -34,7 +35,13 @@ public class GameWindowController implements Initializable {
 		this.game = game;
 		this.game.setWindow(this);
 		this.game.addListener(EventType.MAP_CHANGED, e -> {
-			Platform.runLater(() -> pane.setCenter(((MapChangedGameEvent) e).getMap().getGrid()));
+			MapChangedGameEvent mce = (MapChangedGameEvent) e;
+			try {
+				mce.getMap().draw(canvas.getGraphicsContext2D());
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				log.throwing(e1);
+			}
 		});
 
 		sidebar().init(game.getPlayer());

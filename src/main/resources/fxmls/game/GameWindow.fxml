@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane fx:id="pane" minHeight="800.0" minWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.hopelew.jrpg.controllers.game.GameWindowController">
@@ -9,5 +10,8 @@
    <right>
       <fx:include fx:id="sidebar" source="Sidebar.fxml" BorderPane.alignment="CENTER" />
    </right>
+   <center>
+      <Canvas fx:id="canvas" height="800.0" width="800.0" BorderPane.alignment="CENTER" />
+   </center>
    
 </BorderPane>

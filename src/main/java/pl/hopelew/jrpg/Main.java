@@ -39,7 +39,7 @@ public class Main extends Application {
 	 */
 	private static void initLocale(String[] args) {
 		Locale locale = Locale.getDefault();
-		Strings.init(locale);		
+		Strings.init(locale);
 	}
 
 	/**
@@ -73,9 +73,16 @@ public class Main extends Application {
 		stage.setScene(sceneMainMenu);
 		stage.show();
 
-		// ScenicView.show(scene);
+		// ScenicView.show(sceneGame);
 		log.info("MW Ready");
-		startNewGame("Levvy", true);// TODO: remove in production
+		new Thread(() -> {
+			try {
+				Thread.sleep(1000);
+				startNewGame("Levvy", true);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}).start();// TODO: remove in production
 	}
 
 	/**
@@ -121,7 +128,7 @@ public class Main extends Application {
 	}
 
 	private void goToGameScene() {
-		stage.setScene(sceneGame);
+		Platform.runLater(() -> stage.setScene(sceneGame));
 		GameWindowController.getInstance().initGame(game);
 	}
 
@@ -130,7 +137,7 @@ public class Main extends Application {
 	 * 
 	 * @param name
 	 * @param isMale
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public static void startNewGame(String name, boolean isMale) throws Exception {
 		var player = new Player(name, isMale ? Sex.MALE : Sex.FEMALE);

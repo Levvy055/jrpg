@@ -40,7 +40,6 @@ public class Game implements Runnable {
 		instance = this;
 		this.player = player;
 		fileHandler = new FileHandler();
-		currentMap.add(fileHandler.getMap("world_map"));
 	}
 
 	/**

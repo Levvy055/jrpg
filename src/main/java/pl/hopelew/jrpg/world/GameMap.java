@@ -1,28 +1,31 @@
 package pl.hopelew.jrpg.world;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import javax.swing.JComponent;
+import javax.imageio.ImageIO;
 
 import org.mapeditor.core.MapObject;
 import org.mapeditor.core.ObjectGroup;
 import org.mapeditor.core.Tile;
 import org.mapeditor.core.TileLayer;
 
-import javafx.embed.swing.SwingNode;
-import javafx.scene.Node;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.transform.Affine;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 
 @Data
+@Log4j2
 public class GameMap {
 	private int id;
 	private String name;
@@ -40,30 +43,20 @@ public class GameMap {
 		this.name = name;
 	}
 
-	public Node getGrid() {
-		var sn = new SwingNode();
-		var c = new JComponent() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			protected void paintComponent(Graphics g) {
-				Graphics2D g2d = (Graphics2D) g;
-				if (tLayers != null) {
-					tLayers.stream().forEach(l -> MapRenderer.paintTileLayer(g2d, l, vSize, hSize, maxTileHeight));
-				}
-				if (oLayers != null) {
-					oLayers.stream().forEach(l -> MapRenderer.paintObjectGroup(g2d, l, hSize, vSize));
-				}
-			}
-		};
-		sn.setContent(c);
-		return sn;
+	public void draw(GraphicsContext g) throws InvocationTargetException, InterruptedException {
+		if (tLayers != null) {
+			tLayers.stream().forEach(l -> MapRenderer.paintTileLayer(g, l, vSize, hSize, maxTileHeight));
+		}
+		if (oLayers != null) {
+			oLayers.stream().forEach(l -> MapRenderer.paintObjectGroup(g, l, hSize, vSize));
+		}
 	}
 
 	private static class MapRenderer {
 
-		public static void paintTileLayer(Graphics2D g, TileLayer layer, int height, int width, int maxTileHeight) {
-			final Rectangle clip = g.getClipBounds();
+		public static void paintTileLayer(GraphicsContext g, TileLayer layer, int height, int width,
+				int maxTileHeight) {
+			final Rectangle clip = new Rectangle((int) g.getCanvas().getWidth(), (int) g.getCanvas().getHeight());
 			final int tileWidth = 32, tileHeight = 32;
 			final Rectangle bounds = layer.getBounds();
 
@@ -83,31 +76,29 @@ public class GameMap {
 					if (tile == null) {
 						continue;
 					}
-					final Image image = tile.getImage();
+					Image image = convertToFxImage(tile.getImage());
 					if (image == null) {
 						continue;
 					}
 
-					Point drawLoc = new Point(x * tileWidth, (y + 1) * tileHeight - image.getHeight(null));
+					Point drawLoc = new Point(x * tileWidth, (y + 1) * tileHeight - 32);
 
-					// Add offset from tile layer property
 					drawLoc.x += layer.getOffsetX() != null ? layer.getOffsetX() : 0;
 					drawLoc.y += layer.getOffsetY() != null ? layer.getOffsetY() : 0;
 
-					// Add offset from tileset property
 					drawLoc.x += tile.getTileSet().getTileoffset() != null ? tile.getTileSet().getTileoffset().getX()
 							: 0;
 					drawLoc.y += tile.getTileSet().getTileoffset() != null ? tile.getTileSet().getTileoffset().getY()
 							: 0;
 
-					g.drawImage(image, drawLoc.x, drawLoc.y, null);
+					g.drawImage(image, drawLoc.x, drawLoc.y);
 				}
 			}
 
 			g.translate(-bounds.x * tileWidth, -bounds.y * tileHeight);
 		}
 
-		public static void paintObjectGroup(Graphics2D g, ObjectGroup group, int width, int height) {
+		public static void paintObjectGroup(GraphicsContext g, ObjectGroup group, int width, int height) {
 			final Dimension tsize = new Dimension(32, 32);
 			assert tsize.width != 0 && tsize.height != 0;
 			final Rectangle bounds = new Rectangle(width, height);
@@ -123,32 +114,57 @@ public class GameMap {
 				final Tile tile = mo.getTile();
 
 				if (tile != null) {
-					Image objectImage = tile.getImage();
-					AffineTransform old = g.getTransform();
+					Image objectImage = convertToFxImage(tile.getImage());
+					if (objectImage == null) {
+						g.setFill(Color.BLACK);
+						g.fillRect((int) ox + 1, (int) oy + 1, mo.getWidth().intValue(), mo.getHeight().intValue());
+						g.setFill(Color.ORANGE);
+						g.fillRect((int) ox, (int) oy, mo.getWidth().intValue(), mo.getHeight().intValue());
+					}
+					Affine old = g.getTransform();
 					g.rotate(Math.toRadians(rotation));
-					g.drawImage(objectImage, (int) ox, (int) oy, null);
+					g.drawImage(objectImage, (int) ox, (int) oy);
 					g.setTransform(old);
 				} else if (objectWidth == null || objectWidth == 0 || objectHeight == null || objectHeight == 0) {
-					g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-					g.setColor(Color.black);
+					// g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					// RenderingHints.VALUE_ANTIALIAS_ON); TODO: hints<-
+					// g.applyEffect();
+					g.setFill(Color.BLACK);
 					g.fillOval((int) ox + 1, (int) oy + 1, 10, 10);
-					g.setColor(Color.orange);
+					g.setFill(Color.ORANGE);
 					g.fillOval((int) ox, (int) oy, 10, 10);
-					g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+					// g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					// RenderingHints.VALUE_ANTIALIAS_OFF);
 				} else {
-					g.setColor(Color.black);
-					g.drawRect((int) ox + 1, (int) oy + 1, mo.getWidth().intValue(), mo.getHeight().intValue());
-					g.setColor(Color.orange);
-					g.drawRect((int) ox, (int) oy, mo.getWidth().intValue(), mo.getHeight().intValue());
+					g.setFill(Color.BLACK);
+					g.fillRect((int) ox + 1, (int) oy + 1, mo.getWidth().intValue(), mo.getHeight().intValue());
+					g.setFill(Color.ORANGE);
+					g.fillRect((int) ox, (int) oy, mo.getWidth().intValue(), mo.getHeight().intValue());
 				}
 				final String s = mo.getName() != null ? mo.getName() : "(null)";
-				g.setColor(Color.black);
-				g.drawString(s, (int) (ox - 5) + 1, (int) (oy - 5) + 1);
-				g.setColor(Color.white);
-				g.drawString(s, (int) (ox - 5), (int) (oy - 5));
+				g.setFill(Color.BLACK);
+				g.fillText(s, (int) (ox - 5) + 1, (int) (oy - 5) + 1);
+				g.setFill(Color.WHITE);
+				g.fillText(s, (int) (ox - 5), (int) (oy - 5));
 			}
 
 			g.translate(-bounds.x * tsize.width, -bounds.y * tsize.height);
 		}
+
+		private static Image convertToFxImage(final BufferedImage imageAwt) {
+			Image image = null;
+			try {
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				ImageIO.write(imageAwt, "png", outputStream);
+				outputStream.flush();
+				ByteArrayInputStream in = new ByteArrayInputStream(outputStream.toByteArray());
+				image = new Image(in);
+			} catch (IOException e) {
+				e.printStackTrace();
+				log.warn("Image conversion problem of tile. Exc: {}", e);
+			}
+			return image;
+		}
 	}
+
 }
