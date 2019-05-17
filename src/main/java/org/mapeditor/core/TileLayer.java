@@ -38,6 +38,8 @@ import java.util.HashMap;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
+import lombok.Getter;
+
 /**
  * A TileLayer is a specialized Layer, used for tracking two dimensional tile
  * data.
@@ -51,7 +53,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType(XmlAccessType.NONE)
 public class TileLayer extends TileLayerData {
 
-    private Tile[][] tileMap;
+    private @Getter Tile[][] tileMap;
     private HashMap<Object, Properties> tileInstanceProperties = new HashMap<>();
 
     /**

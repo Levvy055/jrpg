@@ -14,8 +14,11 @@ import org.mapeditor.core.RenderOrder;
 import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
 
+import javafx.geometry.Rectangle2D;
 import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.utils.MapGenException;
+import pl.hopelew.jrpg.world.MapObjectLayer.MapObjectLayerBuilder;
+import pl.hopelew.jrpg.world.MapTileLayer.MapTileLayerBuilder;
 
 @Log4j2
 public class MapBuilder {
@@ -35,7 +38,6 @@ public class MapBuilder {
 		var tmxMap = getTmxData(path);
 		var id = Integer.parseInt(tmxMap.getProperties().getProperty("id"));
 		var name = tmxMap.getProperties().getProperty("name");
-		var map = new GameMap(id, name);
 		if (tmxMap.getTileHeight() != 32 || tmxMap.getTileWidth() != 32) {
 			throw new MapGenException(
 					"Tile Size should be 32x32. Was " + tmxMap.getTileHeight() + "x" + tmxMap.getTileWidth(), path);
@@ -49,22 +51,34 @@ public class MapBuilder {
 		if (tmxMap.getOrientation() != Orientation.ORTHOGONAL) {
 			throw new MapGenException("Wrong map orientation!", path);
 		}
+		var map = new GameMap(id, name);
 		map.setBackgroundColor(tmxMap.getBackgroundcolor());
 		map.setVSize(tmxMap.getHeight());
 		map.setHSize(tmxMap.getWidth());
 		map.setMaxTileHeight(tmxMap.getTileHeightMax());
 		var layers = tmxMap.getLayers();
-		List<TileLayer> layerst = layers.stream().filter(l -> l instanceof TileLayer).map(m -> (TileLayer) m)
-				.collect(Collectors.toList());
-		List<ObjectGroup> layerso = layers.stream().filter(l -> l instanceof ObjectGroup).map(m -> (ObjectGroup) m)
-				.collect(Collectors.toList());
-		map.setTLayers(layerst);
-		map.setOLayers(layerso);
+		List<MapTileLayer> layerTiles = layers.stream().filter(lm -> lm instanceof TileLayer).map(lm -> {
+			var l = (TileLayer) lm;
+			var r = l.getBounds();
+			var ml = new MapTileLayerBuilder().bounds(new Rectangle2D(r.x, r.y, r.width, r.height))
+					.tileMap(l.getTileMap()).x(l.getX()).y(l.getY()).offsetX(l.getOffsetX()).offsetY(l.getOffsetY())
+					.build();
+			return ml;
+		}).collect(Collectors.toList());
+		map.setTileLayers(layerTiles);
+
+		List<MapObjectLayer> layerObjects = layers.stream().filter(l -> l instanceof ObjectGroup).map(lm -> {
+			var l = (ObjectGroup) lm;
+			var ml = new MapObjectLayerBuilder().objects(l.getObjects()).build();
+			return ml;
+		}).collect(Collectors.toList());
+		map.setObjectLayers(layerObjects);
+
 		return map;
 	}
 
 	/**
-	 * Reads TMX data
+	 * Reads TMX data from the file
 	 * 
 	 * @param path
 	 * @return TMX File

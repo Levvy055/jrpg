@@ -13,9 +13,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import org.mapeditor.core.MapObject;
-import org.mapeditor.core.ObjectGroup;
 import org.mapeditor.core.Tile;
-import org.mapeditor.core.TileLayer;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -34,8 +32,6 @@ public class GameMap {
 	private String backgroundColor;
 	private List<MapTileLayer> tileLayers;
 	private List<MapObjectLayer> objectLayers;
-	private List<TileLayer> tLayers;
-	private List<ObjectGroup> oLayers;
 	private int maxTileHeight;
 
 	public GameMap(int id, String name) {
@@ -44,24 +40,32 @@ public class GameMap {
 	}
 
 	public void draw(GraphicsContext g) throws InvocationTargetException, InterruptedException {
-		if (tLayers != null) {
-			tLayers.stream().forEach(l -> MapRenderer.paintTileLayer(g, l, vSize, hSize, maxTileHeight));
+		if (tileLayers != null) {
+			tileLayers.stream().forEach(l -> MapRenderer.paintTileLayer(g, l, vSize, hSize, maxTileHeight));
 		}
-		if (oLayers != null) {
-			oLayers.stream().forEach(l -> MapRenderer.paintObjectGroup(g, l, hSize, vSize));
+		if (objectLayers != null) {
+			objectLayers.stream().forEach(l -> MapRenderer.paintObjectLayer(g, l, hSize, vSize));
 		}
 	}
 
 	private static class MapRenderer {
 
-		public static void paintTileLayer(GraphicsContext g, TileLayer layer, int height, int width,
-				int maxTileHeight) {
+		/**
+		 * Draws all map tiles on provided canvas graphic.
+		 * 
+		 * @param g
+		 * @param l
+		 * @param height
+		 * @param width
+		 * @param maxTileHeight
+		 */
+		public static void paintTileLayer(GraphicsContext g, MapTileLayer l, int height, int width, int maxTileHeight) {
 			final Rectangle clip = new Rectangle((int) g.getCanvas().getWidth(), (int) g.getCanvas().getHeight());
 			final int tileWidth = 32, tileHeight = 32;
-			final Rectangle bounds = layer.getBounds();
+			var bounds = l.getBounds();
 
-			g.translate(bounds.x * tileWidth, bounds.y * tileHeight);
-			clip.translate(-bounds.x * tileWidth, -bounds.y * tileHeight);
+			g.translate(bounds.getMinX() * tileWidth, bounds.getMinY() * tileHeight);
+			clip.translate((int) -bounds.getMinX() * tileWidth, (int) (-bounds.getMinY() * tileHeight));
 
 			clip.height += maxTileHeight;
 
@@ -72,7 +76,7 @@ public class GameMap {
 
 			for (int x = startX; x < endX; ++x) {
 				for (int y = startY; y < endY; ++y) {
-					final Tile tile = layer.getTileAt(x, y);
+					final Tile tile = l.getTileAt(x, y);
 					if (tile == null) {
 						continue;
 					}
@@ -83,11 +87,11 @@ public class GameMap {
 
 					Point drawLoc = new Point(x * tileWidth, (y + 1) * tileHeight - 32);
 
-					drawLoc.x += layer.getOffsetX() != null ? layer.getOffsetX() : 0;
-					drawLoc.y += layer.getOffsetY() != null ? layer.getOffsetY() : 0;
-
+					drawLoc.x += l.getOffsetX() != null ? l.getOffsetX() : 0;
 					drawLoc.x += tile.getTileSet().getTileoffset() != null ? tile.getTileSet().getTileoffset().getX()
 							: 0;
+
+					drawLoc.y += l.getOffsetY() != null ? l.getOffsetY() : 0;
 					drawLoc.y += tile.getTileSet().getTileoffset() != null ? tile.getTileSet().getTileoffset().getY()
 							: 0;
 
@@ -95,35 +99,39 @@ public class GameMap {
 				}
 			}
 
-			g.translate(-bounds.x * tileWidth, -bounds.y * tileHeight);
+			g.translate(-bounds.getMinX() * tileWidth, -bounds.getMinY() * tileHeight);
 		}
 
-		public static void paintObjectGroup(GraphicsContext g, ObjectGroup group, int width, int height) {
+		/**
+		 * Draws objects on the map. Now only Tile and ellipse partially supported.
+		 * 
+		 * @param g
+		 * @param l
+		 * @param width
+		 * @param height
+		 */
+		public static void paintObjectLayer(GraphicsContext g, MapObjectLayer l, int width, int height) {
 			final Dimension tsize = new Dimension(32, 32);
 			assert tsize.width != 0 && tsize.height != 0;
 			final Rectangle bounds = new Rectangle(width, height);
 
 			g.translate(bounds.x * tsize.width, bounds.y * tsize.height);
 
-			for (MapObject mo : group) {
+			for (MapObject mo : l.getObjects()) {
+				if (mo.isVisible() != null && !mo.isVisible()) {
+					continue;
+				}
 				final double ox = mo.getX();
 				final double oy = mo.getY();
 				final Double objectWidth = mo.getWidth();
 				final Double objectHeight = mo.getHeight();
 				final double rotation = mo.getRotation();
 				final Tile tile = mo.getTile();
-
-				if (tile != null) {
-					Image objectImage = convertToFxImage(tile.getImage());
-					if (objectImage == null) {
-						g.setFill(Color.BLACK);
-						g.fillRect((int) ox + 1, (int) oy + 1, mo.getWidth().intValue(), mo.getHeight().intValue());
-						g.setFill(Color.ORANGE);
-						g.fillRect((int) ox, (int) oy, mo.getWidth().intValue(), mo.getHeight().intValue());
-					}
-					Affine old = g.getTransform();
+				Image objectImage;
+				if (tile != null && (objectImage = convertToFxImage(tile.getImage())) != null) {
 					g.rotate(Math.toRadians(rotation));
 					g.drawImage(objectImage, (int) ox, (int) oy);
+					Affine old = g.getTransform();
 					g.setTransform(old);
 				} else if (objectWidth == null || objectWidth == 0 || objectHeight == null || objectHeight == 0) {
 					// g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
