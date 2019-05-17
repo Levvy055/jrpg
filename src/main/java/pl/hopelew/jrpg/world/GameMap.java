@@ -31,7 +31,7 @@ public class GameMap {
 	private int hSize;
 	private String backgroundColor;
 	private List<MapTileLayer> tileLayers;
-	private List<MapObjectLayer> objectLayers;
+	private List<MapObject> objectLayer;
 	private int maxTileHeight;
 
 	public GameMap(int id, String name) {
@@ -43,8 +43,8 @@ public class GameMap {
 		if (tileLayers != null) {
 			tileLayers.stream().forEach(l -> MapRenderer.paintTileLayer(g, l, vSize, hSize, maxTileHeight));
 		}
-		if (objectLayers != null) {
-			objectLayers.stream().forEach(l -> MapRenderer.paintObjectLayer(g, l, hSize, vSize));
+		if (objectLayer != null) {
+			objectLayer.stream().forEach(l -> MapRenderer.paintObjectLayer(g, l, hSize, vSize));
 		}
 	}
 
@@ -110,51 +110,47 @@ public class GameMap {
 		 * @param width
 		 * @param height
 		 */
-		public static void paintObjectLayer(GraphicsContext g, MapObjectLayer l, int width, int height) {
+		public static void paintObjectLayer(GraphicsContext g, MapObject mo, int width, int height) {
 			final Dimension tsize = new Dimension(32, 32);
-			assert tsize.width != 0 && tsize.height != 0;
 			final Rectangle bounds = new Rectangle(width, height);
 
 			g.translate(bounds.x * tsize.width, bounds.y * tsize.height);
-
-			for (MapObject mo : l.getObjects()) {
-				if (mo.isVisible() != null && !mo.isVisible()) {
-					continue;
-				}
-				final double ox = mo.getX();
-				final double oy = mo.getY();
-				final Double objectWidth = mo.getWidth();
-				final Double objectHeight = mo.getHeight();
-				final double rotation = mo.getRotation();
-				final Tile tile = mo.getTile();
-				Image objectImage;
-				if (tile != null && (objectImage = convertToFxImage(tile.getImage())) != null) {
-					g.rotate(Math.toRadians(rotation));
-					g.drawImage(objectImage, (int) ox, (int) oy);
-					Affine old = g.getTransform();
-					g.setTransform(old);
-				} else if (objectWidth == null || objectWidth == 0 || objectHeight == null || objectHeight == 0) {
-					// g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-					// RenderingHints.VALUE_ANTIALIAS_ON); TODO: hints<-
-					// g.applyEffect();
-					g.setFill(Color.BLACK);
-					g.fillOval((int) ox + 1, (int) oy + 1, 10, 10);
-					g.setFill(Color.ORANGE);
-					g.fillOval((int) ox, (int) oy, 10, 10);
-					// g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-					// RenderingHints.VALUE_ANTIALIAS_OFF);
-				} else {
-					g.setFill(Color.BLACK);
-					g.fillRect((int) ox + 1, (int) oy + 1, mo.getWidth().intValue(), mo.getHeight().intValue());
-					g.setFill(Color.ORANGE);
-					g.fillRect((int) ox, (int) oy, mo.getWidth().intValue(), mo.getHeight().intValue());
-				}
-				final String s = mo.getName() != null ? mo.getName() : "(null)";
-				g.setFill(Color.BLACK);
-				g.fillText(s, (int) (ox - 5) + 1, (int) (oy - 5) + 1);
-				g.setFill(Color.WHITE);
-				g.fillText(s, (int) (ox - 5), (int) (oy - 5));
+			if (mo.isVisible() != null && !mo.isVisible()) {
+				return;
 			}
+			final double ox = mo.getX();
+			final double oy = mo.getY();
+			final Double objectWidth = mo.getWidth();
+			final Double objectHeight = mo.getHeight();
+			final double rotation = mo.getRotation();
+			final Tile tile = mo.getTile();
+			Image objectImage;
+			if (tile != null && (objectImage = convertToFxImage(tile.getImage())) != null) {
+				g.rotate(Math.toRadians(rotation));
+				g.drawImage(objectImage, (int) ox, (int) oy);
+				Affine old = g.getTransform();
+				g.setTransform(old);
+			} else if (objectWidth == null || objectWidth == 0 || objectHeight == null || objectHeight == 0) {
+				// g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				// RenderingHints.VALUE_ANTIALIAS_ON); TODO: hints<-
+				// g.applyEffect();
+				g.setFill(Color.BLACK);
+				g.fillOval((int) ox + 1, (int) oy + 1, 10, 10);
+				g.setFill(Color.ORANGE);
+				g.fillOval((int) ox, (int) oy, 10, 10);
+				// g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				// RenderingHints.VALUE_ANTIALIAS_OFF);
+			} else {
+				g.setFill(Color.BLACK);
+				g.fillRect((int) ox + 1, (int) oy + 1, mo.getWidth().intValue(), mo.getHeight().intValue());
+				g.setFill(Color.ORANGE);
+				g.fillRect((int) ox, (int) oy, mo.getWidth().intValue(), mo.getHeight().intValue());
+			}
+			final String s = mo.getName() != null ? mo.getName() : "(null)";
+			g.setFill(Color.BLACK);
+			g.fillText(s, (int) (ox - 5) + 1, (int) (oy - 5) + 1);
+			g.setFill(Color.WHITE);
+			g.fillText(s, (int) (ox - 5), (int) (oy - 5));
 
 			g.translate(-bounds.x * tsize.width, -bounds.y * tsize.height);
 		}

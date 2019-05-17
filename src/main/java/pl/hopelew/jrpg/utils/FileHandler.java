@@ -23,7 +23,7 @@ import javafx.scene.image.Image;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.world.GameMap;
-import pl.hopelew.jrpg.world.MapBuilder;
+import pl.hopelew.jrpg.world.GameMapBuilder;
 
 @Log4j2
 public class FileHandler {
@@ -93,7 +93,7 @@ public class FileHandler {
 		try {
 			path = getPath(pathname);
 			if (Files.exists(path)) {
-				return MapBuilder.build(path);
+				return GameMapBuilder.build(path);
 			}
 			throw new IOException("Map " + id + " does not exists! >" + path.toString());
 		} catch (URISyntaxException e) {

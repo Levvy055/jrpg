@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.mapeditor.core.Map;
+import org.mapeditor.core.MapObject;
 import org.mapeditor.core.ObjectGroup;
 import org.mapeditor.core.Orientation;
 import org.mapeditor.core.RenderOrder;
@@ -17,13 +18,12 @@ import org.mapeditor.io.TMXMapReader;
 import javafx.geometry.Rectangle2D;
 import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.utils.MapGenException;
-import pl.hopelew.jrpg.world.MapObjectLayer.MapObjectLayerBuilder;
 import pl.hopelew.jrpg.world.MapTileLayer.MapTileLayerBuilder;
 
 @Log4j2
-public class MapBuilder {
+public class GameMapBuilder {
 
-	private MapBuilder() {
+	private GameMapBuilder() {
 	}
 
 	/**
@@ -67,12 +67,11 @@ public class MapBuilder {
 		}).collect(Collectors.toList());
 		map.setTileLayers(layerTiles);
 
-		List<MapObjectLayer> layerObjects = layers.stream().filter(l -> l instanceof ObjectGroup).map(lm -> {
+		List<MapObject> layerObject = layers.stream().filter(l -> l instanceof ObjectGroup).map(lm -> {
 			var l = (ObjectGroup) lm;
-			var ml = new MapObjectLayerBuilder().objects(l.getObjects()).build();
-			return ml;
-		}).collect(Collectors.toList());
-		map.setObjectLayers(layerObjects);
+			return l.getObjects();
+		}).flatMap(List::stream).collect(Collectors.toList());
+		map.setObjectLayer(layerObject);
 
 		return map;
 	}
