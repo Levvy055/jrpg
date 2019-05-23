@@ -3,7 +3,7 @@ package pl.hopelew.jrpg.utils.eventhandlers;
 import java.util.Map;
 
 import lombok.Getter;
-import pl.hopelew.jrpg.world.GameMap;
+import pl.hopelew.jrpg.map.GameMap;
 
 public class MapChangedGameEvent extends GameEvent {
 

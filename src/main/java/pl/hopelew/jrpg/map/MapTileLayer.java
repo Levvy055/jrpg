@@ -1,4 +1,4 @@
-package pl.hopelew.jrpg.world;
+package pl.hopelew.jrpg.map;
 
 import org.mapeditor.core.Tile;
 

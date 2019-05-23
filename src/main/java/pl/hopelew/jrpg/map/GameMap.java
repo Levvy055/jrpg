@@ -1,4 +1,4 @@
-package pl.hopelew.jrpg.world;
+package pl.hopelew.jrpg.map;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -8,6 +8,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Path;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -21,6 +22,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
+import pl.hopelew.jrpg.utils.FileHandler;
+import pl.hopelew.jrpg.utils.MapGenException;
 
 @Data
 @Log4j2
@@ -46,6 +49,18 @@ public class GameMap {
 		if (objectLayer != null) {
 			objectLayer.stream().forEach(l -> MapRenderer.paintObjectLayer(g, l, hSize, vSize));
 		}
+	}
+
+	/**
+	 * Gets game map from .map file
+	 * 
+	 * @param id
+	 * @return
+	 * @throws MapGenException
+	 */
+	public static GameMap getMap(String id) throws MapGenException {
+		Path path = FileHandler.getMapPathById(id);
+		return GameMapBuilder.build(path);
 	}
 
 	private static class MapRenderer {

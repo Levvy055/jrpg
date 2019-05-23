@@ -22,8 +22,6 @@ import com.google.gson.JsonSyntaxException;
 import javafx.scene.image.Image;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
-import pl.hopelew.jrpg.world.GameMap;
-import pl.hopelew.jrpg.world.GameMapBuilder;
 
 @Log4j2
 public class FileHandler {
@@ -80,25 +78,18 @@ public class FileHandler {
 		}
 	}
 
-	/**
-	 * Gets game map from .map file
-	 * 
-	 * @param id
-	 * @return
-	 * @throws Exception
-	 */
-	public GameMap getMap(String id) throws Exception {
+	public static Path getMapPathById(String id) throws MapGenException {
 		var pathname = "maps/" + id + ".tmx";
 		Path path;
 		try {
 			path = getPath(pathname);
 			if (Files.exists(path)) {
-				return GameMapBuilder.build(path);
+				return path;
 			}
-			throw new IOException("Map " + id + " does not exists! >" + path.toString());
+			throw new MapGenException("Map " + id + " does not exists! >" + path.toString());
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
-			throw new IOException("Map " + id + " read error! >" + pathname, e);
+			throw new MapGenException("Map " + id + " read error! >" + pathname, e);
 		}
 	}
 

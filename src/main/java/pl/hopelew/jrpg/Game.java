@@ -11,12 +11,13 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.controllers.game.GameWindowController;
 import pl.hopelew.jrpg.entities.Player;
+import pl.hopelew.jrpg.map.GameMap;
 import pl.hopelew.jrpg.utils.FileHandler;
+import pl.hopelew.jrpg.utils.MapGenException;
 import pl.hopelew.jrpg.utils.eventhandlers.EventType;
 import pl.hopelew.jrpg.utils.eventhandlers.GameEvent;
 import pl.hopelew.jrpg.utils.eventhandlers.GameEventHandler;
 import pl.hopelew.jrpg.utils.eventhandlers.MapChangedGameEvent;
-import pl.hopelew.jrpg.world.GameMap;
 
 /**
  * Main Game thread loop container Started by {@link Thread} method
@@ -44,12 +45,17 @@ public class Game implements Runnable {
 
 	/**
 	 * Changes map to specified map id
+	 * 
 	 * @param id
 	 * @throws Exception
 	 */
-	public void goIn(String id) throws Exception {
-		currentMap.add(fileHandler.getMap(id));
+	public void goIn(String id) throws MapGenException {
+		currentMap.add(GameMap.getMap(id));
 		fireEvent(new MapChangedGameEvent(this, currentMap.lastElement()));
+	}
+
+	public void goOut(String id) throws MapGenException {
+
 	}
 
 	/**
@@ -78,6 +84,7 @@ public class Game implements Runnable {
 
 	/**
 	 * Fires events of specified event
+	 * 
 	 * @param ge
 	 */
 	private void fireEvent(GameEvent ge) {

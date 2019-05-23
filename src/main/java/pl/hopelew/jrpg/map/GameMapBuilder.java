@@ -1,4 +1,4 @@
-package pl.hopelew.jrpg.world;
+package pl.hopelew.jrpg.map;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,11 +17,17 @@ import org.mapeditor.io.TMXMapReader;
 
 import javafx.geometry.Rectangle2D;
 import lombok.extern.log4j.Log4j2;
+import pl.hopelew.jrpg.map.MapTileLayer.MapTileLayerBuilder;
 import pl.hopelew.jrpg.utils.MapGenException;
-import pl.hopelew.jrpg.world.MapTileLayer.MapTileLayerBuilder;
 
+/**
+ * Static class to get GameMap from provided file
+ * 
+ * @author lluka
+ *
+ */
 @Log4j2
-public class GameMapBuilder {
+class GameMapBuilder {
 
 	private GameMapBuilder() {
 	}
