@@ -27,6 +27,8 @@ open module jrpg {
 	requires org.apache.commons.lang3;
 	requires org.apache.logging.log4j;
 	
+	requires jdk.management.agent;
+	
 //  requires fxgl.all;
 
 //  opens pl.hopelew.jrpg.controllers to javafx.fxml;

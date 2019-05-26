@@ -24,7 +24,7 @@
   <object id="1" name="NPC1" x="79" y="113">
    <ellipse/>
   </object>
-  <object id="2" name="Pot" gid="156" x="42" y="69" width="32" height="32"/>
+  <object id="2" name="Pot" gid="156" x="64" y="65" width="32" height="32" rotation="-30"/>
   <object id="4" name="ik" type="c" x="118" y="38">
    <polygon points="0,0 21,0 12,38"/>
   </object>

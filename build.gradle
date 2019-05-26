@@ -5,9 +5,7 @@ plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.7'
     id "com.github.ben-manes.versions" version "0.21.0"
-    //id "io.freefair.lombok" version "3.1.4"
-    id 'net.ltgt.apt' version '0.21'
-    id 'org.beryx.jlink' version '2.10.3'
+    id 'org.beryx.jlink' version '2.10.4'
 }
 
 repositories {
@@ -20,7 +18,7 @@ repositories {
 dependencies {
     implementation 'org.controlsfx:controlsfx:11.0.0'
     implementation 'com.jfoenix:jfoenix:9.0.8'
-    implementation 'org.fxmisc.richtext:richtextfx:0.10.0'
+    implementation 'org.fxmisc.richtext:richtextfx:0.10.1'
     implementation group: 'eu.hansolo', name: 'Medusa', version: '8.3' //fx gauges
     //implementation 'com.github.almasb:fxgl:11.1-beta'
     implementation files('libs/scenicview.jar')
@@ -34,7 +32,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'org.json:json:20180813'
     
-    implementation group: 'org.glassfish.jaxb', name: 'jaxb-xjc', version: '2.3.2'    
+    implementation group: 'org.glassfish.jaxb', name: 'jaxb-xjc', version: '2.3.2'
+
             
     implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.2' 
     implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.2'
@@ -89,10 +88,10 @@ jar {
 }
 
 jlink {
-    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages', '--bind-services']
     launcher {
         name = 'jrpg'
-        jvmArgs = ['--add-exports javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix', '--add-exports javafx.controls/com.sun.javafx.scene.control=com.jfoenix', '--add-exports javafx.base/com.sun.javafx.binding=com.jfoenix', '--add-exports javafx.graphics/com.sun.javafx.stage=com.jfoenix', '--add-exports javafx.base/com.sun.javafx.event=com.jfoenix', '--add-exports javafx.graphics/com.sun.javafx.scene=com.jfoenix', '-Dprism.verbose=true']
+        jvmArgs = ['-Djavax.xml.bind.JAXBContextFactory=com.sun.xml.bind.v2.ContextFactory', '-Dcom.sun.management.jmxremote', '--add-exports javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix', '--add-exports javafx.controls/com.sun.javafx.scene.control=com.jfoenix', '--add-exports javafx.base/com.sun.javafx.binding=com.jfoenix', '--add-exports javafx.graphics/com.sun.javafx.stage=com.jfoenix', '--add-exports javafx.base/com.sun.javafx.event=com.jfoenix', '--add-exports javafx.graphics/com.sun.javafx.scene=com.jfoenix', '-Dprism.verbose=true']
         
     }
     addExtraDependencies("javafx")
