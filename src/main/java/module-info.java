@@ -19,6 +19,7 @@ open module jrpg {
 
 	requires org.controlsfx.controls;
 	requires com.jfoenix;
+	requires eu.hansolo.tilesfx;
 
 	requires static lombok;
 	
