@@ -17,11 +17,14 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.controlsfx:controlsfx:11.0.0'
+    implementation 'org.controlsfx:controlsfx:11.0.0', {
+    	exclude group: 'org.openjfx'
+    }
     implementation 'com.jfoenix:jfoenix:9.0.8'
     implementation 'org.fxmisc.richtext:richtextfx:0.10.1'
     implementation group: 'eu.hansolo', name: 'Medusa', version: '8.3' //fx gauges
     compile group: 'eu.hansolo', name: 'tilesfx', version: '11.1', { //fx tiles
+     	exclude group: 'org.openjfx'
      	exclude group: 'org.hamcrest'
     }
     //implementation 'com.github.almasb:fxgl:11.1-beta'
@@ -87,7 +90,7 @@ jar {
         attributes 'Main-Class': mainClassName
         attributes 'Automatic-Module-Name': moduleName
     }
-    inputs.property("moduleName", moduleName)
+   // inputs.property("moduleName", moduleName)
 }
 
 jlink {
