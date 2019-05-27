@@ -30,7 +30,6 @@ dependencies {
      	exclude group: 'org.hamcrest'
     }
     //implementation 'com.github.almasb:fxgl:11.1-beta'
-    implementation files('libs/scenicview.jar')
 
     implementation 'com.1stleg:jnativehook:2.1.0' //global key listeners
     
@@ -55,11 +54,8 @@ dependencies {
 
 javafx {
     modules = [ 'javafx.controls',
-    			'javafx.fxml',
-    			'javafx.graphics',
-    			'javafx.swing',
-    			'javafx.web',
-    			'javafx.media' ]
+    			'javafx.fxml'
+    			]
 }
 
 eclipse {
@@ -92,6 +88,7 @@ jar {
         attributes 'Main-Class': mainClassName
         attributes 'Automatic-Module-Name': moduleName
     }
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
    // inputs.property("moduleName", moduleName)
 }
 

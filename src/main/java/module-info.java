@@ -7,15 +7,12 @@ open module jrpg {
 	requires transitive javafx.graphics;
 	requires javafx.controls;
 	requires javafx.fxml;
-	requires javafx.web;
 
 	requires java.logging;
 	requires java.desktop;
 	requires java.sql;
 	requires java.xml.bind;
-	requires java.compiler;	
-
-	requires transitive org.scenicview.scenicview;
+	requires java.compiler;
 
 	requires org.controlsfx.controls;
 	requires com.jfoenix;
