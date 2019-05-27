@@ -1,9 +1,7 @@
 package pl.hopelew.jrpg.map;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +16,7 @@ import org.mapeditor.io.TMXMapReader;
 import javafx.geometry.Rectangle2D;
 import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.map.MapTileLayer.MapTileLayerBuilder;
+import pl.hopelew.jrpg.utils.FileHandler;
 import pl.hopelew.jrpg.utils.MapGenException;
 
 /**
@@ -39,23 +38,23 @@ class GameMapBuilder {
 	 * @return MapBase object of loaded map
 	 * @throws MapGenException when cannot read file
 	 */
-	public static GameMap build(Path path) throws MapGenException {
+	public static GameMap build(String path) throws MapGenException {
 		log.info("Building map " + path);
 		var tmxMap = getTmxData(path);
 		var id = Integer.parseInt(tmxMap.getProperties().getProperty("id"));
 		var name = tmxMap.getProperties().getProperty("name");
 		if (tmxMap.getTileHeight() != 32 || tmxMap.getTileWidth() != 32) {
-			throw new MapGenException(
-					"Tile Size should be 32x32. Was " + tmxMap.getTileHeight() + "x" + tmxMap.getTileWidth(), path);
+			throw new MapGenException("Tile Size should be 32x32. Was " + tmxMap.getTileHeight() + "x"
+					+ tmxMap.getTileWidth() + " " + path);
 		}
 		if (tmxMap.getLayerCount() == 0) {
-			throw new MapGenException("No layers in file", path);
+			throw new MapGenException("No layers in file " + path);
 		}
 		if (tmxMap.getRenderorder() != RenderOrder.RIGHT_DOWN) {
-			throw new MapGenException("Wrong map render order!", path);
+			throw new MapGenException("Wrong map render order! " + path);
 		}
 		if (tmxMap.getOrientation() != Orientation.ORTHOGONAL) {
-			throw new MapGenException("Wrong map orientation!", path);
+			throw new MapGenException("Wrong map orientation! " + path);
 		}
 		var map = new GameMap(id, name);
 		map.setBackgroundColor(tmxMap.getBackgroundcolor());
@@ -66,6 +65,7 @@ class GameMapBuilder {
 		List<MapTileLayer> layerTiles = layers.stream().filter(lm -> lm instanceof TileLayer).map(lm -> {
 			var l = (TileLayer) lm;
 			var r = l.getBounds();
+			@SuppressWarnings("deprecation")
 			var ml = new MapTileLayerBuilder().bounds(new Rectangle2D(r.x, r.y, r.width, r.height))
 					.tileMap(l.getTileMap()).x(l.getX()).y(l.getY()).offsetX(l.getOffsetX()).offsetY(l.getOffsetY())
 					.build();
@@ -85,21 +85,19 @@ class GameMapBuilder {
 	/**
 	 * Reads TMX data from the file
 	 * 
-	 * @param path
+	 * @param file
 	 * @return TMX File
 	 * @throws MapGenException
 	 */
-	private static Map getTmxData(Path path) throws MapGenException {
+	private static Map getTmxData(String file) throws MapGenException {
 		var tmx = new TMXMapReader();
 		tmx.settings.reuseCachedTilesets = true;
-		log.warn("Path: {}", path);
-		if (!tmx.accept(path.toFile())) {
-			throw new MapGenException(new IOException("Wrong file: " + path.toString()));
-		}
 		try {
-			var tmxMap = tmx.readMap(Files.newInputStream(path), path.getParent().toString() + File.separatorChar);
+			InputStream inputStream = FileHandler.getStream(file);
+			var tmxMap = tmx.readMap(inputStream, File.separatorChar+"maps" + File.separatorChar);
 			return tmxMap;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new MapGenException(e);
 		}
 	}

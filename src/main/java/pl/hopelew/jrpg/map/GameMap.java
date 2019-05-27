@@ -8,7 +8,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.file.Path;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -22,7 +21,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
-import pl.hopelew.jrpg.utils.FileHandler;
 import pl.hopelew.jrpg.utils.MapGenException;
 
 @Data
@@ -44,10 +42,10 @@ public class GameMap {
 
 	public void draw(GraphicsContext g) throws InvocationTargetException, InterruptedException {
 		if (tileLayers != null) {
-			tileLayers.stream().forEach(l -> MapRenderer.paintTileLayer(g, l, vSize, hSize, maxTileHeight));
+			tileLayers.stream().forEach(l -> MapRenderer.drawTileLayer(g, l, vSize, hSize, maxTileHeight));
 		}
 		if (objectLayer != null) {
-			objectLayer.stream().forEach(l -> MapRenderer.paintObjectLayer(g, l, hSize, vSize));
+			objectLayer.stream().forEach(l -> MapRenderer.drawObjectLayer(g, l, hSize, vSize));
 		}
 	}
 
@@ -55,29 +53,31 @@ public class GameMap {
 	 * Gets game map from .map file
 	 * 
 	 * @param id
-	 * @return
+	 * @return a game map
 	 * @throws MapGenException
 	 */
 	public static GameMap getMap(String id) throws MapGenException {
-		Path path = FileHandler.getMapPathById(id);
-		return GameMapBuilder.build(path);
+		var pathname = "/maps/" + id + ".tmx";
+		return GameMapBuilder.build(pathname);
 	}
 
 	private static class MapRenderer {
+		private static final int tileWidth = 32, tileHeight = 32;
+		private static final Dimension tsize = new Dimension(32, 32);
 
 		/**
 		 * Draws all map tiles on provided canvas graphic.
 		 * 
 		 * @param g
-		 * @param l
+		 * @param layer
 		 * @param height
 		 * @param width
 		 * @param maxTileHeight
 		 */
-		public static void paintTileLayer(GraphicsContext g, MapTileLayer l, int height, int width, int maxTileHeight) {
+		public static void drawTileLayer(GraphicsContext g, MapTileLayer layer, int height, int width,
+				int maxTileHeight) {
 			final Rectangle clip = new Rectangle((int) g.getCanvas().getWidth(), (int) g.getCanvas().getHeight());
-			final int tileWidth = 32, tileHeight = 32;
-			var bounds = l.getBounds();
+			var bounds = layer.getBounds();
 
 			g.translate(bounds.getMinX() * tileWidth, bounds.getMinY() * tileHeight);
 			clip.translate((int) -bounds.getMinX() * tileWidth, (int) (-bounds.getMinY() * tileHeight));
@@ -91,30 +91,43 @@ public class GameMap {
 
 			for (int x = startX; x < endX; ++x) {
 				for (int y = startY; y < endY; ++y) {
-					final Tile tile = l.getTileAt(x, y);
-					if (tile == null) {
-						continue;
-					}
-					Image image = convertToFxImage(tile.getImage());
-					if (image == null) {
-						continue;
-					}
 
-					Point drawLoc = new Point(x * tileWidth, (y + 1) * tileHeight - 32);
-
-					drawLoc.x += l.getOffsetX() != null ? l.getOffsetX() : 0;
-					drawLoc.x += tile.getTileSet().getTileoffset() != null ? tile.getTileSet().getTileoffset().getX()
-							: 0;
-
-					drawLoc.y += l.getOffsetY() != null ? l.getOffsetY() : 0;
-					drawLoc.y += tile.getTileSet().getTileoffset() != null ? tile.getTileSet().getTileoffset().getY()
-							: 0;
-
-					g.drawImage(image, drawLoc.x, drawLoc.y);
+					drawTile(g, x, y, layer);
 				}
 			}
 
 			g.translate(-bounds.getMinX() * tileWidth, -bounds.getMinY() * tileHeight);
+		}
+
+		/**
+		 * Draws provided tile layer
+		 * 
+		 * @param g
+		 * @param x
+		 * @param y
+		 * @param layer
+		 */
+		private static void drawTile(GraphicsContext g, int x, int y, MapTileLayer layer) {
+			final Tile tile = layer.getTileAt(x, y);
+			if (tile == null) {
+				return;
+			}
+			Image image = convertToFxImage(tile.getImage());
+			if (image == null) {
+				log.warn("No image for tile at {}/{} with ID {} of TileSet {}", x, y, tile.getId(),
+						tile.getTileSet().getName());
+				return;
+			}
+
+			Point drawLoc = new Point(x * tileWidth, (y + 1) * tileHeight - 32);
+
+			drawLoc.x += layer.getOffsetX() != null ? layer.getOffsetX() : 0;
+			drawLoc.x += tile.getTileSet().getTileoffset() != null ? tile.getTileSet().getTileoffset().getX() : 0;
+
+			drawLoc.y += layer.getOffsetY() != null ? layer.getOffsetY() : 0;
+			drawLoc.y += tile.getTileSet().getTileoffset() != null ? tile.getTileSet().getTileoffset().getY() : 0;
+
+			g.drawImage(image, drawLoc.x, drawLoc.y);
 		}
 
 		/**
@@ -125,11 +138,10 @@ public class GameMap {
 		 * @param width
 		 * @param height
 		 */
-		public static void paintObjectLayer(GraphicsContext g, MapObject mo, int width, int height) {
-			final Dimension tsize = new Dimension(32, 32);
+		public static void drawObjectLayer(GraphicsContext g, MapObject mo, int width, int height) {
 			final Rectangle bounds = new Rectangle(width, height);
-
 			g.translate(bounds.x * tsize.width, bounds.y * tsize.height);
+
 			if (mo.isVisible() != null && !mo.isVisible()) {
 				return;
 			}
@@ -139,12 +151,16 @@ public class GameMap {
 			final Double objectHeight = mo.getHeight();
 			final double rotation = mo.getRotation();
 			final Tile tile = mo.getTile();
-			Image objectImage;
-			if (tile != null && (objectImage = convertToFxImage(tile.getImage())) != null) {
-				g.rotate(Math.toRadians(rotation));
-				g.drawImage(objectImage, (int) ox, (int) oy);
-				Affine old = g.getTransform();
-				g.setTransform(old);
+			if (tile != null) {
+				Image objectImage = convertToFxImage(tile.getImage());
+				if (objectImage == null) {
+					log.warn("Tile of object {} is null!", mo.getName());
+				} else {
+					Affine old = g.getTransform();
+					g.rotate(-30);
+					g.drawImage(objectImage, (int) ox, (int) oy);
+					g.setTransform(old);
+				}
 			} else if (objectWidth == null || objectWidth == 0 || objectHeight == null || objectHeight == 0) {
 				// g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				// RenderingHints.VALUE_ANTIALIAS_ON); TODO: hints<-
@@ -171,6 +187,9 @@ public class GameMap {
 		}
 
 		private static Image convertToFxImage(final BufferedImage imageAwt) {
+			if (imageAwt == null) {
+				return null;
+			}
 			Image image = null;
 			try {
 				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
