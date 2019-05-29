@@ -36,6 +36,7 @@ public class Game implements Runnable {
 	private Stack<GameMap> currentMap = new Stack<>();
 	private GameLoop loop;
 	private GameWindowController window;
+	private boolean initialized;
 
 	public Game(Player player) throws Exception {
 		instance = this;
@@ -45,11 +46,12 @@ public class Game implements Runnable {
 
 	public void postInitialization(GameWindowController window) {
 		this.window = window;
-		addListener(EventType.MAP_CHANGED, ge -> {
+		addListener(EventType.MAP_SWITCHED, ge -> {
 			var mcge = (MapChangedGameEvent) ge;
 			GameMap map = mcge.getMap();
 
 		});
+		initialized = true;
 	}
 
 	/**
@@ -59,13 +61,16 @@ public class Game implements Runnable {
 	 * @throws Exception
 	 */
 	public void goIn(String id) throws MapGenException {
+		window.showSpinner(true);
 		GameMap map = GameMap.getMap(id);
 		log.info("Entering map <{}>", map.getName());
 		currentMap.add(map);
 		fireEvent(new MapChangedGameEvent(this, currentMap.lastElement()));
+		window.showSpinner(false);
 	}
 
 	public void goOut() throws MapGenException {
+		window.showSpinner(true);
 		if (currentMap.size() == 1) {
 			log.warn("Can't exit World Map!");
 		} else {
@@ -73,6 +78,7 @@ public class Game implements Runnable {
 			log.info("Exited from map <{}>", map.getName());
 		}
 		fireEvent(new MapChangedGameEvent(this, currentMap.lastElement()));
+		window.showSpinner(false);
 	}
 
 	/**
@@ -106,8 +112,17 @@ public class Game implements Runnable {
 	 */
 	@Override
 	public void run() {
-		log.info("Game Loop started.");
+		if (running) {
+			return;
+		}
 		running = true;
+		while (!initialized && running) {
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+			}
+		}
+		log.info("Game Loop started.");
 		try {
 			goIn("world_map");
 		} catch (Exception e) {

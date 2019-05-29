@@ -57,7 +57,6 @@ public class GameWindowController implements Initializable {
 
 		sidebar().init(game.getPlayer());
 		this.game.postInitialization(this);
-		showSpinner(false);
 	}
 
 	/**

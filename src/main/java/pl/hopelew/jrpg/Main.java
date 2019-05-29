@@ -77,7 +77,7 @@ public class Main extends Application {
 		log.info("MW Ready");
 		new Thread(() -> {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(500);
 				startNewGame("Levvy", true);
 			} catch (Exception e) {
 				e.printStackTrace();
