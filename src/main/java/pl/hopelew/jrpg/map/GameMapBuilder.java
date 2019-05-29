@@ -65,19 +65,22 @@ class GameMapBuilder {
 		List<MapTileLayer> layerTiles = layers.stream().filter(lm -> lm instanceof TileLayer).map(lm -> {
 			var l = (TileLayer) lm;
 			var r = l.getBounds();
+			String order = l.getProperties().getProperty("Order", "0");
+			Rectangle2D bounds = new Rectangle2D(r.x, r.y, r.width, r.height);
 			@SuppressWarnings("deprecation")
-			var ml = new MapTileLayerBuilder().bounds(new Rectangle2D(r.x, r.y, r.width, r.height))
-					.tileMap(l.getTileMap()).x(l.getX()).y(l.getY()).offsetX(l.getOffsetX()).offsetY(l.getOffsetY())
-					.build();
+			var ml = new MapTileLayerBuilder().bounds(bounds).tileMap(l.getTileMap()).x(l.getX()).y(l.getY())
+					.offsetX(l.getOffsetX()).offsetY(l.getOffsetY()).order(Integer.parseInt(order)).build();
 			return ml;
-		}).collect(Collectors.toList());
+		}).sorted((l1, l2) -> l1.getOrder().compareTo(l2.getOrder())).collect(Collectors.toList());
 		map.setTileLayers(layerTiles);
 
-		List<MapObject> layerObject = layers.stream().filter(l -> l instanceof ObjectGroup).map(lm -> {
+		List<MapObject> objects = layers.stream().filter(l -> l instanceof ObjectGroup).map(lm -> {
 			var l = (ObjectGroup) lm;
 			return l.getObjects();
-		}).flatMap(List::stream).collect(Collectors.toList());
-		map.setObjectLayer(layerObject);
+		}).flatMap(List::stream).sorted((o1, o2) -> {
+			return o1.getId().compareTo(o2.getId());
+		}).collect(Collectors.toList());
+		map.setObjects(objects);
 
 		return map;
 	}
@@ -94,7 +97,7 @@ class GameMapBuilder {
 		tmx.settings.reuseCachedTilesets = true;
 		try {
 			InputStream inputStream = FileHandler.getStream(file);
-			var tmxMap = tmx.readMap(inputStream, File.separatorChar+"maps" + File.separatorChar);
+			var tmxMap = tmx.readMap(inputStream, File.separatorChar + "maps" + File.separatorChar);
 			return tmxMap;
 		} catch (Exception e) {
 			e.printStackTrace();

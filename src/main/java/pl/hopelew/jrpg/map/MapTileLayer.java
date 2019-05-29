@@ -6,22 +6,26 @@ import javafx.geometry.Rectangle2D;
 import lombok.Builder;
 import lombok.Getter;
 
-public class MapTileLayer {
+public class MapTileLayer implements Comparable<MapTileLayer> {
 	private @Getter Rectangle2D bounds;
 	private Tile[][] tileMap;
 	private @Getter Integer x;
 	private @Getter Integer y;
 	private @Getter Integer offsetX;
 	private @Getter Integer offsetY;
+	/** Player order is 100 */
+	private @Getter Integer order;
 
 	@Builder
-	private MapTileLayer(Rectangle2D bounds, Tile[][] tileMap, Integer offsetX, Integer offsetY, Integer x, Integer y) {
+	private MapTileLayer(Rectangle2D bounds, Tile[][] tileMap, Integer offsetX, Integer offsetY, Integer x, Integer y,
+			Integer order) {
 		this.bounds = bounds;
 		this.tileMap = tileMap;
 		this.x = x;
 		this.y = y;
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
+		this.order = order;
 	}
 
 	/**
@@ -34,6 +38,11 @@ public class MapTileLayer {
 	 */
 	public Tile getTileAt(int tx, int ty) {
 		return getBounds().contains(tx, ty) ? tileMap[ty - this.y][tx - this.x] : null;
+	}
+
+	@Override
+	public int compareTo(MapTileLayer o) {
+		return order.compareTo(o.getOrder());
 	}
 
 }

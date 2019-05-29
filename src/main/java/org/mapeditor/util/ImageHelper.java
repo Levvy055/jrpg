@@ -49,59 +49,54 @@ import javax.imageio.ImageIO;
  */
 public class ImageHelper {
 
-    /**
-     * Converts an image to a PNG stored in a byte array.
-     *
-     * @param image a {@link java.awt.image.BufferedImage} object.
-     * @return a byte array with the PNG data
-     */
-    public static byte[] imageToPNG(BufferedImage image) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	/**
+	 * Converts an image to a PNG stored in a byte array.
+	 *
+	 * @param image a {@link java.awt.image.BufferedImage} object.
+	 * @return a byte array with the PNG data
+	 */
+	public static byte[] imageToPNG(BufferedImage image) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        try {
-            BufferedImage buffer = new BufferedImage(
-                    image.getWidth(null), image.getHeight(null),
-                    BufferedImage.TYPE_INT_ARGB);
+		try {
+			BufferedImage buffer = new BufferedImage(image.getWidth(null), image.getHeight(null),
+					BufferedImage.TYPE_INT_ARGB);
 
-            buffer.createGraphics().drawImage(image, 0, 0, null);
-            ImageIO.write(buffer, "PNG", baos);
-            baos.close();
-        } catch (IOException e) {
-            // todo: log this instead
-            e.printStackTrace();
-        }
+			buffer.createGraphics().drawImage(image, 0, 0, null);
+			ImageIO.write(buffer, "PNG", baos);
+			baos.close();
+		} catch (IOException e) {
+			// todo: log this instead
+			e.printStackTrace();
+		}
+		return baos.toByteArray();
+	}
 
-        return baos.toByteArray();
-    }
+	/**
+	 * Converts a byte array into an image. The byte array must include the image
+	 * header, so that a decision about format can be made.
+	 *
+	 * @param imageData The byte array of the data to convert.
+	 * @return Image The image instance created from the byte array
+	 * @throws java.io.IOException if any.
+	 * @see java.awt.Toolkit#createImage(byte[] imagedata)
+	 */
+	public static BufferedImage bytesToImage(byte[] imageData) throws IOException {
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Image toolkitImage = toolkit.createImage(imageData);
+		int width = toolkitImage.getWidth(null);
+		int height = toolkitImage.getHeight(null);
 
-    /**
-     * Converts a byte array into an image. The byte array must include the
-     * image header, so that a decision about format can be made.
-     *
-     * @param imageData The byte array of the data to convert.
-     * @return Image The image instance created from the byte array
-     * @throws java.io.IOException if any.
-     * @see java.awt.Toolkit#createImage(byte[] imagedata)
-     */
-    public static BufferedImage bytesToImage(byte[] imageData) throws IOException {
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Image toolkitImage = toolkit.createImage(imageData);
-        int width = toolkitImage.getWidth(null);
-        int height = toolkitImage.getHeight(null);
+		// Deriving a scaled instance, even if it has the same
+		// size, somehow makes drawing of the tiles a lot
+		// faster on various systems (seen on Linux, Windows
+		// and MacOS X).
+		toolkitImage = toolkitImage.getScaledInstance(width, height, Image.SCALE_FAST);
 
-        // Deriving a scaled instance, even if it has the same
-        // size, somehow makes drawing of the tiles a lot
-        // faster on various systems (seen on Linux, Windows
-        // and MacOS X).
-        toolkitImage = toolkitImage.getScaledInstance(width, height,
-                Image.SCALE_FAST);
-
-        BufferedImage img = new BufferedImage(width, height,
-                BufferedImage.TYPE_INT_ARGB);
-        Graphics g = img.getGraphics();
-        g.drawImage(toolkitImage, 0, 0, null);
-        g.dispose();
-
-        return img;
-    }
+		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		Graphics g = img.getGraphics();
+		g.drawImage(toolkitImage, 0, 0, null);
+		g.dispose();
+		return img;
+	}
 }

@@ -3,6 +3,8 @@ package pl.hopelew.jrpg.controllers.game;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXSpinner;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -10,16 +12,29 @@ import javafx.scene.layout.BorderPane;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.Game;
+import pl.hopelew.jrpg.map.MapRenderer;
 import pl.hopelew.jrpg.utils.FileHandler;
-import pl.hopelew.jrpg.utils.eventhandlers.EventType;
-import pl.hopelew.jrpg.utils.eventhandlers.MapChangedGameEvent;
 
+/**
+ * FXML Controller for GameWindow Contains Main Pane and sidebar In main pain we
+ * have a Map. The {@link #mapScreenGroup} contains all map graphics (tiles,
+ * objects, player, mobs, etc...). Starting from the bottom of the screen = 0:
+ * Player's(entity) order is 100. When same order of tile and objects, first are
+ * drawn tiles.
+ * 
+ * @author lluka
+ *
+ */
 @Log4j2
 public class GameWindowController implements Initializable {
 	private @FXML BorderPane pane;
-	private @FXML Canvas canvas;
+	private @Getter @FXML Canvas bottomLayer;
+	private @Getter @FXML Canvas entitiesLayer;
+	private @Getter @FXML Canvas upperLayer;
+	private @Getter @FXML JFXSpinner mapSpinner;
 	private @Getter static GameWindowController instance;
 	private Game game;
+	private @Getter MapRenderer mapRenderer;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -28,23 +43,29 @@ public class GameWindowController implements Initializable {
 		log.info("GW Initialized");
 	}
 
+	/**
+	 * Called from Main class
+	 * 
+	 * @param game
+	 */
 	public void initGame(Game game) {
 		if (this.game != null) {
 			this.game.stop();
 		}
 		this.game = game;
-		this.game.setWindow(this);
-		this.game.addListener(EventType.MAP_CHANGED, e -> {
-			MapChangedGameEvent mce = (MapChangedGameEvent) e;
-			try {
-				mce.getMap().draw(canvas.getGraphicsContext2D());
-			} catch (Exception e1) {
-				e1.printStackTrace();
-				log.throwing(e1);
-			}
-		});
+		this.mapRenderer = new MapRenderer(bottomLayer, entitiesLayer, upperLayer);
 
 		sidebar().init(game.getPlayer());
+		this.game.postInitialization(this);
+		showSpinner(false);
+	}
+
+	/**
+	 * Shows or hides (depending on show parameter) loading spinner
+	 * @param show
+	 */
+	public void showSpinner(boolean show) {
+		mapSpinner.setVisible(show);
 	}
 
 	/**

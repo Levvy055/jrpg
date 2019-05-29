@@ -1,6 +1,9 @@
 package pl.hopelew.jrpg.utils;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -23,6 +26,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
+import javafx.scene.image.Image;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
@@ -119,9 +123,32 @@ public class FileHandler {
 	 * @return
 	 * @throws IOException
 	 */
-	public static java.awt.Image getBuffImage(String imgFilename) throws IOException {
+	public static java.awt.image.BufferedImage getBuffImage(String imgFilename) throws IOException {
 		InputStream stream = getStream(imgFilename);
 		return ImageIO.read(stream);
+	}
+	
+	/**
+	 * Converts AWT to JavaFx Image
+	 * @param imageAwt
+	 * @return
+	 */
+	public static Image convertToFxImage(final BufferedImage imageAwt) {
+		if (imageAwt == null) {
+			return null;
+		}
+		Image image = null;
+		try {
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			ImageIO.write(imageAwt, "png", outputStream);
+			outputStream.flush();
+			ByteArrayInputStream in = new ByteArrayInputStream(outputStream.toByteArray());
+			image = new Image(in);
+		} catch (IOException e) {
+			e.printStackTrace();
+			log.warn("Image conversion problem of tile. Exc: {}", e);
+		}
+		return image;
 	}
 
 	/**

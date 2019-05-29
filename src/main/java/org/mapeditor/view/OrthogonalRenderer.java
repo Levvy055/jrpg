@@ -55,7 +55,6 @@ import org.mapeditor.core.TileLayer;
  * @version 1.0.2
  */
 public class OrthogonalRenderer implements MapRenderer {
-
     private final Map map;
 
     /**
@@ -119,7 +118,6 @@ public class OrthogonalRenderer implements MapRenderer {
                 g.drawImage(image, drawLoc.x, drawLoc.y, null);
             }
         }
-
         g.translate(-bounds.x * tileWidth, -bounds.y * tileHeight);
     }
 

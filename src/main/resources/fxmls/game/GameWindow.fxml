@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.BorderPane?>
 
@@ -11,7 +13,14 @@
       <fx:include fx:id="sidebar" source="Sidebar.fxml" BorderPane.alignment="CENTER" />
    </right>
    <center>
-      <Canvas fx:id="canvas" height="800.0" width="800.0" BorderPane.alignment="CENTER" />
+      <Group fx:id="mapScreenGroup" BorderPane.alignment="CENTER">
+         <children>
+            <Canvas fx:id="bottomLayer" height="200.0" width="200.0" />
+            <Canvas fx:id="entitiesLayer" height="800.0" width="800.0" />
+            <Canvas fx:id="upperLayer" height="200.0" width="200.0" />
+            <JFXSpinner fx:id="mapSpinner" layoutX="307.0" layoutY="140.0" prefHeight="187.0" prefWidth="187.0" />
+         </children>
+      </Group>
    </center>
    
 </BorderPane>

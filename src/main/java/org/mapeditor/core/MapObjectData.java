@@ -33,16 +33,15 @@
 // Generated on: 2019.03.13 at 11:56:22 PM GMT 
 //
 
-
 package org.mapeditor.core;
 
-import javax.annotation.processing.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import lombok.Data;
 
 /**
  * While tile layers are very suitable for anything repetitive<br>
@@ -62,538 +61,125 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Object", propOrder = {
-    "properties",
-    "ellipse",
-    "polygon",
-    "polyline",
-    "text",
-    "image"
-})
-@Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+@XmlType(name = "Object", propOrder = { "id", "properties", "ellipse", "polygon", "polyline", "text", "image" })
+@Data
 public class MapObjectData {
 
-    /**
-     * 
-     */
-    @XmlElement(required = true, type = Properties.class)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Properties properties;
-    /**
-     * @since 0.9
-     * 
-     */
-    @XmlElement(required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Ellipse ellipse;
-    /**
-     * 
-     */
-    @XmlElement(required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Polygon polygon;
-    /**
-     * 
-     */
-    @XmlElement(required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Polyline polyline;
-    /**
-     * @since 1.0
-     * 
-     */
-    @XmlElement(required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Text text;
-    /**
-     * 
-     */
-    @XmlElement(required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected ImageData image;
-    /**
-     * Unique ID of the object. Each object that is placed on a map<br>
-     * gets a unique id. Even if an object was deleted, no object<br>
-     * gets the same ID. Can not be changed in Tiled Qt.<br>
-     * <br>
-     * @since 0.11
-     * 
-     */
-    @XmlAttribute(name = "id")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Integer id;
-    /**
-     * The name of the object. An arbitrary string.
-     * 
-     */
-    @XmlAttribute(name = "name")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected String name;
-    /**
-     * The type of the object. An arbitrary string.
-     * 
-     */
-    @XmlAttribute(name = "type")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected String type;
-    /**
-     * The x coordinate of the object in pixels.
-     * 
-     */
-    @XmlAttribute(name = "x", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected double x;
-    /**
-     * The y coordinate of the object in pixels.
-     * 
-     */
-    @XmlAttribute(name = "y", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected double y;
-    /**
-     * The width of the object in pixels (defaults to 0).
-     * 
-     */
-    @XmlAttribute(name = "width")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Double width;
-    /**
-     * The height of the object in pixels (defaults to 0).
-     * 
-     */
-    @XmlAttribute(name = "height")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Double height;
-    /**
-     * The rotation of the object in degrees clockwise (defaults to<br>
-     *  0).<br>
-     * <br>
-     * @since 0.10
-     * 
-     */
-    @XmlAttribute(name = "rotation", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected double rotation;
-    /**
-     * An reference to a tile (optional).
-     * 
-     */
-    @XmlAttribute(name = "gid")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Integer gid;
-    /**
-     * Whether the object is shown (1) or hidden (0). Defaults to<br>
-     *  1.<br>
-     * <br>
-     * @since 0.9
-     * 
-     */
-    @XmlAttribute(name = "visible")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Boolean visible;
+	/**
+	 * Unique ID of the object. Each object that is placed on a map<br>
+	 * gets a unique id. Even if an object was deleted, no object<br>
+	 * gets the same ID. Can not be changed in Tiled Qt.<br>
+	 * <br>
+	 * 
+	 * @since 0.11
+	 * 
+	 */
+	@XmlAttribute(required = true, name = "id")
+	protected Integer id;
+	/**
+	 * 
+	 */
+	@XmlElement(required = true, type = Properties.class)
+	protected Properties properties;
+	/**
+	 * @since 0.9
+	 * 
+	 */
+	@XmlElement(required = true)
+	protected Ellipse ellipse;
+	/**
+	 * 
+	 */
+	@XmlElement(required = true)
+	protected Polygon polygon;
+	/**
+	 * 
+	 */
+	@XmlElement(required = true)
+	protected Polyline polyline;
+	/**
+	 * @since 1.0
+	 * 
+	 */
+	@XmlElement(required = true)
+	protected Text text;
+	/**
+	 * 
+	 */
+	@XmlElement(required = true)
+	protected ImageData image;
+	/**
+	 * The name of the object. An arbitrary string.
+	 * 
+	 */
+	@XmlAttribute(name = "name")
+	protected String name;
+	/**
+	 * The type of the object. An arbitrary string.
+	 * 
+	 */
+	@XmlAttribute(name = "type")
+	protected String type;
+	/**
+	 * The x coordinate of the object in pixels.
+	 * 
+	 */
+	@XmlAttribute(name = "x", required = true)
 
-    /**
-     * 
-     * @return
-     *     possible object is
-     *     {@link PropertiesData }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Properties getProperties() {
-        return properties;
-    }
+	protected double x;
+	/**
+	 * The y coordinate of the object in pixels.
+	 * 
+	 */
+	@XmlAttribute(name = "y", required = true)
 
-    /**
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link PropertiesData }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setProperties(Properties value) {
-        this.properties = value;
-    }
+	protected double y;
+	/**
+	 * The width of the object in pixels (defaults to 0).
+	 * 
+	 */
+	@XmlAttribute(name = "width")
 
-    /**
-     * @since 0.9
-     * 
-     * @return
-     *     possible object is
-     *     {@link Ellipse }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Ellipse getEllipse() {
-        return ellipse;
-    }
+	protected Double width;
+	/**
+	 * The height of the object in pixels (defaults to 0).
+	 * 
+	 */
+	@XmlAttribute(name = "height")
 
-    /**
-     * @since 0.9
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Ellipse }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setEllipse(Ellipse value) {
-        this.ellipse = value;
-    }
+	protected Double height;
+	/**
+	 * The rotation of the object in degrees clockwise (defaults to<br>
+	 * 0).<br>
+	 * <br>
+	 * 
+	 * @since 0.10
+	 * 
+	 */
+	@XmlAttribute(name = "rotation", required = true)
 
-    /**
-     * 
-     * @return
-     *     possible object is
-     *     {@link Polygon }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Polygon getPolygon() {
-        return polygon;
-    }
+	protected double rotation;
+	/**
+	 * An reference to a tile (optional).
+	 * 
+	 */
+	@XmlAttribute(name = "gid")
 
-    /**
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Polygon }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setPolygon(Polygon value) {
-        this.polygon = value;
-    }
+	protected Integer gid;
+	/**
+	 * Whether the object is shown (1) or hidden (0). Defaults to<br>
+	 * 1.<br>
+	 * <br>
+	 * 
+	 * @since 0.9
+	 * 
+	 */
+	@XmlAttribute(name = "visible")
 
-    /**
-     * 
-     * @return
-     *     possible object is
-     *     {@link Polyline }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Polyline getPolyline() {
-        return polyline;
-    }
+	protected Boolean visible;
 
-    /**
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Polyline }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setPolyline(Polyline value) {
-        this.polyline = value;
-    }
-
-    /**
-     * @since 1.0
-     * 
-     * @return
-     *     possible object is
-     *     {@link Text }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Text getText() {
-        return text;
-    }
-
-    /**
-     * @since 1.0
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Text }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setText(Text value) {
-        this.text = value;
-    }
-
-    /**
-     * 
-     * @return
-     *     possible object is
-     *     {@link ImageData }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public ImageData getImage() {
-        return image;
-    }
-
-    /**
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ImageData }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setImage(ImageData value) {
-        this.image = value;
-    }
-
-    /**
-     * Unique ID of the object. Each object that is placed on a map<br>
-     * gets a unique id. Even if an object was deleted, no object<br>
-     * gets the same ID. Can not be changed in Tiled Qt.<br>
-     * <br>
-     * @since 0.11
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * Unique ID of the object. Each object that is placed on a map<br>
-     * gets a unique id. Even if an object was deleted, no object<br>
-     * gets the same ID. Can not be changed in Tiled Qt.<br>
-     * <br>
-     * @since 0.11
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setId(Integer value) {
-        this.id = value;
-    }
-
-    /**
-     * The name of the object. An arbitrary string.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * The name of the object. An arbitrary string.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setName(String value) {
-        this.name = value;
-    }
-
-    /**
-     * The type of the object. An arbitrary string.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * The type of the object. An arbitrary string.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setType(String value) {
-        this.type = value;
-    }
-
-    /**
-     * The x coordinate of the object in pixels.
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public double getX() {
-        return x;
-    }
-
-    /**
-     * The x coordinate of the object in pixels.
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setX(double value) {
-        this.x = value;
-    }
-
-    /**
-     * The y coordinate of the object in pixels.
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public double getY() {
-        return y;
-    }
-
-    /**
-     * The y coordinate of the object in pixels.
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setY(double value) {
-        this.y = value;
-    }
-
-    /**
-     * The width of the object in pixels (defaults to 0).
-     * 
-     * @return
-     *     possible object is
-     *     {@link Double }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Double getWidth() {
-        return width;
-    }
-
-    /**
-     * The width of the object in pixels (defaults to 0).
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Double }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setWidth(Double value) {
-        this.width = value;
-    }
-
-    /**
-     * The height of the object in pixels (defaults to 0).
-     * 
-     * @return
-     *     possible object is
-     *     {@link Double }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Double getHeight() {
-        return height;
-    }
-
-    /**
-     * The height of the object in pixels (defaults to 0).
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Double }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setHeight(Double value) {
-        this.height = value;
-    }
-
-    /**
-     * The rotation of the object in degrees clockwise (defaults to<br>
-     *  0).<br>
-     * <br>
-     * @since 0.10
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public double getRotation() {
-        return rotation;
-    }
-
-    /**
-     * The rotation of the object in degrees clockwise (defaults to<br>
-     *  0).<br>
-     * <br>
-     * @since 0.10
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setRotation(double value) {
-        this.rotation = value;
-    }
-
-    /**
-     * An reference to a tile (optional).
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Integer getGid() {
-        return gid;
-    }
-
-    /**
-     * An reference to a tile (optional).
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setGid(Integer value) {
-        this.gid = value;
-    }
-
-    /**
-     * Whether the object is shown (1) or hidden (0). Defaults to<br>
-     *  1.<br>
-     * <br>
-     * @since 0.9
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Boolean isVisible() {
-        return visible;
-    }
-
-    /**
-     * Whether the object is shown (1) or hidden (0). Defaults to<br>
-     *  1.<br>
-     * <br>
-     * @since 0.9
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setVisible(Boolean value) {
-        this.visible = value;
-    }
+	public Boolean isVisible() {
+		return visible;
+	}
 
 }

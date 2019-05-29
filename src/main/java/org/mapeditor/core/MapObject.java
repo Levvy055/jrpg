@@ -41,7 +41,6 @@ import javax.imageio.ImageIO;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
-
 /**
  * An object occupying an {@link org.mapeditor.core.ObjectGroup}.
  *
@@ -53,199 +52,223 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType(XmlAccessType.NONE)
 public class MapObject extends MapObjectData implements Cloneable {
 
-    private ObjectGroup objectGroup;
-    private Shape shape = new Rectangle();
-    private String imageSource;
-    private Image image;
-    private Image scaledImage;
-    private Tile tile;
+	private ObjectGroup objectGroup;
+	private Shape shape = new Rectangle();
+	private String imageSource;
+	private Image image;
+	private Image scaledImage;
+	private Tile tile;
 
-    /**
-     * <p>Constructor for MapObject.</p>
-     */
-    public MapObject() {
-        super();
-        this.properties = new Properties();
-        this.name = "Object";
-        this.type = "";
-        this.imageSource = "";
-    }
+	/**
+	 * <p>
+	 * Constructor for MapObject.
+	 * </p>
+	 */
+	public MapObject() {
+		super();
+		this.properties = new Properties();
+		this.name = "Object";
+		this.type = "";
+		this.imageSource = "";
+	}
 
-    /**
-     * <p>Constructor for MapObject.</p>
-     *
-     * @param x a double.
-     * @param y a double.
-     * @param width a double.
-     * @param height a double.
-     * @param rotation a double.
-     */
-    public MapObject(double x, double y, double width, double height, double rotation) {
-        this();
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.rotation = rotation;
-    }
+	/**
+	 * <p>
+	 * Constructor for MapObject.
+	 * </p>
+	 *
+	 * @param x        a double.
+	 * @param y        a double.
+	 * @param width    a double.
+	 * @param height   a double.
+	 * @param rotation a double.
+	 */
+	public MapObject(int id, double x, double y, double width, double height, double rotation) {
+		this();
+		this.id = id;
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.rotation = rotation;
+	}
 
-    /** {@inheritDoc} */
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        MapObject clone = (MapObject) super.clone();
-        clone.properties = (Properties) properties.clone();
-        return clone;
-    }
+	/** {@inheritDoc} */
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		MapObject clone = (MapObject) super.clone();
+		clone.properties = properties.clone();
+		return clone;
+	}
 
-    /**
-     * <p>Getter for the field <code>objectGroup</code>.</p>
-     *
-     * @return the object group this object is part of
-     */
-    public ObjectGroup getObjectGroup() {
-        return objectGroup;
-    }
+	/**
+	 * <p>
+	 * Getter for the field <code>objectGroup</code>.
+	 * </p>
+	 *
+	 * @return the object group this object is part of
+	 */
+	public ObjectGroup getObjectGroup() {
+		return objectGroup;
+	}
 
-    /**
-     * Sets the object group this object is part of. Should only be called by
-     * the object group.
-     *
-     * @param objectGroup the object group this object is part of
-     */
-    public void setObjectGroup(ObjectGroup objectGroup) {
-        this.objectGroup = objectGroup;
-    }
+	/**
+	 * Sets the object group this object is part of. Should only be called by the
+	 * object group.
+	 *
+	 * @param objectGroup the object group this object is part of
+	 */
+	public void setObjectGroup(ObjectGroup objectGroup) {
+		this.objectGroup = objectGroup;
+	}
 
-    /**
-     * <p>Getter for the field <code>bounds</code>.</p>
-     *
-     * @return a {@link java.awt.geom.Rectangle2D.Double} object.
-     */
-    public Rectangle2D.Double getBounds() {
-        return new Rectangle2D.Double(x, y, width, height);
-    }
+	/**
+	 * <p>
+	 * Getter for the field <code>bounds</code>.
+	 * </p>
+	 *
+	 * @return a {@link java.awt.geom.Rectangle2D.Double} object.
+	 */
+	public Rectangle2D.Double getBounds() {
+		return new Rectangle2D.Double(x, y, width, height);
+	}
 
-    /**
-     * <p>Setter for the field <code>bounds</code>.</p>
-     *
-     * @param bounds a {@link java.awt.geom.Rectangle2D.Double} object.
-     */
-    public void setBounds(Rectangle2D.Double bounds) {
-        this.x = bounds.getX();
-        this.y = bounds.getY();
-        this.width = bounds.getWidth();
-        this.height = bounds.getHeight();
-    }
+	/**
+	 * <p>
+	 * Setter for the field <code>bounds</code>.
+	 * </p>
+	 *
+	 * @param bounds a {@link java.awt.geom.Rectangle2D.Double} object.
+	 */
+	public void setBounds(Rectangle2D.Double bounds) {
+		this.x = bounds.getX();
+		this.y = bounds.getY();
+		this.width = bounds.getWidth();
+		this.height = bounds.getHeight();
+	}
 
-    /**
-     * <p>Getter for the field <code>shape</code>.</p>
-     *
-     * @return a {@link java.awt.Shape} object.
-     */
-    public Shape getShape() {
-        return shape;
-    }
+	/**
+	 * <p>
+	 * Getter for the field <code>shape</code>.
+	 * </p>
+	 *
+	 * @return a {@link java.awt.Shape} object.
+	 */
+	public Shape getShape() {
+		return shape;
+	}
 
-    /**
-     * <p>Setter for the field <code>shape</code>.</p>
-     *
-     * @param shape a {@link java.awt.Shape} object.
-     */
-    public void setShape(Shape shape) {
-        this.shape = shape;
-    }
+	/**
+	 * <p>
+	 * Setter for the field <code>shape</code>.
+	 * </p>
+	 *
+	 * @param shape a {@link java.awt.Shape} object.
+	 */
+	public void setShape(Shape shape) {
+		this.shape = shape;
+	}
 
-    /**
-     * <p>Getter for the field <code>imageSource</code>.</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getImageSource() {
-        return imageSource;
-    }
+	/**
+	 * <p>
+	 * Getter for the field <code>imageSource</code>.
+	 * </p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
+	public String getImageSource() {
+		return imageSource;
+	}
 
-    /**
-     * <p>Setter for the field <code>imageSource</code>.</p>
-     *
-     * @param source a {@link java.lang.String} object.
-     */
-    public void setImageSource(String source) {
-        if (imageSource.equals(source)) {
-            return;
-        }
+	/**
+	 * <p>
+	 * Setter for the field <code>imageSource</code>.
+	 * </p>
+	 *
+	 * @param source a {@link java.lang.String} object.
+	 */
+	public void setImageSource(String source) {
+		if (imageSource.equals(source)) {
+			return;
+		}
 
-        imageSource = source;
+		imageSource = source;
 
-        // Attempt to read the image
-        if (imageSource.length() > 0) {
-            try {
-                image = ImageIO.read(new File(imageSource));
-            } catch (IOException e) {
-                image = null;
-            }
-        } else {
-            image = null;
-        }
+		// Attempt to read the image
+		if (imageSource.length() > 0) {
+			try {
+				image = ImageIO.read(new File(imageSource));
+			} catch (IOException e) {
+				image = null;
+			}
+		} else {
+			image = null;
+		}
 
-        scaledImage = null;
-    }
+		scaledImage = null;
+	}
 
-    /**
-     * <p>Getter for the field <code>tile</code>.</p>
-     *
-     * @return a {@link org.mapeditor.core.Tile} object.
-     */
-    public Tile getTile() {
-        return tile;
-    }
+	/**
+	 * <p>
+	 * Getter for the field <code>tile</code>.
+	 * </p>
+	 *
+	 * @return a {@link org.mapeditor.core.Tile} object.
+	 */
+	public Tile getTile() {
+		return tile;
+	}
 
-    /**
-     * <p>Setter for the field <code>tile</code>.</p>
-     *
-     * @param tile a {@link org.mapeditor.core.Tile} object.
-     */
-    public void setTile(Tile tile) {
-        this.tile = tile;
-    }
+	/**
+	 * <p>
+	 * Setter for the field <code>tile</code>.
+	 * </p>
+	 *
+	 * @param tile a {@link org.mapeditor.core.Tile} object.
+	 */
+	public void setTile(Tile tile) {
+		this.tile = tile;
+	}
 
-    /**
-     * Returns the image to be used when drawing this object. This image is
-     * scaled to the size of the object.
-     *
-     * @param zoom the requested zoom level of the image
-     * @return the image to be used when drawing this object
-     */
-    public Image getImage(double zoom) {
-        if (image == null) {
-            return null;
-        }
+	/**
+	 * Returns the image to be used when drawing this object. This image is scaled
+	 * to the size of the object.
+	 *
+	 * @param zoom the requested zoom level of the image
+	 * @return the image to be used when drawing this object
+	 */
+	public Image getImage(double zoom) {
+		if (image == null) {
+			return null;
+		}
 
-        final int zoomedWidth = (int) (getWidth() * zoom);
-        final int zoomedHeight = (int) (getHeight() * zoom);
+		final int zoomedWidth = (int) (getWidth() * zoom);
+		final int zoomedHeight = (int) (getHeight() * zoom);
 
-        if (scaledImage == null || scaledImage.getWidth(null) != zoomedWidth
-                || scaledImage.getHeight(null) != zoomedHeight) {
-            scaledImage = image.getScaledInstance(zoomedWidth, zoomedHeight,
-                    Image.SCALE_SMOOTH);
-        }
+		if (scaledImage == null || scaledImage.getWidth(null) != zoomedWidth
+				|| scaledImage.getHeight(null) != zoomedHeight) {
+			scaledImage = image.getScaledInstance(zoomedWidth, zoomedHeight, Image.SCALE_SMOOTH);
+		}
 
-        return scaledImage;
-    }
+		return scaledImage;
+	}
 
-    /**
-     * <p>translate.</p>
-     *
-     * @param dx a double.
-     * @param dy a double.
-     */
-    public void translate(double dx, double dy) {
-        x += dx;
-        y += dy;
-    }
+	/**
+	 * <p>
+	 * translate.
+	 * </p>
+	 *
+	 * @param dx a double.
+	 * @param dy a double.
+	 */
+	public void translate(double dx, double dy) {
+		x += dx;
+		y += dy;
+	}
 
-    /** {@inheritDoc} */
-    @Override
-    public String toString() {
-        return type + " (" + getX() + "," + getY() + ")";
-    }
+	/** {@inheritDoc} */
+	@Override
+	public String toString() {
+		return type + " (" + getX() + "," + getY() + ")";
+	}
 }
