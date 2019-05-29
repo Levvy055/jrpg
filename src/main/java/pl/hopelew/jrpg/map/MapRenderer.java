@@ -169,7 +169,7 @@ public class MapRenderer {
 
 	public void renderUpperTileLayers(GameMap map) {
 		map.getTileLayers().stream().filter(tl -> tl.getOrder() > 100).forEachOrdered(tl -> {
-			drawTileLayer(bottomLayer.getGraphicsContext2D(), tl, map.getVSize(), map.getHSize(),
+			drawTileLayer(upperLayer.getGraphicsContext2D(), tl, map.getVSize(), map.getHSize(),
 					map.getMaxTileHeight());
 		});
 	}
@@ -180,7 +180,18 @@ public class MapRenderer {
 			int order = orderString != null ? Integer.parseInt(orderString) : 0;
 			return order < 100;
 		}).forEachOrdered(mo -> {
-			drawObject(bottomLayer.getGraphicsContext2D(), mo, map.getVSize(), map.getHSize());
+			drawObject(upperLayer.getGraphicsContext2D(), mo, map.getVSize(), map.getHSize());
 		});
+	}
+
+	public void clearLayers() {
+		clearLayer(bottomLayer);
+		clearLayer(entitiesCanvas);
+		clearLayer(upperLayer);
+	}
+
+	private void clearLayer(Canvas canvas) {
+		var gc = canvas.getGraphicsContext2D();
+		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 	}
 }

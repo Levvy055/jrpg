@@ -183,6 +183,7 @@ public class Game implements Runnable {
 			var map = getCurrentMap();
 			MapRenderer mapRend = window.getMapRenderer();
 			try {
+				mapRend.clearLayers();
 				mapRend.renderBottomTileLayers(map);
 				mapRend.renderBottomObjects(map);
 				// TODO: render player here
