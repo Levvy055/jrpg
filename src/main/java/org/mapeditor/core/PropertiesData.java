@@ -33,18 +33,15 @@
 // Generated on: 2019.03.13 at 11:56:22 PM GMT 
 //
 
-
 package org.mapeditor.core;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.processing.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * Wraps any number of custom properties. Can be used as a child of<br>
@@ -54,28 +51,26 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Properties", propOrder = {
-    "properties"
-})
-@Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+@XmlType(name = "Properties", propOrder = { "properties" })
+
 public class PropertiesData {
 
-    /**
-     * 
-     */
-    @XmlElement(name = "property", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected List<Property> properties;
+	/**
+	 * 
+	 */
+	@XmlElement(name = "property", required = true)
 
-    /**
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public List<Property> getProperties() {
-        if (properties == null) {
-            properties = new ArrayList<Property>();
-        }
-        return this.properties;
-    }
+	protected List<Property> properties;
+
+	/**
+	 * 
+	 */
+
+	public List<Property> getProperties() {
+		if (properties == null) {
+			properties = new ArrayList<Property>();
+		}
+		return this.properties;
+	}
 
 }

@@ -36,7 +36,6 @@
 
 package org.mapeditor.core;
 
-import javax.annotation.processing.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -57,7 +56,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "Image", propOrder = {
 
 })
-@Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+
 public class ImageData {
 
     /**
@@ -65,7 +64,7 @@ public class ImageData {
      * 
      */
     @XmlElement(required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     protected Data data;
     /**
      * Used for embedded images, in combination with a `data` child<br>
@@ -76,7 +75,7 @@ public class ImageData {
      * 
      */
     @XmlAttribute(name = "format")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     protected String format;
     /**
      * Used by some versions of Tiled Java.<br>
@@ -86,7 +85,7 @@ public class ImageData {
      */
     @XmlAttribute(name = "id")
     @Deprecated
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     protected Integer id;
     /**
      * The reference to the tileset image file<br>
@@ -97,7 +96,7 @@ public class ImageData {
      */
     @XmlAttribute(name = "source")
     @XmlSchemaType(name = "anyURI")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     protected String source;
     /**
      * Defines a specific color that is treated as transparent<br>
@@ -107,7 +106,7 @@ public class ImageData {
      * 
      */
     @XmlAttribute(name = "trans")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     protected String trans;
     /**
      * The image width in pixels (optional, used for tile index<br>
@@ -115,14 +114,14 @@ public class ImageData {
      * 
      */
     @XmlAttribute(name = "width")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     protected Integer width;
     /**
      * The image height in pixels (optional)
      * 
      */
     @XmlAttribute(name = "height")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     protected Integer height;
 
     /**
@@ -133,7 +132,7 @@ public class ImageData {
      *     {@link Data }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     public Data getData() {
         return data;
     }
@@ -146,7 +145,7 @@ public class ImageData {
      *     {@link Data }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     public void setData(Data value) {
         this.data = value;
     }
@@ -163,7 +162,7 @@ public class ImageData {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     public String getFormat() {
         return format;
     }
@@ -180,7 +179,7 @@ public class ImageData {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     public void setFormat(String value) {
         this.format = value;
     }
@@ -196,7 +195,7 @@ public class ImageData {
      *     
      */
     @Deprecated
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     public Integer getId() {
         return id;
     }
@@ -212,7 +211,7 @@ public class ImageData {
      *     
      */
     @Deprecated
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     public void setId(Integer value) {
         this.id = value;
     }
@@ -228,7 +227,7 @@ public class ImageData {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     public String getSource() {
         return source;
     }
@@ -244,7 +243,7 @@ public class ImageData {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     public void setSource(String value) {
         this.source = value;
     }
@@ -260,7 +259,7 @@ public class ImageData {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     public String getTrans() {
         return trans;
     }
@@ -276,7 +275,7 @@ public class ImageData {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     public void setTrans(String value) {
         this.trans = value;
     }
@@ -290,7 +289,7 @@ public class ImageData {
      *     {@link Integer }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     public Integer getWidth() {
         return width;
     }
@@ -304,7 +303,7 @@ public class ImageData {
      *     {@link Integer }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     public void setWidth(Integer value) {
         this.width = value;
     }
@@ -317,7 +316,7 @@ public class ImageData {
      *     {@link Integer }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     public Integer getHeight() {
         return height;
     }
@@ -330,7 +329,7 @@ public class ImageData {
      *     {@link Integer }
      *     
      */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+    
     public void setHeight(Integer value) {
         this.height = value;
     }

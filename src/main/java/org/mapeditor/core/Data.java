@@ -33,10 +33,8 @@
 // Generated on: 2019.03.13 at 11:56:22 PM GMT 
 //
 
-
 package org.mapeditor.core;
 
-import javax.annotation.processing.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -45,7 +43,6 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 
 /**
  * When no encoding or compression is given, the tiles are stored<br>
@@ -68,118 +65,104 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Data", propOrder = {
-    "value"
-})
-@Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+@XmlType(name = "Data", propOrder = { "value" })
+
 public class Data {
 
-    /**
-     * 
-     */
-    @XmlValue
-    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
-    @XmlSchemaType(name = "token")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected String value;
-    /**
-     * The encoding used to encode the tile layer data.<br>
-     * When used, it can be "base64" and "csv" at the<br>
-     * moment.
-     * 
-     */
-    @XmlAttribute(name = "encoding")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Encoding encoding;
-    /**
-     * The compression used to compress the tile layer<br>
-     * data. Tiled Qt supports "gzip" and "zlib".
-     * 
-     */
-    @XmlAttribute(name = "compression")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Compression compression;
+	/**
+	 * 
+	 */
+	@XmlValue
+	@XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+	@XmlSchemaType(name = "token")
 
-    /**
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public String getValue() {
-        return value;
-    }
+	protected String value;
+	/**
+	 * The encoding used to encode the tile layer data.<br>
+	 * When used, it can be "base64" and "csv" at the<br>
+	 * moment.
+	 * 
+	 */
+	@XmlAttribute(name = "encoding")
 
-    /**
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setValue(String value) {
-        this.value = value;
-    }
+	protected Encoding encoding;
+	/**
+	 * The compression used to compress the tile layer<br>
+	 * data. Tiled Qt supports "gzip" and "zlib".
+	 * 
+	 */
+	@XmlAttribute(name = "compression")
 
-    /**
-     * The encoding used to encode the tile layer data.<br>
-     * When used, it can be "base64" and "csv" at the<br>
-     * moment.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Encoding }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Encoding getEncoding() {
-        return encoding;
-    }
+	protected Compression compression;
 
-    /**
-     * The encoding used to encode the tile layer data.<br>
-     * When used, it can be "base64" and "csv" at the<br>
-     * moment.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Encoding }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setEncoding(Encoding value) {
-        this.encoding = value;
-    }
+	/**
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
 
-    /**
-     * The compression used to compress the tile layer<br>
-     * data. Tiled Qt supports "gzip" and "zlib".
-     * 
-     * @return
-     *     possible object is
-     *     {@link Compression }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Compression getCompression() {
-        return compression;
-    }
+	public String getValue() {
+		return value;
+	}
 
-    /**
-     * The compression used to compress the tile layer<br>
-     * data. Tiled Qt supports "gzip" and "zlib".
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Compression }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setCompression(Compression value) {
-        this.compression = value;
-    }
+	/**
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	/**
+	 * The encoding used to encode the tile layer data.<br>
+	 * When used, it can be "base64" and "csv" at the<br>
+	 * moment.
+	 * 
+	 * @return possible object is {@link Encoding }
+	 * 
+	 */
+
+	public Encoding getEncoding() {
+		return encoding;
+	}
+
+	/**
+	 * The encoding used to encode the tile layer data.<br>
+	 * When used, it can be "base64" and "csv" at the<br>
+	 * moment.
+	 * 
+	 * @param value allowed object is {@link Encoding }
+	 * 
+	 */
+
+	public void setEncoding(Encoding value) {
+		this.encoding = value;
+	}
+
+	/**
+	 * The compression used to compress the tile layer<br>
+	 * data. Tiled Qt supports "gzip" and "zlib".
+	 * 
+	 * @return possible object is {@link Compression }
+	 * 
+	 */
+
+	public Compression getCompression() {
+		return compression;
+	}
+
+	/**
+	 * The compression used to compress the tile layer<br>
+	 * data. Tiled Qt supports "gzip" and "zlib".
+	 * 
+	 * @param value allowed object is {@link Compression }
+	 * 
+	 */
+
+	public void setCompression(Compression value) {
+		this.compression = value;
+	}
 
 }

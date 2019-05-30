@@ -22,16 +22,10 @@
   </data>
  </layer>
  <objectgroup id="7" name="Object Layer 1">
-  <object id="1" name="NPC1" x="79" y="113">
-   <ellipse/>
-  </object>
-  <object id="2" name="Pot" type="order" gid="156" x="66" y="62.6667" width="32" height="32" rotation="-30">
+  <object id="2" name="Pot" type="order" gid="156" x="64.3333" y="63.6667" width="32" height="32">
    <properties>
     <property name="order" type="int" value="80"/>
    </properties>
-  </object>
-  <object id="4" name="ik" type="order" x="118" y="38">
-   <polygon points="0,0 21,0 12,38"/>
   </object>
  </objectgroup>
  <layer id="6" name="Roof" width="5" height="5">

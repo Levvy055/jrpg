@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+import java.util.concurrent.Semaphore;
 
+import javafx.application.Platform;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.controllers.game.GameWindowController;
@@ -162,6 +164,7 @@ public class Game implements Runnable {
 	 */
 	private class GameLoop {
 		private TickTimer timer;
+		private Semaphore semaphore = new Semaphore(0);
 
 		private void run() throws Exception {
 			timer = new TickTimer();
@@ -181,16 +184,25 @@ public class Game implements Runnable {
 		 */
 		private void loop() {
 			var map = getCurrentMap();
-			MapRenderer mapRend = window.getMapRenderer();
+			Platform.runLater(() -> {
+				try {
+					MapRenderer mapRend = window.getMapRenderer();
+					mapRend.clearLayers();
+					mapRend.renderBottomTileLayers(map);
+					mapRend.renderBottomObjects(map);
+					// TODO: render player here
+					mapRend.renderUpperTileLayers(map);
+					mapRend.renderUpperObjects(map);
+				} catch (Exception e) {
+					e.printStackTrace();
+					log.throwing(e);
+				}finally {
+					semaphore.release();
+				}
+			});
 			try {
-				mapRend.clearLayers();
-				mapRend.renderBottomTileLayers(map);
-				mapRend.renderBottomObjects(map);
-				// TODO: render player here
-				mapRend.renderUpperTileLayers(map);
-				mapRend.renderUpperObjects(map);
-			} catch (Exception e) {
-				e.printStackTrace();
+				semaphore.acquire();
+			} catch (InterruptedException e) {
 				log.throwing(e);
 			}
 		}

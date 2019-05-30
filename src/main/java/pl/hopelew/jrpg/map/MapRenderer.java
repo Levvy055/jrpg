@@ -11,7 +11,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Affine;
 import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.utils.FileHandler;
 
@@ -110,20 +109,24 @@ public class MapRenderer {
 			return;
 		}
 		final double ox = mo.getX();
-		final double oy = mo.getY();
+		final double oy = mo.getY() - tsize.height;// when object on 0,0 its x,y=0,32
 		final Double objectWidth = mo.getWidth();
 		final Double objectHeight = mo.getHeight();
 		final double rotation = mo.getRotation();
 		final Tile tile = mo.getTile();
 		if (tile != null) {
 			Image objectImage = FileHandler.convertToFxImage(tile.getImage());
-			if (objectImage == null) {
-				log.warn("Tile of object {} is null!", mo.getName());
-			} else {
-				Affine old = g.getTransform();
-				g.rotate(rotation);
+			if (objectImage != null) {
+				// Affine old = g.getTransform();
+				// g.save();
+				// g.transform(new Affine(new Rotate(rotation, ox, oy)));
+				// g.rotate(rotation);
+				log.debug("R:{}, x:{}, y:{}", rotation, ox, oy);
 				g.drawImage(objectImage, (int) ox, (int) oy);
-				g.setTransform(old);
+				// g.restore();
+				// g.setTransform(old);
+			} else {
+				log.warn("Tile of object {} is null!", mo.getName());
 			}
 		} else if (objectWidth == null || objectWidth == 0 || objectHeight == null || objectHeight == 0) {
 			// g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,

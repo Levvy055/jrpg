@@ -33,20 +33,17 @@
 // Generated on: 2019.03.13 at 11:56:22 PM GMT 
 //
 
-
 package org.mapeditor.core;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.processing.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * If there are multiple `tileset` elements, they are in ascending<br>
@@ -57,476 +54,436 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TileSet", propOrder = {
-    "tileoffset",
-    "properties",
-    "imageData",
-    "terraintypes",
-    "internalTiles"
-})
-@Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+@XmlType(name = "TileSet", propOrder = { "tileoffset", "properties", "imageData", "terraintypes", "internalTiles" })
+
 public class TileSetData {
 
-    /**
-     * @since 0.8
-     * 
-     */
-    @XmlElement(required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected TileOffset tileoffset;
-    /**
-     * @since 0.8
-     * 
-     */
-    @XmlElement(required = true, type = Properties.class)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Properties properties;
-    /**
-     * 
-     */
-    @XmlElement(name = "image", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected ImageData imageData;
-    /**
-     * @since 0.9
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected TerrainTypes terraintypes;
-    /**
-     * 
-     */
-    @XmlElement(name = "tile", required = true, type = Tile.class)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected List<Tile> internalTiles;
-    /**
-     * The first global tile ID of this tileset (this global ID<br>
-     * maps to the first tile in this tileset).
-     * 
-     */
-    @XmlAttribute(name = "firstgid")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Integer firstgid;
-    /**
-     * The name of this tileset.
-     * 
-     */
-    @XmlAttribute(name = "name")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected String name;
-    /**
-     * If this tileset is stored in an external TSX (Tile Set XML)<br>
-     * file, this attribute refers to that file. That TSX file has<br>
-     * the same structure as the element described here. (There is<br>
-     * the **firstgid** attribute missing and this source attribute<br>
-     * is also not there. These two attributes are kept in the TMX<br>
-     * map, since they are map specific.)
-     * 
-     */
-    @XmlAttribute(name = "source")
-    @XmlSchemaType(name = "anyURI")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected String source;
-    /**
-     * The (maximum) width of the tiles in this tileset.
-     * 
-     */
-    @XmlAttribute(name = "tilewidth", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected int tileWidth;
-    /**
-     * The (maximum) height of the tiles in this tileset.
-     * 
-     */
-    @XmlAttribute(name = "tileheight", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected int tileHeight;
-    /**
-     * The spacing in pixels between the tiles in this tileset<br>
-     * (applies to the tileset image).
-     * 
-     */
-    @XmlAttribute(name = "spacing")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Integer tileSpacing;
-    /**
-     * The margin around the tiles in this tileset (applies to the<br>
-     * tileset image).
-     * 
-     */
-    @XmlAttribute(name = "margin")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Integer tileMargin;
-    /**
-     * The number of tiles in this tileset<br>
-     * <br>
-     * @since 0.13
-     * 
-     */
-    @XmlAttribute(name = "tilecount")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Integer tilecount;
-    /**
-     * The number of tile columns in the tileset. For image<br>
-     * collection tilesets it is editable and is used when<br>
-     * displaying the tileset.<br>
-     * <br>
-     * @since 0.15
-     * 
-     */
-    @XmlAttribute(name = "columns", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected int columns;
+	/**
+	 * @since 0.8
+	 * 
+	 */
+	@XmlElement(required = true)
 
-    /**
-     * @since 0.8
-     * 
-     * @return
-     *     possible object is
-     *     {@link TileOffset }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public TileOffset getTileoffset() {
-        return tileoffset;
-    }
+	protected TileOffset tileoffset;
+	/**
+	 * @since 0.8
+	 * 
+	 */
+	@XmlElement(required = true, type = Properties.class)
 
-    /**
-     * @since 0.8
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link TileOffset }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setTileoffset(TileOffset value) {
-        this.tileoffset = value;
-    }
+	protected Properties properties;
+	/**
+	 * 
+	 */
+	@XmlElement(name = "image", required = true)
 
-    /**
-     * @since 0.8
-     * 
-     * @return
-     *     possible object is
-     *     {@link PropertiesData }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Properties getProperties() {
-        return properties;
-    }
+	protected ImageData imageData;
+	/**
+	 * @since 0.9
+	 * 
+	 */
 
-    /**
-     * @since 0.8
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link PropertiesData }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setProperties(Properties value) {
-        this.properties = value;
-    }
+	protected TerrainTypes terraintypes;
+	/**
+	 * 
+	 */
+	@XmlElement(name = "tile", required = true, type = Tile.class)
 
-    /**
-     * 
-     * @return
-     *     possible object is
-     *     {@link ImageData }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public ImageData getImageData() {
-        return imageData;
-    }
+	protected List<Tile> internalTiles;
+	/**
+	 * The first global tile ID of this tileset (this global ID<br>
+	 * maps to the first tile in this tileset).
+	 * 
+	 */
+	@XmlAttribute(name = "firstgid")
 
-    /**
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ImageData }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setImageData(ImageData value) {
-        this.imageData = value;
-    }
+	protected Integer firstgid;
+	/**
+	 * The name of this tileset.
+	 * 
+	 */
+	@XmlAttribute(name = "name")
 
-    /**
-     * @since 0.9
-     * 
-     * @return
-     *     possible object is
-     *     {@link TerrainTypes }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public TerrainTypes getTerraintypes() {
-        return terraintypes;
-    }
+	protected String name;
+	/**
+	 * If this tileset is stored in an external TSX (Tile Set XML)<br>
+	 * file, this attribute refers to that file. That TSX file has<br>
+	 * the same structure as the element described here. (There is<br>
+	 * the **firstgid** attribute missing and this source attribute<br>
+	 * is also not there. These two attributes are kept in the TMX<br>
+	 * map, since they are map specific.)
+	 * 
+	 */
+	@XmlAttribute(name = "source")
+	@XmlSchemaType(name = "anyURI")
 
-    /**
-     * @since 0.9
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link TerrainTypes }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setTerraintypes(TerrainTypes value) {
-        this.terraintypes = value;
-    }
+	protected String source;
+	/**
+	 * The (maximum) width of the tiles in this tileset.
+	 * 
+	 */
+	@XmlAttribute(name = "tilewidth", required = true)
 
-    /**
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public List<Tile> getInternalTiles() {
-        if (internalTiles == null) {
-            internalTiles = new ArrayList<Tile>();
-        }
-        return this.internalTiles;
-    }
+	protected int tileWidth;
+	/**
+	 * The (maximum) height of the tiles in this tileset.
+	 * 
+	 */
+	@XmlAttribute(name = "tileheight", required = true)
 
-    /**
-     * The first global tile ID of this tileset (this global ID<br>
-     * maps to the first tile in this tileset).
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Integer getFirstgid() {
-        return firstgid;
-    }
+	protected int tileHeight;
+	/**
+	 * The spacing in pixels between the tiles in this tileset<br>
+	 * (applies to the tileset image).
+	 * 
+	 */
+	@XmlAttribute(name = "spacing")
 
-    /**
-     * The first global tile ID of this tileset (this global ID<br>
-     * maps to the first tile in this tileset).
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setFirstgid(Integer value) {
-        this.firstgid = value;
-    }
+	protected Integer tileSpacing;
+	/**
+	 * The margin around the tiles in this tileset (applies to the<br>
+	 * tileset image).
+	 * 
+	 */
+	@XmlAttribute(name = "margin")
 
-    /**
-     * The name of this tileset.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public String getName() {
-        return name;
-    }
+	protected Integer tileMargin;
+	/**
+	 * The number of tiles in this tileset<br>
+	 * <br>
+	 * 
+	 * @since 0.13
+	 * 
+	 */
+	@XmlAttribute(name = "tilecount")
 
-    /**
-     * The name of this tileset.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setName(String value) {
-        this.name = value;
-    }
+	protected Integer tilecount;
+	/**
+	 * The number of tile columns in the tileset. For image<br>
+	 * collection tilesets it is editable and is used when<br>
+	 * displaying the tileset.<br>
+	 * <br>
+	 * 
+	 * @since 0.15
+	 * 
+	 */
+	@XmlAttribute(name = "columns", required = true)
 
-    /**
-     * If this tileset is stored in an external TSX (Tile Set XML)<br>
-     * file, this attribute refers to that file. That TSX file has<br>
-     * the same structure as the element described here. (There is<br>
-     * the **firstgid** attribute missing and this source attribute<br>
-     * is also not there. These two attributes are kept in the TMX<br>
-     * map, since they are map specific.)
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public String getSource() {
-        return source;
-    }
+	protected int columns;
 
-    /**
-     * If this tileset is stored in an external TSX (Tile Set XML)<br>
-     * file, this attribute refers to that file. That TSX file has<br>
-     * the same structure as the element described here. (There is<br>
-     * the **firstgid** attribute missing and this source attribute<br>
-     * is also not there. These two attributes are kept in the TMX<br>
-     * map, since they are map specific.)
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setSource(String value) {
-        this.source = value;
-    }
+	/**
+	 * @since 0.8
+	 * 
+	 * @return possible object is {@link TileOffset }
+	 * 
+	 */
 
-    /**
-     * The (maximum) width of the tiles in this tileset.
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public int getTileWidth() {
-        return tileWidth;
-    }
+	public TileOffset getTileoffset() {
+		return tileoffset;
+	}
 
-    /**
-     * The (maximum) width of the tiles in this tileset.
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setTileWidth(int value) {
-        this.tileWidth = value;
-    }
+	/**
+	 * @since 0.8
+	 * 
+	 * @param value allowed object is {@link TileOffset }
+	 * 
+	 */
 
-    /**
-     * The (maximum) height of the tiles in this tileset.
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public int getTileHeight() {
-        return tileHeight;
-    }
+	public void setTileoffset(TileOffset value) {
+		this.tileoffset = value;
+	}
 
-    /**
-     * The (maximum) height of the tiles in this tileset.
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setTileHeight(int value) {
-        this.tileHeight = value;
-    }
+	/**
+	 * @since 0.8
+	 * 
+	 * @return possible object is {@link PropertiesData }
+	 * 
+	 */
 
-    /**
-     * The spacing in pixels between the tiles in this tileset<br>
-     * (applies to the tileset image).
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Integer getTileSpacing() {
-        return tileSpacing;
-    }
+	public Properties getProperties() {
+		return properties;
+	}
 
-    /**
-     * The spacing in pixels between the tiles in this tileset<br>
-     * (applies to the tileset image).
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setTileSpacing(Integer value) {
-        this.tileSpacing = value;
-    }
+	/**
+	 * @since 0.8
+	 * 
+	 * @param value allowed object is {@link PropertiesData }
+	 * 
+	 */
 
-    /**
-     * The margin around the tiles in this tileset (applies to the<br>
-     * tileset image).
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Integer getTileMargin() {
-        return tileMargin;
-    }
+	public void setProperties(Properties value) {
+		this.properties = value;
+	}
 
-    /**
-     * The margin around the tiles in this tileset (applies to the<br>
-     * tileset image).
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setTileMargin(Integer value) {
-        this.tileMargin = value;
-    }
+	/**
+	 * 
+	 * @return possible object is {@link ImageData }
+	 * 
+	 */
 
-    /**
-     * The number of tiles in this tileset<br>
-     * <br>
-     * @since 0.13
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Integer getTilecount() {
-        return tilecount;
-    }
+	public ImageData getImageData() {
+		return imageData;
+	}
 
-    /**
-     * The number of tiles in this tileset<br>
-     * <br>
-     * @since 0.13
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setTilecount(Integer value) {
-        this.tilecount = value;
-    }
+	/**
+	 * 
+	 * @param value allowed object is {@link ImageData }
+	 * 
+	 */
 
-    /**
-     * The number of tile columns in the tileset. For image<br>
-     * collection tilesets it is editable and is used when<br>
-     * displaying the tileset.<br>
-     * <br>
-     * @since 0.15
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public int getColumns() {
-        return columns;
-    }
+	public void setImageData(ImageData value) {
+		this.imageData = value;
+	}
 
-    /**
-     * The number of tile columns in the tileset. For image<br>
-     * collection tilesets it is editable and is used when<br>
-     * displaying the tileset.<br>
-     * <br>
-     * @since 0.15
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setColumns(int value) {
-        this.columns = value;
-    }
+	/**
+	 * @since 0.9
+	 * 
+	 * @return possible object is {@link TerrainTypes }
+	 * 
+	 */
+
+	public TerrainTypes getTerraintypes() {
+		return terraintypes;
+	}
+
+	/**
+	 * @since 0.9
+	 * 
+	 * @param value allowed object is {@link TerrainTypes }
+	 * 
+	 */
+
+	public void setTerraintypes(TerrainTypes value) {
+		this.terraintypes = value;
+	}
+
+	/**
+	 * 
+	 */
+
+	public List<Tile> getInternalTiles() {
+		if (internalTiles == null) {
+			internalTiles = new ArrayList<Tile>();
+		}
+		return this.internalTiles;
+	}
+
+	/**
+	 * The first global tile ID of this tileset (this global ID<br>
+	 * maps to the first tile in this tileset).
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+
+	public Integer getFirstgid() {
+		return firstgid;
+	}
+
+	/**
+	 * The first global tile ID of this tileset (this global ID<br>
+	 * maps to the first tile in this tileset).
+	 * 
+	 * @param value allowed object is {@link Integer }
+	 * 
+	 */
+
+	public void setFirstgid(Integer value) {
+		this.firstgid = value;
+	}
+
+	/**
+	 * The name of this tileset.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * The name of this tileset.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+
+	public void setName(String value) {
+		this.name = value;
+	}
+
+	/**
+	 * If this tileset is stored in an external TSX (Tile Set XML)<br>
+	 * file, this attribute refers to that file. That TSX file has<br>
+	 * the same structure as the element described here. (There is<br>
+	 * the **firstgid** attribute missing and this source attribute<br>
+	 * is also not there. These two attributes are kept in the TMX<br>
+	 * map, since they are map specific.)
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+
+	public String getSource() {
+		return source;
+	}
+
+	/**
+	 * If this tileset is stored in an external TSX (Tile Set XML)<br>
+	 * file, this attribute refers to that file. That TSX file has<br>
+	 * the same structure as the element described here. (There is<br>
+	 * the **firstgid** attribute missing and this source attribute<br>
+	 * is also not there. These two attributes are kept in the TMX<br>
+	 * map, since they are map specific.)
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+
+	public void setSource(String value) {
+		this.source = value;
+	}
+
+	/**
+	 * The (maximum) width of the tiles in this tileset.
+	 * 
+	 */
+
+	public int getTileWidth() {
+		return tileWidth;
+	}
+
+	/**
+	 * The (maximum) width of the tiles in this tileset.
+	 * 
+	 */
+
+	public void setTileWidth(int value) {
+		this.tileWidth = value;
+	}
+
+	/**
+	 * The (maximum) height of the tiles in this tileset.
+	 * 
+	 */
+
+	public int getTileHeight() {
+		return tileHeight;
+	}
+
+	/**
+	 * The (maximum) height of the tiles in this tileset.
+	 * 
+	 */
+
+	public void setTileHeight(int value) {
+		this.tileHeight = value;
+	}
+
+	/**
+	 * The spacing in pixels between the tiles in this tileset<br>
+	 * (applies to the tileset image).
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+
+	public Integer getTileSpacing() {
+		return tileSpacing;
+	}
+
+	/**
+	 * The spacing in pixels between the tiles in this tileset<br>
+	 * (applies to the tileset image).
+	 * 
+	 * @param value allowed object is {@link Integer }
+	 * 
+	 */
+
+	public void setTileSpacing(Integer value) {
+		this.tileSpacing = value;
+	}
+
+	/**
+	 * The margin around the tiles in this tileset (applies to the<br>
+	 * tileset image).
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+
+	public Integer getTileMargin() {
+		return tileMargin;
+	}
+
+	/**
+	 * The margin around the tiles in this tileset (applies to the<br>
+	 * tileset image).
+	 * 
+	 * @param value allowed object is {@link Integer }
+	 * 
+	 */
+
+	public void setTileMargin(Integer value) {
+		this.tileMargin = value;
+	}
+
+	/**
+	 * The number of tiles in this tileset<br>
+	 * <br>
+	 * 
+	 * @since 0.13
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+
+	public Integer getTilecount() {
+		return tilecount;
+	}
+
+	/**
+	 * The number of tiles in this tileset<br>
+	 * <br>
+	 * 
+	 * @since 0.13
+	 * 
+	 * @param value allowed object is {@link Integer }
+	 * 
+	 */
+
+	public void setTilecount(Integer value) {
+		this.tilecount = value;
+	}
+
+	/**
+	 * The number of tile columns in the tileset. For image<br>
+	 * collection tilesets it is editable and is used when<br>
+	 * displaying the tileset.<br>
+	 * <br>
+	 * 
+	 * @since 0.15
+	 * 
+	 */
+
+	public int getColumns() {
+		return columns;
+	}
+
+	/**
+	 * The number of tile columns in the tileset. For image<br>
+	 * collection tilesets it is editable and is used when<br>
+	 * displaying the tileset.<br>
+	 * <br>
+	 * 
+	 * @since 0.15
+	 * 
+	 */
+
+	public void setColumns(int value) {
+		this.columns = value;
+	}
 
 }

@@ -33,15 +33,12 @@
 // Generated on: 2019.03.13 at 11:56:22 PM GMT 
 //
 
-
 package org.mapeditor.core;
 
-import javax.annotation.processing.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * All `tileset` tags shall occur before the first `layer` tag so<br>
@@ -50,43 +47,35 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TileLayer", propOrder = {
-    "data"
-})
-@Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-public class TileLayerData
-    extends MapLayer
-{
+@XmlType(name = "TileLayer", propOrder = { "data" })
 
-    /**
-     * 
-     */
-    @XmlElement(required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Data data;
+public class TileLayerData extends MapLayer {
 
-    /**
-     * 
-     * @return
-     *     possible object is
-     *     {@link Data }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Data getData() {
-        return data;
-    }
+	/**
+	 * 
+	 */
+	@XmlElement(required = true)
 
-    /**
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Data }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setData(Data value) {
-        this.data = value;
-    }
+	protected Data data;
+
+	/**
+	 * 
+	 * @return possible object is {@link Data }
+	 * 
+	 */
+
+	public Data getData() {
+		return data;
+	}
+
+	/**
+	 * 
+	 * @param value allowed object is {@link Data }
+	 * 
+	 */
+
+	public void setData(Data value) {
+		this.data = value;
+	}
 
 }

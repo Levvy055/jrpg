@@ -81,7 +81,6 @@ class GameMapBuilder {
 			return o1.getId().compareTo(o2.getId());
 		}).collect(Collectors.toList());
 		map.setObjects(objects);
-
 		return map;
 	}
 

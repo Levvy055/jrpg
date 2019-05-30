@@ -158,9 +158,9 @@ public class TMXMapReader {
 	private <T> T unmarshalClass(Node node, Class<T> type) throws JAXBException {
 		JAXBContext context = JAXBContext.newInstance(type);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
-
 		JAXBElement<T> element = unmarshaller.unmarshal(node, type);
-		return element.getValue();
+		T val = element.getValue();
+		return val;
 	}
 
 	private BufferedImage unmarshalImage(Node t, String baseDir) throws IOException {

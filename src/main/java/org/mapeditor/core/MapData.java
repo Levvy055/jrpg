@@ -33,20 +33,17 @@
 // Generated on: 2019.03.13 at 11:56:22 PM GMT 
 //
 
-
 package org.mapeditor.core;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.processing.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * The `tilewidth` and `tileheight` properties determine the<br>
@@ -62,581 +59,549 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Map", propOrder = {
-    "properties",
-    "tileSets",
-    "layers",
-    "group"
-})
-@Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
+@XmlType(name = "Map", propOrder = { "properties", "tileSets", "layers", "group" })
+
 public class MapData {
 
-    /**
-     * 
-     */
-    @XmlElement(required = true, type = Properties.class)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Properties properties;
-    /**
-     * 
-     */
-    @XmlElement(name = "tileset", required = true, type = TileSet.class)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected List<TileSet> tileSets;
-    /**
-     * 
-     */
-    @XmlElements({
-        @XmlElement(name = "layer", type = TileLayer.class),
-        @XmlElement(name = "objectgroup", type = ObjectGroup.class),
-        @XmlElement(name = "imagelayer", type = ImageLayer.class)
-    })
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected List<MapLayer> layers;
-    /**
-     * @since 1.0
-     * 
-     */
-    @XmlElement(required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected List<Group> group;
-    /**
-     * The TMX format version. Was "1.0" so far, and will be<br>
-     * incremented to match minor Tiled releases.
-     * 
-     */
-    @XmlAttribute(name = "version")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected String version;
-    /**
-     * The Tiled version used to save the file.<br>
-     * May be a date (for snapshot builds).<br>
-     * <br>
-     * @since 1.0.1
-     * 
-     */
-    @XmlAttribute(name = "tiledversion")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected String tiledversion;
-    /**
-     * Map orientation. Tiled supports "orthogonal", "isometric",<br>
-     * "staggered" (since 0.9) and "hexagonal" (since 0.11).
-     * 
-     */
-    @XmlAttribute(name = "orientation", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Orientation orientation;
-    /**
-     * The order in which tiles on tile layers are rendered. Valid<br>
-     * values are `right-down` (the default), `right-up`,<br>
-     * `left-down` and `left-up`. In all cases, the map is drawn<br>
-     * row-by-row. (since 0.10, but only supported for orthogonal<br>
-     * maps at the moment)
-     * 
-     */
-    @XmlAttribute(name = "renderorder")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected RenderOrder renderorder;
-    /**
-     * The map width in tiles.
-     * 
-     */
-    @XmlAttribute(name = "width", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected int width;
-    /**
-     * The map height in tiles.
-     * 
-     */
-    @XmlAttribute(name = "height", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected int height;
-    /**
-     * The width of a tile.
-     * 
-     */
-    @XmlAttribute(name = "tilewidth", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected int tileWidth;
-    /**
-     * The height of a tile.
-     * 
-     */
-    @XmlAttribute(name = "tileheight", required = true)
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected int tileHeight;
-    /**
-     * Only for hexagonal maps. Determines the width or height<br>
-     * (depending on the staggered axis) of the tile's edge, in<br>
-     * pixels.
-     * 
-     */
-    @XmlAttribute(name = "hexsidelength")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Integer hexSideLength;
-    /**
-     * For staggered and hexagonal maps, determines which axis<br>
-     * ("x" or "y") is staggered.<br>
-     * <br>
-     * @since 0.11
-     * 
-     */
-    @XmlAttribute(name = "staggeraxis")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected StaggerAxis staggerAxis;
-    /**
-     * For staggered and hexagonal maps, determines whether the<br>
-     * "even" or "odd" indexes along the staggered axis are<br>
-     * shifted.<br>
-     * <br>
-     * @since 0.11
-     * 
-     */
-    @XmlAttribute(name = "staggerindex")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected StaggerIndex staggerIndex;
-    /**
-     * The background color of the map. (optional, may include<br>
-     * alpha value since 0.15 in the form `#AARRGGBB`)<br>
-     * <br>
-     * @since 0.9
-     * 
-     */
-    @XmlAttribute(name = "backgroundcolor")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected String backgroundcolor;
-    /**
-     * Stores the next available ID for new objects. This number<br>
-     * is stored to prevent reuse of the same ID after objects<br>
-     * have been removed.<br>
-     * <br>
-     * @since 0.11
-     * 
-     */
-    @XmlAttribute(name = "nextobjectid")
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    protected Integer nextobjectid;
+	/**
+	 * 
+	 */
+	@XmlElement(required = true, type = Properties.class)
 
-    /**
-     * 
-     * @return
-     *     possible object is
-     *     {@link PropertiesData }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Properties getProperties() {
-        return properties;
-    }
+	protected Properties properties;
+	/**
+	 * 
+	 */
+	@XmlElement(name = "tileset", required = true, type = TileSet.class)
 
-    /**
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link PropertiesData }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setProperties(Properties value) {
-        this.properties = value;
-    }
+	protected List<TileSet> tileSets;
+	/**
+	 * 
+	 */
+	@XmlElements({ @XmlElement(name = "layer", type = TileLayer.class),
+			@XmlElement(name = "objectgroup", type = ObjectGroup.class),
+			@XmlElement(name = "imagelayer", type = ImageLayer.class) })
 
-    /**
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public List<TileSet> getTileSets() {
-        if (tileSets == null) {
-            tileSets = new ArrayList<TileSet>();
-        }
-        return this.tileSets;
-    }
+	protected List<MapLayer> layers;
+	/**
+	 * @since 1.0
+	 * 
+	 */
+	@XmlElement(required = true)
 
-    /**
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public List<MapLayer> getLayers() {
-        if (layers == null) {
-            layers = new ArrayList<MapLayer>();
-        }
-        return this.layers;
-    }
+	protected List<Group> group;
+	/**
+	 * The TMX format version. Was "1.0" so far, and will be<br>
+	 * incremented to match minor Tiled releases.
+	 * 
+	 */
+	@XmlAttribute(name = "version")
 
-    /**
-     * @since 1.0
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public List<Group> getGroup() {
-        if (group == null) {
-            group = new ArrayList<Group>();
-        }
-        return this.group;
-    }
+	protected String version;
+	/**
+	 * The Tiled version used to save the file.<br>
+	 * May be a date (for snapshot builds).<br>
+	 * <br>
+	 * 
+	 * @since 1.0.1
+	 * 
+	 */
+	@XmlAttribute(name = "tiledversion")
 
-    /**
-     * The TMX format version. Was "1.0" so far, and will be<br>
-     * incremented to match minor Tiled releases.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public String getVersion() {
-        if (version == null) {
-            return "1.0";
-        } else {
-            return version;
-        }
-    }
+	protected String tiledversion;
+	/**
+	 * Map orientation. Tiled supports "orthogonal", "isometric",<br>
+	 * "staggered" (since 0.9) and "hexagonal" (since 0.11).
+	 * 
+	 */
+	@XmlAttribute(name = "orientation", required = true)
 
-    /**
-     * The TMX format version. Was "1.0" so far, and will be<br>
-     * incremented to match minor Tiled releases.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setVersion(String value) {
-        this.version = value;
-    }
+	protected Orientation orientation;
+	/**
+	 * The order in which tiles on tile layers are rendered. Valid<br>
+	 * values are `right-down` (the default), `right-up`,<br>
+	 * `left-down` and `left-up`. In all cases, the map is drawn<br>
+	 * row-by-row. (since 0.10, but only supported for orthogonal<br>
+	 * maps at the moment)
+	 * 
+	 */
+	@XmlAttribute(name = "renderorder")
 
-    /**
-     * The Tiled version used to save the file.<br>
-     * May be a date (for snapshot builds).<br>
-     * <br>
-     * @since 1.0.1
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public String getTiledversion() {
-        return tiledversion;
-    }
+	protected RenderOrder renderorder;
+	/**
+	 * The map width in tiles.
+	 * 
+	 */
+	@XmlAttribute(name = "width", required = true)
 
-    /**
-     * The Tiled version used to save the file.<br>
-     * May be a date (for snapshot builds).<br>
-     * <br>
-     * @since 1.0.1
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setTiledversion(String value) {
-        this.tiledversion = value;
-    }
+	protected int width;
+	/**
+	 * The map height in tiles.
+	 * 
+	 */
+	@XmlAttribute(name = "height", required = true)
 
-    /**
-     * Map orientation. Tiled supports "orthogonal", "isometric",<br>
-     * "staggered" (since 0.9) and "hexagonal" (since 0.11).
-     * 
-     * @return
-     *     possible object is
-     *     {@link Orientation }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Orientation getOrientation() {
-        return orientation;
-    }
+	protected int height;
+	/**
+	 * The width of a tile.
+	 * 
+	 */
+	@XmlAttribute(name = "tilewidth", required = true)
 
-    /**
-     * Map orientation. Tiled supports "orthogonal", "isometric",<br>
-     * "staggered" (since 0.9) and "hexagonal" (since 0.11).
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Orientation }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setOrientation(Orientation value) {
-        this.orientation = value;
-    }
+	protected int tileWidth;
+	/**
+	 * The height of a tile.
+	 * 
+	 */
+	@XmlAttribute(name = "tileheight", required = true)
 
-    /**
-     * The order in which tiles on tile layers are rendered. Valid<br>
-     * values are `right-down` (the default), `right-up`,<br>
-     * `left-down` and `left-up`. In all cases, the map is drawn<br>
-     * row-by-row. (since 0.10, but only supported for orthogonal<br>
-     * maps at the moment)
-     * 
-     * @return
-     *     possible object is
-     *     {@link RenderOrder }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public RenderOrder getRenderorder() {
-        if (renderorder == null) {
-            return RenderOrder.RIGHT_DOWN;
-        } else {
-            return renderorder;
-        }
-    }
+	protected int tileHeight;
+	/**
+	 * Only for hexagonal maps. Determines the width or height<br>
+	 * (depending on the staggered axis) of the tile's edge, in<br>
+	 * pixels.
+	 * 
+	 */
+	@XmlAttribute(name = "hexsidelength")
 
-    /**
-     * The order in which tiles on tile layers are rendered. Valid<br>
-     * values are `right-down` (the default), `right-up`,<br>
-     * `left-down` and `left-up`. In all cases, the map is drawn<br>
-     * row-by-row. (since 0.10, but only supported for orthogonal<br>
-     * maps at the moment)
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link RenderOrder }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setRenderorder(RenderOrder value) {
-        this.renderorder = value;
-    }
+	protected Integer hexSideLength;
+	/**
+	 * For staggered and hexagonal maps, determines which axis<br>
+	 * ("x" or "y") is staggered.<br>
+	 * <br>
+	 * 
+	 * @since 0.11
+	 * 
+	 */
+	@XmlAttribute(name = "staggeraxis")
 
-    /**
-     * The map width in tiles.
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public int getWidth() {
-        return width;
-    }
+	protected StaggerAxis staggerAxis;
+	/**
+	 * For staggered and hexagonal maps, determines whether the<br>
+	 * "even" or "odd" indexes along the staggered axis are<br>
+	 * shifted.<br>
+	 * <br>
+	 * 
+	 * @since 0.11
+	 * 
+	 */
+	@XmlAttribute(name = "staggerindex")
 
-    /**
-     * The map width in tiles.
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setWidth(int value) {
-        this.width = value;
-    }
+	protected StaggerIndex staggerIndex;
+	/**
+	 * The background color of the map. (optional, may include<br>
+	 * alpha value since 0.15 in the form `#AARRGGBB`)<br>
+	 * <br>
+	 * 
+	 * @since 0.9
+	 * 
+	 */
+	@XmlAttribute(name = "backgroundcolor")
 
-    /**
-     * The map height in tiles.
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public int getHeight() {
-        return height;
-    }
+	protected String backgroundcolor;
+	/**
+	 * Stores the next available ID for new objects. This number<br>
+	 * is stored to prevent reuse of the same ID after objects<br>
+	 * have been removed.<br>
+	 * <br>
+	 * 
+	 * @since 0.11
+	 * 
+	 */
+	@XmlAttribute(name = "nextobjectid")
 
-    /**
-     * The map height in tiles.
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setHeight(int value) {
-        this.height = value;
-    }
+	protected Integer nextobjectid;
 
-    /**
-     * The width of a tile.
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public int getTileWidth() {
-        return tileWidth;
-    }
+	/**
+	 * 
+	 * @return possible object is {@link PropertiesData }
+	 * 
+	 */
 
-    /**
-     * The width of a tile.
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setTileWidth(int value) {
-        this.tileWidth = value;
-    }
+	public Properties getProperties() {
+		return properties;
+	}
 
-    /**
-     * The height of a tile.
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public int getTileHeight() {
-        return tileHeight;
-    }
+	/**
+	 * 
+	 * @param value allowed object is {@link PropertiesData }
+	 * 
+	 */
 
-    /**
-     * The height of a tile.
-     * 
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setTileHeight(int value) {
-        this.tileHeight = value;
-    }
+	public void setProperties(Properties value) {
+		this.properties = value;
+	}
 
-    /**
-     * Only for hexagonal maps. Determines the width or height<br>
-     * (depending on the staggered axis) of the tile's edge, in<br>
-     * pixels.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Integer getHexSideLength() {
-        return hexSideLength;
-    }
+	/**
+	 * 
+	 */
 
-    /**
-     * Only for hexagonal maps. Determines the width or height<br>
-     * (depending on the staggered axis) of the tile's edge, in<br>
-     * pixels.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setHexSideLength(Integer value) {
-        this.hexSideLength = value;
-    }
+	public List<TileSet> getTileSets() {
+		if (tileSets == null) {
+			tileSets = new ArrayList<TileSet>();
+		}
+		return this.tileSets;
+	}
 
-    /**
-     * For staggered and hexagonal maps, determines which axis<br>
-     * ("x" or "y") is staggered.<br>
-     * <br>
-     * @since 0.11
-     * 
-     * @return
-     *     possible object is
-     *     {@link StaggerAxis }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public StaggerAxis getStaggerAxis() {
-        return staggerAxis;
-    }
+	/**
+	 * 
+	 */
 
-    /**
-     * For staggered and hexagonal maps, determines which axis<br>
-     * ("x" or "y") is staggered.<br>
-     * <br>
-     * @since 0.11
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link StaggerAxis }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setStaggerAxis(StaggerAxis value) {
-        this.staggerAxis = value;
-    }
+	public List<MapLayer> getLayers() {
+		if (layers == null) {
+			layers = new ArrayList<MapLayer>();
+		}
+		return this.layers;
+	}
 
-    /**
-     * For staggered and hexagonal maps, determines whether the<br>
-     * "even" or "odd" indexes along the staggered axis are<br>
-     * shifted.<br>
-     * <br>
-     * @since 0.11
-     * 
-     * @return
-     *     possible object is
-     *     {@link StaggerIndex }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public StaggerIndex getStaggerIndex() {
-        return staggerIndex;
-    }
+	/**
+	 * @since 1.0
+	 * 
+	 */
 
-    /**
-     * For staggered and hexagonal maps, determines whether the<br>
-     * "even" or "odd" indexes along the staggered axis are<br>
-     * shifted.<br>
-     * <br>
-     * @since 0.11
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link StaggerIndex }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setStaggerIndex(StaggerIndex value) {
-        this.staggerIndex = value;
-    }
+	public List<Group> getGroup() {
+		if (group == null) {
+			group = new ArrayList<Group>();
+		}
+		return this.group;
+	}
 
-    /**
-     * The background color of the map. (optional, may include<br>
-     * alpha value since 0.15 in the form `#AARRGGBB`)<br>
-     * <br>
-     * @since 0.9
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public String getBackgroundcolor() {
-        return backgroundcolor;
-    }
+	/**
+	 * The TMX format version. Was "1.0" so far, and will be<br>
+	 * incremented to match minor Tiled releases.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
 
-    /**
-     * The background color of the map. (optional, may include<br>
-     * alpha value since 0.15 in the form `#AARRGGBB`)<br>
-     * <br>
-     * @since 0.9
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setBackgroundcolor(String value) {
-        this.backgroundcolor = value;
-    }
+	public String getVersion() {
+		if (version == null) {
+			return "1.0";
+		} else {
+			return version;
+		}
+	}
 
-    /**
-     * Stores the next available ID for new objects. This number<br>
-     * is stored to prevent reuse of the same ID after objects<br>
-     * have been removed.<br>
-     * <br>
-     * @since 0.11
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public Integer getNextobjectid() {
-        return nextobjectid;
-    }
+	/**
+	 * The TMX format version. Was "1.0" so far, and will be<br>
+	 * incremented to match minor Tiled releases.
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
 
-    /**
-     * Stores the next available ID for new objects. This number<br>
-     * is stored to prevent reuse of the same ID after objects<br>
-     * have been removed.<br>
-     * <br>
-     * @since 0.11
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    @Generated(value = "com.sun.tools.xjc.Driver", date = "2019-03-13T11:56:22+00:00", comments = "JAXB RI v2.2.11")
-    public void setNextobjectid(Integer value) {
-        this.nextobjectid = value;
-    }
+	public void setVersion(String value) {
+		this.version = value;
+	}
+
+	/**
+	 * The Tiled version used to save the file.<br>
+	 * May be a date (for snapshot builds).<br>
+	 * <br>
+	 * 
+	 * @since 1.0.1
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+
+	public String getTiledversion() {
+		return tiledversion;
+	}
+
+	/**
+	 * The Tiled version used to save the file.<br>
+	 * May be a date (for snapshot builds).<br>
+	 * <br>
+	 * 
+	 * @since 1.0.1
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+
+	public void setTiledversion(String value) {
+		this.tiledversion = value;
+	}
+
+	/**
+	 * Map orientation. Tiled supports "orthogonal", "isometric",<br>
+	 * "staggered" (since 0.9) and "hexagonal" (since 0.11).
+	 * 
+	 * @return possible object is {@link Orientation }
+	 * 
+	 */
+
+	public Orientation getOrientation() {
+		return orientation;
+	}
+
+	/**
+	 * Map orientation. Tiled supports "orthogonal", "isometric",<br>
+	 * "staggered" (since 0.9) and "hexagonal" (since 0.11).
+	 * 
+	 * @param value allowed object is {@link Orientation }
+	 * 
+	 */
+
+	public void setOrientation(Orientation value) {
+		this.orientation = value;
+	}
+
+	/**
+	 * The order in which tiles on tile layers are rendered. Valid<br>
+	 * values are `right-down` (the default), `right-up`,<br>
+	 * `left-down` and `left-up`. In all cases, the map is drawn<br>
+	 * row-by-row. (since 0.10, but only supported for orthogonal<br>
+	 * maps at the moment)
+	 * 
+	 * @return possible object is {@link RenderOrder }
+	 * 
+	 */
+
+	public RenderOrder getRenderorder() {
+		if (renderorder == null) {
+			return RenderOrder.RIGHT_DOWN;
+		} else {
+			return renderorder;
+		}
+	}
+
+	/**
+	 * The order in which tiles on tile layers are rendered. Valid<br>
+	 * values are `right-down` (the default), `right-up`,<br>
+	 * `left-down` and `left-up`. In all cases, the map is drawn<br>
+	 * row-by-row. (since 0.10, but only supported for orthogonal<br>
+	 * maps at the moment)
+	 * 
+	 * @param value allowed object is {@link RenderOrder }
+	 * 
+	 */
+
+	public void setRenderorder(RenderOrder value) {
+		this.renderorder = value;
+	}
+
+	/**
+	 * The map width in tiles.
+	 * 
+	 */
+
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * The map width in tiles.
+	 * 
+	 */
+
+	public void setWidth(int value) {
+		this.width = value;
+	}
+
+	/**
+	 * The map height in tiles.
+	 * 
+	 */
+
+	public int getHeight() {
+		return height;
+	}
+
+	/**
+	 * The map height in tiles.
+	 * 
+	 */
+
+	public void setHeight(int value) {
+		this.height = value;
+	}
+
+	/**
+	 * The width of a tile.
+	 * 
+	 */
+
+	public int getTileWidth() {
+		return tileWidth;
+	}
+
+	/**
+	 * The width of a tile.
+	 * 
+	 */
+
+	public void setTileWidth(int value) {
+		this.tileWidth = value;
+	}
+
+	/**
+	 * The height of a tile.
+	 * 
+	 */
+
+	public int getTileHeight() {
+		return tileHeight;
+	}
+
+	/**
+	 * The height of a tile.
+	 * 
+	 */
+
+	public void setTileHeight(int value) {
+		this.tileHeight = value;
+	}
+
+	/**
+	 * Only for hexagonal maps. Determines the width or height<br>
+	 * (depending on the staggered axis) of the tile's edge, in<br>
+	 * pixels.
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+
+	public Integer getHexSideLength() {
+		return hexSideLength;
+	}
+
+	/**
+	 * Only for hexagonal maps. Determines the width or height<br>
+	 * (depending on the staggered axis) of the tile's edge, in<br>
+	 * pixels.
+	 * 
+	 * @param value allowed object is {@link Integer }
+	 * 
+	 */
+
+	public void setHexSideLength(Integer value) {
+		this.hexSideLength = value;
+	}
+
+	/**
+	 * For staggered and hexagonal maps, determines which axis<br>
+	 * ("x" or "y") is staggered.<br>
+	 * <br>
+	 * 
+	 * @since 0.11
+	 * 
+	 * @return possible object is {@link StaggerAxis }
+	 * 
+	 */
+
+	public StaggerAxis getStaggerAxis() {
+		return staggerAxis;
+	}
+
+	/**
+	 * For staggered and hexagonal maps, determines which axis<br>
+	 * ("x" or "y") is staggered.<br>
+	 * <br>
+	 * 
+	 * @since 0.11
+	 * 
+	 * @param value allowed object is {@link StaggerAxis }
+	 * 
+	 */
+
+	public void setStaggerAxis(StaggerAxis value) {
+		this.staggerAxis = value;
+	}
+
+	/**
+	 * For staggered and hexagonal maps, determines whether the<br>
+	 * "even" or "odd" indexes along the staggered axis are<br>
+	 * shifted.<br>
+	 * <br>
+	 * 
+	 * @since 0.11
+	 * 
+	 * @return possible object is {@link StaggerIndex }
+	 * 
+	 */
+
+	public StaggerIndex getStaggerIndex() {
+		return staggerIndex;
+	}
+
+	/**
+	 * For staggered and hexagonal maps, determines whether the<br>
+	 * "even" or "odd" indexes along the staggered axis are<br>
+	 * shifted.<br>
+	 * <br>
+	 * 
+	 * @since 0.11
+	 * 
+	 * @param value allowed object is {@link StaggerIndex }
+	 * 
+	 */
+
+	public void setStaggerIndex(StaggerIndex value) {
+		this.staggerIndex = value;
+	}
+
+	/**
+	 * The background color of the map. (optional, may include<br>
+	 * alpha value since 0.15 in the form `#AARRGGBB`)<br>
+	 * <br>
+	 * 
+	 * @since 0.9
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+
+	public String getBackgroundcolor() {
+		return backgroundcolor;
+	}
+
+	/**
+	 * The background color of the map. (optional, may include<br>
+	 * alpha value since 0.15 in the form `#AARRGGBB`)<br>
+	 * <br>
+	 * 
+	 * @since 0.9
+	 * 
+	 * @param value allowed object is {@link String }
+	 * 
+	 */
+
+	public void setBackgroundcolor(String value) {
+		this.backgroundcolor = value;
+	}
+
+	/**
+	 * Stores the next available ID for new objects. This number<br>
+	 * is stored to prevent reuse of the same ID after objects<br>
+	 * have been removed.<br>
+	 * <br>
+	 * 
+	 * @since 0.11
+	 * 
+	 * @return possible object is {@link Integer }
+	 * 
+	 */
+
+	public Integer getNextobjectid() {
+		return nextobjectid;
+	}
+
+	/**
+	 * Stores the next available ID for new objects. This number<br>
+	 * is stored to prevent reuse of the same ID after objects<br>
+	 * have been removed.<br>
+	 * <br>
+	 * 
+	 * @since 0.11
+	 * 
+	 * @param value allowed object is {@link Integer }
+	 * 
+	 */
+
+	public void setNextobjectid(Integer value) {
+		this.nextobjectid = value;
+	}
 
 }
