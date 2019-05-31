@@ -4,15 +4,25 @@ import java.util.List;
 
 import org.mapeditor.core.MapObject;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
-import pl.hopelew.jrpg.utils.MapGenException;
+import pl.hopelew.jrpg.entities.MobEntity;
 
 @Data
 @Log4j2
 public class GameMap {
+	@SerializedName("id")
+	@Expose
 	private int id;
+	@SerializedName("name")
+	@Expose
 	private String name;
+	@SerializedName("entities")
+	@Expose
+	private List<MobEntity> entities;
 	private int vSize;
 	private int hSize;
 	private String backgroundColor;
@@ -20,20 +30,7 @@ public class GameMap {
 	private List<MapObject> objects;
 	private int maxTileHeight;
 
-	public GameMap(int id, String name) {
-		this.id = id;
-		this.name = name;
+	public GameMap() {
 	}
 
-	/**
-	 * Gets game map from .map file
-	 * 
-	 * @param id
-	 * @return a game map
-	 * @throws MapGenException
-	 */
-	public static GameMap getMap(String id) throws MapGenException {
-		var pathname = "/maps/" + id + ".tmx";
-		return GameMapBuilder.build(pathname);
-	}
 }

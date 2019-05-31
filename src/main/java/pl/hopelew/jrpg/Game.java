@@ -1,6 +1,7 @@
 package pl.hopelew.jrpg;
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.controllers.game.GameWindowController;
 import pl.hopelew.jrpg.entities.Player;
 import pl.hopelew.jrpg.map.GameMap;
+import pl.hopelew.jrpg.map.GameMapBuilder;
 import pl.hopelew.jrpg.map.MapRenderer;
 import pl.hopelew.jrpg.utils.MapGenException;
 import pl.hopelew.jrpg.utils.TickTimer;
@@ -64,7 +66,7 @@ public class Game implements Runnable {
 	 */
 	public void goIn(String id) throws MapGenException {
 		window.showSpinner(true);
-		GameMap map = GameMap.getMap(id);
+		GameMap map = GameMapBuilder.build(id);
 		log.info("Entering map <{}>", map.getName());
 		currentMap.add(map);
 		fireEvent(new MapChangedGameEvent(this, currentMap.lastElement()));
@@ -153,7 +155,13 @@ public class Game implements Runnable {
 	 * @return current map
 	 */
 	private GameMap getCurrentMap() {
-		return currentMap.peek();
+		GameMap map = null;
+		try {
+		 map = currentMap.peek();
+		}catch(EmptyStackException e) {
+			log.error("No map loaded!");
+		}
+		return map;
 	}
 
 	/**
@@ -184,6 +192,9 @@ public class Game implements Runnable {
 		 */
 		private void loop() {
 			var map = getCurrentMap();
+			if (map == null) {
+				return;
+			}
 			Platform.runLater(() -> {
 				try {
 					MapRenderer mapRend = window.getMapRenderer();
@@ -196,7 +207,7 @@ public class Game implements Runnable {
 				} catch (Exception e) {
 					e.printStackTrace();
 					log.throwing(e);
-				}finally {
+				} finally {
 					semaphore.release();
 				}
 			});

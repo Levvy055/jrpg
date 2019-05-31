@@ -2,6 +2,8 @@ package pl.hopelew.jrpg.map;
 
 import java.io.File;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,6 +14,9 @@ import org.mapeditor.core.Orientation;
 import org.mapeditor.core.RenderOrder;
 import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import javafx.geometry.Rectangle2D;
 import lombok.extern.log4j.Log4j2;
@@ -26,7 +31,7 @@ import pl.hopelew.jrpg.utils.MapGenException;
  *
  */
 @Log4j2
-class GameMapBuilder {
+public class GameMapBuilder {
 
 	private GameMapBuilder() {
 	}
@@ -38,25 +43,30 @@ class GameMapBuilder {
 	 * @return MapBase object of loaded map
 	 * @throws MapGenException when cannot read file
 	 */
-	public static GameMap build(String path) throws MapGenException {
-		log.info("Building map " + path);
-		var tmxMap = getTmxData(path);
-		var id = Integer.parseInt(tmxMap.getProperties().getProperty("id"));
-		var name = tmxMap.getProperties().getProperty("name");
+	public static GameMap build(String mapId) throws MapGenException {
+		var tileFile = "/maps/" + mapId + ".tmx";
+		var dataFile = "/maps/" + mapId + ".map";
+		log.info("Building map [{}]", mapId);
+
+		var tmxMap = getTmxData(tileFile);
 		if (tmxMap.getTileHeight() != 32 || tmxMap.getTileWidth() != 32) {
 			throw new MapGenException("Tile Size should be 32x32. Was " + tmxMap.getTileHeight() + "x"
-					+ tmxMap.getTileWidth() + " " + path);
+					+ tmxMap.getTileWidth() + " " + tileFile);
 		}
 		if (tmxMap.getLayerCount() == 0) {
-			throw new MapGenException("No layers in file " + path);
+			throw new MapGenException("No layers in file " + tileFile);
 		}
 		if (tmxMap.getRenderorder() != RenderOrder.RIGHT_DOWN) {
-			throw new MapGenException("Wrong map render order! " + path);
+			throw new MapGenException("Wrong map render order! " + tileFile);
 		}
 		if (tmxMap.getOrientation() != Orientation.ORTHOGONAL) {
-			throw new MapGenException("Wrong map orientation! " + path);
+			throw new MapGenException("Wrong map orientation! " + tileFile);
 		}
-		var map = new GameMap(id, name);
+		var map = getGameMap(dataFile);
+		var id = Integer.parseInt(tmxMap.getProperties().getProperty("id"));
+		if (id != map.getId()) {
+			throw new MapGenException("<map> and <tmx> map IDs are different for map " + mapId);
+		}
 		map.setBackgroundColor(tmxMap.getBackgroundcolor());
 		map.setVSize(tmxMap.getHeight());
 		map.setHSize(tmxMap.getWidth());
@@ -101,6 +111,21 @@ class GameMapBuilder {
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new MapGenException(e);
+		}
+	}
+
+	private static GameMap getGameMap(String dataFile) throws MapGenException {
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+		try {
+			Path path = FileHandler.getPath(dataFile);
+			if (!Files.isReadable(path)) {
+				throw new MapGenException("Error while reading <map=" + dataFile + "> file");
+			}
+			var in = Files.readAllLines(path).stream().collect(Collectors.joining());
+			GameMap map = gson.fromJson(in, GameMap.class);
+			return map;
+		} catch (Exception e) {
+			throw new MapGenException("Error while reading <map=" + dataFile + "> file", e);
 		}
 	}
 }

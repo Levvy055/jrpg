@@ -2,7 +2,6 @@
 <map version="1.2" tiledversion="2019.05.08" orientation="orthogonal" renderorder="right-down" width="5" height="5" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="5">
  <properties>
   <property name="id" type="int" value="0"/>
-  <property name="name" value="World Map"/>
  </properties>
  <tileset firstgid="1" source="terrain_1.tsx"/>
  <layer id="3" name="Ground 1" width="5" height="5">

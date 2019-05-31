@@ -117,11 +117,11 @@ public class MapRenderer {
 		if (tile != null) {
 			Image objectImage = FileHandler.convertToFxImage(tile.getImage());
 			if (objectImage != null) {
-				// Affine old = g.getTransform();
+				// Affine old = g.getTransform(); //TODO: object rotation fix
 				// g.save();
 				// g.transform(new Affine(new Rotate(rotation, ox, oy)));
 				// g.rotate(rotation);
-				log.debug("R:{}, x:{}, y:{}", rotation, ox, oy);
+				//log.debug("R:{}, x:{}, y:{}", rotation, ox, oy);
 				g.drawImage(objectImage, (int) ox, (int) oy);
 				// g.restore();
 				// g.setTransform(old);
