@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXSpinner;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
@@ -29,7 +30,7 @@ import pl.hopelew.jrpg.utils.FileHandler;
 public class GameWindowController implements Initializable {
 	private @FXML BorderPane pane;
 	private @Getter @FXML Canvas bottomLayer;
-	private @Getter @FXML Canvas entitiesLayer;
+	private @Getter @FXML AnchorPane entitiesLayer;
 	private @Getter @FXML Canvas upperLayer;
 	private @Getter @FXML JFXSpinner mapSpinner;
 	private @Getter static GameWindowController instance;
@@ -53,7 +54,7 @@ public class GameWindowController implements Initializable {
 			this.game.stop();
 		}
 		this.game = game;
-		this.mapRenderer = new MapRenderer(bottomLayer, entitiesLayer, upperLayer);
+		this.mapRenderer = new MapRenderer(bottomLayer, upperLayer);
 
 		sidebar().init(game.getPlayer());
 		this.game.postInitialization(this);
@@ -61,6 +62,7 @@ public class GameWindowController implements Initializable {
 
 	/**
 	 * Shows or hides (depending on show parameter) loading spinner
+	 * 
 	 * @param show
 	 */
 	public void showSpinner(boolean show) {

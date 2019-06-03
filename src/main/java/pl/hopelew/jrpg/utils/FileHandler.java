@@ -17,6 +17,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +30,7 @@ import com.google.gson.JsonSyntaxException;
 import javafx.scene.image.Image;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
+import pl.hopelew.jrpg.entities.data.SpriteImageGroup;
 
 @Log4j2
 public class FileHandler {
@@ -36,7 +38,8 @@ public class FileHandler {
 	private static final String FILENAME = "config.json";
 	static String OS = System.getProperty("os.name").toLowerCase();
 	private static @Getter Configuration config;
-	private static Map<Res, javafx.scene.image.Image> images = new HashMap<>();
+	private static Map<Res, Image> images = new HashMap<>();
+	private static Map<Res, Map<SpriteImageGroup, Image>> sprites = new HashMap<>();
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	public FileHandler() throws IOException {
@@ -91,28 +94,48 @@ public class FileHandler {
 	 */
 	public static void validateResourcesAndLoad() {
 		for (Res res : Res.values()) {
-			try {
-				var path = getPath(res.getPath());
-				if (path == null) {
-					log.error("Can't load resource {}: '{}'", res, path);
-				} else {
-					if (res.getType() == ResType.IMAGE) {
-						images.put(res, new javafx.scene.image.Image(getStream(res.getPath())));
+			if (res.getType() != ResType.SPRITE) {
+				try {
+					var path = getPath(res.getPath());
+					if (path == null) {
+						log.error("Can't load resource {}: '{}'", res, path);
+					} else {
+						if (res.getType() == ResType.IMAGE) {
+							images.put(res, new Image(getStream(res.getPath())));
+						}
 					}
+				} catch (Exception e) {
+					log.throwing(e);
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			} else {
+				String p = res.getPath();
+				Arrays.asList(SpriteImageGroup.values()).stream().forEach(s -> {
+					try {
+						String st = p + '_' + s.name().toLowerCase() + ".png";
+						var path = getPath(st);
+						if (path != null) {
+							if (!sprites.containsKey(res)) {
+								sprites.put(res, new HashMap<SpriteImageGroup, Image>(3));
+							}
+							sprites.get(res).put(s, new Image(getStream(st)));
+						} else {
+							log.error("Can't load sprite {}: '{}'", res, path);
+						}
+					} catch (Exception e) {
+						log.throwing(e);
+					}
+				});
 			}
 		}
 	}
 
 	/**
-	 * Returns javaFx Image object from loaded cache
+	 * Returns javaFx Image object from cache
 	 * 
 	 * @param key associated with image
 	 * @return Image from cached map
 	 */
-	public static javafx.scene.image.Image getFxImage(Res key) {
+	public static Image getFxImage(Res key) {
 		return images.get(key);
 	}
 
@@ -123,13 +146,14 @@ public class FileHandler {
 	 * @return
 	 * @throws IOException
 	 */
-	public static java.awt.image.BufferedImage getBuffImage(String imgFilename) throws IOException {
+	public static BufferedImage getBuffImage(String imgFilename) throws IOException {
 		InputStream stream = getStream(imgFilename);
 		return ImageIO.read(stream);
 	}
-	
+
 	/**
 	 * Converts AWT to JavaFx Image
+	 * 
 	 * @param imageAwt
 	 * @return
 	 */
@@ -145,7 +169,6 @@ public class FileHandler {
 			ByteArrayInputStream in = new ByteArrayInputStream(outputStream.toByteArray());
 			image = new Image(in);
 		} catch (IOException e) {
-			e.printStackTrace();
 			log.warn("Image conversion problem of tile. Exc: {}", e);
 		}
 		return image;

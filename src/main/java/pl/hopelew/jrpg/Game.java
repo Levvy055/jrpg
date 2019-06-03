@@ -157,8 +157,8 @@ public class Game implements Runnable {
 	private GameMap getCurrentMap() {
 		GameMap map = null;
 		try {
-		 map = currentMap.peek();
-		}catch(EmptyStackException e) {
+			map = currentMap.peek();
+		} catch (EmptyStackException e) {
 			log.error("No map loaded!");
 		}
 		return map;
@@ -195,13 +195,17 @@ public class Game implements Runnable {
 			if (map == null) {
 				return;
 			}
+			var entitiesLayer = window.getEntitiesLayer();
 			Platform.runLater(() -> {
 				try {
 					MapRenderer mapRend = window.getMapRenderer();
 					mapRend.clearLayers();
 					mapRend.renderBottomTileLayers(map);
 					mapRend.renderBottomObjects(map);
+
 					// TODO: render player here
+					player.updateEntity(entitiesLayer, getCurrentMap());
+
 					mapRend.renderUpperTileLayers(map);
 					mapRend.renderUpperObjects(map);
 				} catch (Exception e) {

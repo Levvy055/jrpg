@@ -320,8 +320,8 @@ public abstract class LayerData {
 	 * @return possible object is {@link Boolean }
 	 * 
 	 */
-	public Boolean isVisible() {
-		return visible;
+	public boolean isVisible() {
+		return visible == null ? true : visible;
 	}
 
 	/**

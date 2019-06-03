@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 public class MapTileLayer implements Comparable<MapTileLayer> {
+	private @Getter String name;
 	private @Getter Rectangle2D bounds;
 	private Tile[][] tileMap;
 	private @Getter Integer x;
@@ -15,10 +16,11 @@ public class MapTileLayer implements Comparable<MapTileLayer> {
 	private @Getter Integer offsetY;
 	/** Player order is 100 */
 	private @Getter Integer order;
+	private @Getter boolean visible;
 
 	@Builder
-	private MapTileLayer(Rectangle2D bounds, Tile[][] tileMap, Integer offsetX, Integer offsetY, Integer x, Integer y,
-			Integer order) {
+	private MapTileLayer(String name, Rectangle2D bounds, Tile[][] tileMap, Integer offsetX, Integer offsetY, Integer x, Integer y,
+			Integer order, boolean visible) {
 		this.bounds = bounds;
 		this.tileMap = tileMap;
 		this.x = x;
@@ -26,6 +28,7 @@ public class MapTileLayer implements Comparable<MapTileLayer> {
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
 		this.order = order;
+		this.visible = visible;
 	}
 
 	/**

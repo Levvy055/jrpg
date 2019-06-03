@@ -78,14 +78,18 @@ public class GameMapBuilder {
 			String order = l.getProperties().getProperty("Order", "0");
 			Rectangle2D bounds = new Rectangle2D(r.x, r.y, r.width, r.height);
 			@SuppressWarnings("deprecation")
-			var ml = new MapTileLayerBuilder().bounds(bounds).tileMap(l.getTileMap()).x(l.getX()).y(l.getY())
-					.offsetX(l.getOffsetX()).offsetY(l.getOffsetY()).order(Integer.parseInt(order)).build();
+			var ml = new MapTileLayerBuilder().name(l.getName()).bounds(bounds).tileMap(l.getTileMap()).x(l.getX())
+					.y(l.getY()).offsetX(l.getOffsetX()).offsetY(l.getOffsetY()).order(Integer.parseInt(order))
+					.visible(l.isVisible()).build();
 			return ml;
 		}).sorted((l1, l2) -> l1.getOrder().compareTo(l2.getOrder())).collect(Collectors.toList());
 		map.setTileLayers(layerTiles);
 
 		List<MapObject> objects = layers.stream().filter(l -> l instanceof ObjectGroup).map(lm -> {
 			var l = (ObjectGroup) lm;
+			if (!lm.isVisible()) {
+				l.getObjects().forEach(o -> o.setVisible(false));
+			}
 			return l.getObjects();
 		}).flatMap(List::stream).sorted((o1, o2) -> {
 			return o1.getId().compareTo(o2.getId());

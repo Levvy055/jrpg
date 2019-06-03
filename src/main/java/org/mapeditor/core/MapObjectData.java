@@ -178,8 +178,8 @@ public class MapObjectData {
 
 	protected Boolean visible;
 
-	public Boolean isVisible() {
-		return visible;
+	public boolean isVisible() {
+		return visible == null ? true : visible;
 	}
 
 }

@@ -19,14 +19,51 @@ public class MapRenderer {
 	private static final int tileWidth = 32, tileHeight = 32;
 	private static final Dimension tsize = new Dimension(32, 32);
 	private Canvas upperLayer;
-	private Canvas entitiesCanvas;
 	private Canvas bottomLayer;
 
-	public MapRenderer(Canvas bottomLayer, Canvas entitiesCanvas, Canvas upperLayer) {
+	public MapRenderer(Canvas bottomLayer, Canvas upperLayer) {
 		this.bottomLayer = bottomLayer;
-		this.entitiesCanvas = entitiesCanvas;
 		this.upperLayer = upperLayer;
+	}
 
+	public void renderBottomTileLayers(GameMap map) {
+		map.getTileLayers().stream().filter(tl -> tl.isVisible() && tl.getOrder() < 100).forEachOrdered(tl -> {
+			drawTileLayer(bottomLayer.getGraphicsContext2D(), tl, map.getVSize(), map.getHSize(),
+					map.getMaxTileHeight());
+		});
+	}
+
+	public void renderBottomObjects(GameMap map) {
+		map.getObjects().stream().filter(mo -> {
+			if (!mo.isVisible()) {
+				return false;
+			}
+			String orderString = mo.getProperties().getProperty("Order");
+			int order = orderString != null ? Integer.parseInt(orderString) : 0;
+			return order < 100;
+		}).forEachOrdered(mo -> {
+			drawObject(bottomLayer.getGraphicsContext2D(), mo, map.getVSize(), map.getHSize());
+		});
+	}
+
+	public void renderUpperObjects(GameMap map) {
+		map.getObjects().stream().filter(mo -> {
+			if (!mo.isVisible()) {
+				return false;
+			}
+			String orderString = mo.getProperties().getProperty("Order");
+			int order = orderString != null ? Integer.parseInt(orderString) : 0;
+			return order < 100;
+		}).forEachOrdered(mo -> {
+			drawObject(upperLayer.getGraphicsContext2D(), mo, map.getVSize(), map.getHSize());
+		});
+	}
+
+	public void renderUpperTileLayers(GameMap map) {
+		map.getTileLayers().stream().filter(tl -> tl.isVisible() && tl.getOrder() > 100).forEachOrdered(tl -> {
+			drawTileLayer(upperLayer.getGraphicsContext2D(), tl, map.getVSize(), map.getHSize(),
+					map.getMaxTileHeight());
+		});
 	}
 
 	/**
@@ -101,18 +138,14 @@ public class MapRenderer {
 	 * @param width
 	 * @param height
 	 */
-	public void drawObject(GraphicsContext g, MapObject mo, int width, int height) {
+	private void drawObject(GraphicsContext g, MapObject mo, int width, int height) {
 		final Rectangle bounds = new Rectangle(width, height);
 		g.translate(bounds.x * tsize.width, bounds.y * tsize.height);
-
-		if (mo.isVisible() != null && !mo.isVisible()) {
-			return;
-		}
 		final double ox = mo.getX();
 		final double oy = mo.getY() - tsize.height;// when object on 0,0 its x,y=0,32
 		final Double objectWidth = mo.getWidth();
 		final Double objectHeight = mo.getHeight();
-		final double rotation = mo.getRotation();
+		//final double rotation = mo.getRotation();
 		final Tile tile = mo.getTile();
 		if (tile != null) {
 			Image objectImage = FileHandler.convertToFxImage(tile.getImage());
@@ -121,7 +154,7 @@ public class MapRenderer {
 				// g.save();
 				// g.transform(new Affine(new Rotate(rotation, ox, oy)));
 				// g.rotate(rotation);
-				//log.debug("R:{}, x:{}, y:{}", rotation, ox, oy);
+				// log.debug("R:{}, x:{}, y:{}", rotation, ox, oy);
 				g.drawImage(objectImage, (int) ox, (int) oy);
 				// g.restore();
 				// g.setTransform(old);
@@ -153,43 +186,8 @@ public class MapRenderer {
 		g.translate(-bounds.x * tsize.width, -bounds.y * tsize.height);
 	}
 
-	public void renderBottomTileLayers(GameMap map) {
-		map.getTileLayers().stream().filter(tl -> tl.getOrder() < 100).forEachOrdered(tl -> {
-			drawTileLayer(bottomLayer.getGraphicsContext2D(), tl, map.getVSize(), map.getHSize(),
-					map.getMaxTileHeight());
-		});
-	}
-
-	public void renderBottomObjects(GameMap map) {
-		map.getObjects().stream().filter(mo -> {
-			String orderString = mo.getProperties().getProperty("Order");
-			int order = orderString != null ? Integer.parseInt(orderString) : 0;
-			return order < 100;
-		}).forEachOrdered(mo -> {
-			drawObject(bottomLayer.getGraphicsContext2D(), mo, map.getVSize(), map.getHSize());
-		});
-	}
-
-	public void renderUpperTileLayers(GameMap map) {
-		map.getTileLayers().stream().filter(tl -> tl.getOrder() > 100).forEachOrdered(tl -> {
-			drawTileLayer(upperLayer.getGraphicsContext2D(), tl, map.getVSize(), map.getHSize(),
-					map.getMaxTileHeight());
-		});
-	}
-
-	public void renderUpperObjects(GameMap map) {
-		map.getObjects().stream().filter(mo -> {
-			String orderString = mo.getProperties().getProperty("Order");
-			int order = orderString != null ? Integer.parseInt(orderString) : 0;
-			return order < 100;
-		}).forEachOrdered(mo -> {
-			drawObject(upperLayer.getGraphicsContext2D(), mo, map.getVSize(), map.getHSize());
-		});
-	}
-
 	public void clearLayers() {
 		clearLayer(bottomLayer);
-		clearLayer(entitiesCanvas);
 		clearLayer(upperLayer);
 	}
 

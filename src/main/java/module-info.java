@@ -8,23 +8,23 @@ open module jrpg {
 	requires javafx.controls;
 	requires javafx.fxml;
 
-	requires java.logging;
 	requires java.desktop;
-	requires java.sql;
-	requires java.xml.bind;
 	requires java.compiler;
+	requires java.logging;
+	requires java.sql;
+	requires java.xml;
+	requires java.xml.bind;
 
 	requires org.controlsfx.controls;
 	requires com.jfoenix;
 	requires eu.hansolo.tilesfx;
-
-	requires static lombok;
 	
 	requires gson;
 	requires com.google.common;
 	requires org.apache.commons.lang3;
 	requires org.apache.logging.log4j;
 	
+	requires static lombok;
 	requires jdk.management.agent;
 	
 //  requires fxgl.all;

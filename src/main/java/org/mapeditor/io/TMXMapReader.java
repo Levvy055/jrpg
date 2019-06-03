@@ -747,7 +747,6 @@ public class TMXMapReader {
 			e.printStackTrace();
 			throw new Exception("Error while parsing map file: " + e.toString());
 		}
-
 		buildMap(doc);
 
 		return map;

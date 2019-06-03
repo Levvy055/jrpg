@@ -5,9 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
+import pl.hopelew.jrpg.entities.data.Position;
 import pl.hopelew.jrpg.entities.data.Sex;
+import pl.hopelew.jrpg.entities.data.Sprite;
+import pl.hopelew.jrpg.map.GameMap;
 import pl.hopelew.jrpg.utils.eventhandlers.EventType;
 import pl.hopelew.jrpg.utils.eventhandlers.GameEvent;
 import pl.hopelew.jrpg.utils.eventhandlers.GameEventHandler;
@@ -20,12 +26,16 @@ public abstract class Entity {
 	protected @Getter double hp = 100;
 	protected @Getter double mp = 10;
 	protected Map<EventType, List<GameEventHandler>> listeners = new HashMap<>();
+	protected @Getter Image avatar;
+	protected Sprite sprite;
+	protected Position position;
 
 	protected Entity(String name, Sex sex) {
 		this.name = name;
 		this.sex = sex;
+		position = new Position();
 	}
-	
+
 	/**
 	 * Adds Event Handler to specified entities event.
 	 * 
@@ -77,5 +87,22 @@ public abstract class Entity {
 		var ge = new ValueChangedGameEvent(this, EventType.MP_CHANGED, oldMp, mp);
 		fireEvent(ge);
 		return mp;
+	}
+
+	public void updateEntity(AnchorPane pane, GameMap map) {
+		var list = pane.getChildren();
+		ImageView img = sprite.getImgView();
+		AnchorPane.setLeftAnchor(img, position.getX());
+		AnchorPane.setBottomAnchor(img, position.getY());
+		if (list.contains(img)) {
+			list.add(img);
+		}
+		update();
+	}
+
+	protected abstract void update();
+
+	public ImageView getSpriteView() {
+		return sprite.getImgView();
 	}
 }
