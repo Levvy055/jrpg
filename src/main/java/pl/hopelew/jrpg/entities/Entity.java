@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
+import pl.hopelew.jrpg.entities.data.EntityState;
 import pl.hopelew.jrpg.entities.data.Position;
 import pl.hopelew.jrpg.entities.data.Sex;
 import pl.hopelew.jrpg.entities.data.Sprite;
@@ -28,11 +29,13 @@ public abstract class Entity {
 	protected @Getter Image avatar;
 	protected Sprite sprite;
 	protected Position position;
+	protected EntityState state;
 
 	protected Entity(String name, Sex sex) {
 		this.name = name;
 		this.sex = sex;
 		position = new Position();
+		state = EntityState.DEFAULT;
 	}
 
 	/**
@@ -89,9 +92,7 @@ public abstract class Entity {
 	}
 
 	public void render(Pane entitiesLayer) {
-		sprite.update();
 		entitiesLayer.getChildren().add(sprite);
-
 	}
 
 	public final void updateEntity(GameMap map) {

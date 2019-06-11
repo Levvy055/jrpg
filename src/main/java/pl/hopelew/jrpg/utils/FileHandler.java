@@ -224,8 +224,8 @@ public class FileHandler {
 		return url.openStream();
 	}
 	
-	public static Image getSprite(Res res, SpriteImageGroup group) {
-		return sprites.get(res).get(group);
+	public static Map<SpriteImageGroup, Image> getSprites(Res res) {
+		return sprites.get(res);
 	}
 
 	public static boolean isWindows() {

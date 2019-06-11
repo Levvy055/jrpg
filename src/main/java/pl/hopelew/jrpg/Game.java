@@ -33,7 +33,7 @@ import pl.hopelew.jrpg.utils.eventhandlers.MapChangedGameEvent;
 @Log4j2
 public class Game implements Runnable {
 	private static @Getter Game instance;
-	private static final float TPS = 1F;
+	private static final float TPS = 20F;
 	private boolean running;
 	private @Getter Player player;
 	private Map<EventType, List<GameEventHandler>> listeners = new HashMap<>();
@@ -205,7 +205,6 @@ public class Game implements Runnable {
 					mapRend.renderBottomTileLayers(map);
 					mapRend.renderBottomObjects(map);
 
-					//player.render(entitiesLayer.getGraphicsContext2D());
 					player.render(entitiesLayer);
 
 					mapRend.renderUpperTileLayers(map);
