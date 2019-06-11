@@ -223,6 +223,10 @@ public class FileHandler {
 		URL url = new URL(path.toString());
 		return url.openStream();
 	}
+	
+	public static Image getSprite(Res res, SpriteImageGroup group) {
+		return sprites.get(res).get(group);
+	}
 
 	public static boolean isWindows() {
 		return OS.contains("win");

@@ -26,6 +26,7 @@ open module jrpg {
 	
 	requires static lombok;
 	requires jdk.management.agent;
+	requires jnativehook;
 	
 //  requires fxgl.all;
 

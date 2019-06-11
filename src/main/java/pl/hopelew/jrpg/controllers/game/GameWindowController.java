@@ -8,8 +8,8 @@ import com.jfoenix.controls.JFXSpinner;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.Game;
@@ -30,7 +30,7 @@ import pl.hopelew.jrpg.utils.FileHandler;
 public class GameWindowController implements Initializable {
 	private @FXML BorderPane pane;
 	private @Getter @FXML Canvas bottomLayer;
-	private @Getter @FXML AnchorPane entitiesLayer;
+	private @Getter @FXML Pane entitiesLayer;
 	private @Getter @FXML Canvas upperLayer;
 	private @Getter @FXML JFXSpinner mapSpinner;
 	private @Getter static GameWindowController instance;

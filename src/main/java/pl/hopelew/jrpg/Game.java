@@ -200,11 +200,13 @@ public class Game implements Runnable {
 				try {
 					MapRenderer mapRend = window.getMapRenderer();
 					mapRend.clearLayers();
+					//MapRenderer.clearLayer(entitiesLayer);
+					entitiesLayer.getChildren().clear();
 					mapRend.renderBottomTileLayers(map);
 					mapRend.renderBottomObjects(map);
 
-					// TODO: render player here
-					player.updateEntity(entitiesLayer, getCurrentMap());
+					//player.render(entitiesLayer.getGraphicsContext2D());
+					player.render(entitiesLayer);
 
 					mapRend.renderUpperTileLayers(map);
 					mapRend.renderUpperObjects(map);
@@ -215,6 +217,14 @@ public class Game implements Runnable {
 					semaphore.release();
 				}
 			});
+			player.updateEntity(getCurrentMap());
+			waitForFxThread();
+		}
+
+		/**
+		 * Waits for JavaFx Thread to stop updating view
+		 */
+		private void waitForFxThread() {
 			try {
 				semaphore.acquire();
 			} catch (InterruptedException e) {

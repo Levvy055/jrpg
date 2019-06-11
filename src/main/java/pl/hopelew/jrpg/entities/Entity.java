@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.entities.data.Position;
@@ -89,20 +88,15 @@ public abstract class Entity {
 		return mp;
 	}
 
-	public void updateEntity(AnchorPane pane, GameMap map) {
-		var list = pane.getChildren();
-		ImageView img = sprite.getImgView();
-		AnchorPane.setLeftAnchor(img, position.getX());
-		AnchorPane.setBottomAnchor(img, position.getY());
-		if (list.contains(img)) {
-			list.add(img);
-		}
+	public void render(Pane entitiesLayer) {
+		sprite.update();
+		entitiesLayer.getChildren().add(sprite);
+
+	}
+
+	public final void updateEntity(GameMap map) {
 		update();
 	}
 
 	protected abstract void update();
-
-	public ImageView getSpriteView() {
-		return sprite.getImgView();
-	}
 }

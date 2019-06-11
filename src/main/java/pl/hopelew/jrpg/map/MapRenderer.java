@@ -91,11 +91,9 @@ public class MapRenderer {
 
 		for (int x = startX; x < endX; ++x) {
 			for (int y = startY; y < endY; ++y) {
-
 				drawTile(g, x, y, layer);
 			}
 		}
-
 		g.translate(-bounds.getMinX() * tileWidth, -bounds.getMinY() * tileHeight);
 	}
 
@@ -145,7 +143,7 @@ public class MapRenderer {
 		final double oy = mo.getY() - tsize.height;// when object on 0,0 its x,y=0,32
 		final Double objectWidth = mo.getWidth();
 		final Double objectHeight = mo.getHeight();
-		//final double rotation = mo.getRotation();
+		// final double rotation = mo.getRotation();
 		final Tile tile = mo.getTile();
 		if (tile != null) {
 			Image objectImage = FileHandler.convertToFxImage(tile.getImage());
@@ -191,7 +189,7 @@ public class MapRenderer {
 		clearLayer(upperLayer);
 	}
 
-	private void clearLayer(Canvas canvas) {
+	public static void clearLayer(Canvas canvas) {
 		var gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 	}
