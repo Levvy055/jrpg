@@ -27,9 +27,9 @@ public abstract class Entity {
 	protected @Getter double mp = 10;
 	protected Map<EventType, List<GameEventHandler>> listeners = new HashMap<>();
 	protected @Getter Image avatar;
-	protected Sprite sprite;
-	protected Position position;
-	protected EntityState state;
+	protected @Getter Sprite sprite;
+	protected @Getter Position position;
+	protected @Getter EntityState state;
 
 	protected Entity(String name, Sex sex) {
 		this.name = name;
@@ -92,7 +92,9 @@ public abstract class Entity {
 	}
 
 	public void render(Pane entitiesLayer) {
-		entitiesLayer.getChildren().add(sprite);
+		if (!entitiesLayer.getChildren().contains(sprite)) {
+			entitiesLayer.getChildren().add(sprite);
+		}
 	}
 
 	public final void updateEntity(GameMap map) {

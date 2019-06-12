@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXSpinner;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -13,6 +14,7 @@ import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.Game;
+import pl.hopelew.jrpg.entities.Entity;
 import pl.hopelew.jrpg.map.MapRenderer;
 import pl.hopelew.jrpg.utils.FileHandler;
 
@@ -28,14 +30,14 @@ import pl.hopelew.jrpg.utils.FileHandler;
  */
 @Log4j2
 public class GameWindowController implements Initializable {
+	private @Getter static GameWindowController instance;
 	private @FXML BorderPane pane;
+	private @Getter @FXML JFXSpinner mapSpinner;
 	private @Getter @FXML Canvas bottomLayer;
 	private @Getter @FXML Pane entitiesLayer;
 	private @Getter @FXML Canvas upperLayer;
-	private @Getter @FXML JFXSpinner mapSpinner;
-	private @Getter static GameWindowController instance;
-	private Game game;
 	private @Getter MapRenderer mapRenderer;
+	private Game game;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -58,6 +60,24 @@ public class GameWindowController implements Initializable {
 
 		sidebar().init(game.getPlayer());
 		this.game.postInitialization(this);
+	}
+
+	public void addEntitySprite(Entity entity) {
+		var sprite = entity.getSprite();
+		if (!entitiesLayer.getChildren().contains(sprite)) {
+			Platform.runLater(() -> {
+				entitiesLayer.getChildren().add(sprite);
+			});
+		}
+	}
+
+	public void removeEntitySprite(Entity entity) {
+		var sprite = entity.getSprite();
+		if (entitiesLayer.getChildren().contains(sprite)) {
+			Platform.runLater(() -> {
+				entitiesLayer.getChildren().remove(sprite);
+			});
+		}
 	}
 
 	/**

@@ -9,9 +9,13 @@ import java.util.Stack;
 import java.util.concurrent.Semaphore;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
+import javafx.collections.SetChangeListener;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.controllers.game.GameWindowController;
+import pl.hopelew.jrpg.entities.Entity;
 import pl.hopelew.jrpg.entities.Player;
 import pl.hopelew.jrpg.map.GameMap;
 import pl.hopelew.jrpg.map.GameMapBuilder;
@@ -41,6 +45,7 @@ public class Game implements Runnable {
 	private GameLoop loop;
 	private GameWindowController window;
 	private boolean initialized;
+	private ObservableSet<Entity> liveEntities = FXCollections.observableSet();
 
 	public Game(Player player) throws Exception {
 		instance = this;
@@ -50,11 +55,20 @@ public class Game implements Runnable {
 
 	public void postInitialization(GameWindowController window) {
 		this.window = window;
+		liveEntities.addListener((SetChangeListener<Entity>) change -> {
+			if (change.wasAdded()) {
+				this.window.addEntitySprite(change.getElementAdded());
+			} else if (change.wasRemoved()) {
+				this.window.removeEntitySprite(change.getElementRemoved());
+			}
+		});
 		addListener(EventType.MAP_SWITCHED, ge -> {
 			var mcge = (MapChangedGameEvent) ge;
 			GameMap map = mcge.getMap();
 
 		});
+
+		addEntity(player);
 		initialized = true;
 	}
 
@@ -109,6 +123,24 @@ public class Game implements Runnable {
 			return;
 		}
 		listeners.get(ge.getType()).forEach(eh -> eh.actionPerformed(ge));
+	}
+
+	/**
+	 * Adds entity to game
+	 * 
+	 * @param entity
+	 */
+	public void addEntity(Entity entity) {
+		liveEntities.add(entity);
+	}
+
+	/**
+	 * Removes entity from the game
+	 * 
+	 * @param entity
+	 */
+	public void removeEntity(Entity entity) {
+		liveEntities.remove(entity);
 	}
 
 	/**
@@ -195,18 +227,12 @@ public class Game implements Runnable {
 			if (map == null) {
 				return;
 			}
-			var entitiesLayer = window.getEntitiesLayer();
 			Platform.runLater(() -> {
 				try {
 					MapRenderer mapRend = window.getMapRenderer();
 					mapRend.clearLayers();
-					//MapRenderer.clearLayer(entitiesLayer);
-					entitiesLayer.getChildren().clear();
 					mapRend.renderBottomTileLayers(map);
 					mapRend.renderBottomObjects(map);
-
-					player.render(entitiesLayer);
-
 					mapRend.renderUpperTileLayers(map);
 					mapRend.renderUpperObjects(map);
 				} catch (Exception e) {
