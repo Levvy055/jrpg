@@ -14,7 +14,7 @@ public @Data class Position {
 	}
 
 	public synchronized void moveX(int delta) {
-		x += delta;
+		x += delta*32;
 		if (x < 0) {
 			x = 0;
 		}
@@ -22,7 +22,7 @@ public @Data class Position {
 	}
 
 	public synchronized void moveY(int delta) {
-		y += delta;
+		y += delta*32;
 		if (y < 0) {
 			y = 0;
 		}

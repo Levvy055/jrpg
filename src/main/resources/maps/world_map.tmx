@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2019.05.08" orientation="orthogonal" renderorder="right-down" width="5" height="5" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="5">
+<map version="1.2" tiledversion="2019.05.08" orientation="orthogonal" renderorder="right-down" width="5" height="5" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="6">
  <properties>
   <property name="id" type="int" value="0"/>
  </properties>
@@ -25,6 +25,9 @@
    <properties>
     <property name="order" type="int" value="80"/>
    </properties>
+  </object>
+  <object id="5" x="128" y="128" width="32" height="32">
+   <ellipse/>
   </object>
  </objectgroup>
  <layer id="6" name="Roof" width="5" height="5">

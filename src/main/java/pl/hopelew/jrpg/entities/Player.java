@@ -56,6 +56,7 @@ public class Player extends Entity {
 					state = EntityState.WALKING;
 					break;
 				}
+				System.out.println(key+' '+position);
 			}
 		});
 	}

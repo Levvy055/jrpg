@@ -18,7 +18,7 @@
       <Group fx:id="mapScreenGroup" autoSizeChildren="false" BorderPane.alignment="CENTER">
          <children>
             <Canvas fx:id="bottomLayer" height="755.0" width="795.0" />
-            <Pane fx:id="entitiesLayer" prefHeight="200.0" prefWidth="200.0" />
+            <Pane fx:id="entitiesLayer" maxHeight="200.0" maxWidth="200.0" minHeight="100.0" minWidth="100.0" prefHeight="200.0" prefWidth="200.0" scaleX="0.93" scaleY="0.91" />
             <Canvas fx:id="upperLayer" height="755.0" width="795.0" />
             <AnchorPane maxHeight="200.0" maxWidth="200.0" minHeight="100.0" minWidth="100.0" prefHeight="200.0" prefWidth="200.0">
                <children>
