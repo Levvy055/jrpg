@@ -48,8 +48,8 @@ public class Sprite extends ImageView {
 	}
 
 	public void update(Position position, EntityState state) {
-		setX(position.getX());
-		setY(position.getY());
+		setX(position.getX()*32);
+		setY(position.getY()*32);
 		if (state == EntityState.DEFAULT) {
 			setImage(images.get(SpriteImageGroup.WALK).getLeft());
 			setViewport(images.get(SpriteImageGroup.WALK).getRight().get(0));

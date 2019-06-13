@@ -1,11 +1,13 @@
 package pl.hopelew.jrpg.entities.data;
 
 import lombok.Data;
+import pl.hopelew.jrpg.map.GameMap;
 
 public @Data class Position {
 	private double x;
 	private double y;
 	private Direction direction;
+	private GameMap map;
 
 	public Position() {
 		x = 0;
@@ -14,7 +16,8 @@ public @Data class Position {
 	}
 
 	public synchronized void moveX(int delta) {
-		x += delta*32;
+		
+		x += delta;
 		if (x < 0) {
 			x = 0;
 		}
@@ -22,7 +25,7 @@ public @Data class Position {
 	}
 
 	public synchronized void moveY(int delta) {
-		y += delta*32;
+		y += delta;
 		if (y < 0) {
 			y = 0;
 		}

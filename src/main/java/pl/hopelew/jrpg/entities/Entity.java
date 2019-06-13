@@ -11,6 +11,7 @@ import pl.hopelew.jrpg.entities.data.Sex;
 import pl.hopelew.jrpg.entities.data.Sprite;
 import pl.hopelew.jrpg.map.GameMap;
 import pl.hopelew.jrpg.utils.eventhandlers.EventType;
+import pl.hopelew.jrpg.utils.eventhandlers.MapSwitchedGameEvent;
 import pl.hopelew.jrpg.utils.eventhandlers.ValueChangedGameEvent;
 
 @Log4j2
@@ -38,6 +39,10 @@ public abstract class Entity {
 			return;
 		}
 		this.game = game;
+		game.addListener(EventType.MAP_SWITCHED, e -> {
+			var ge = (MapSwitchedGameEvent) e;
+			position.setMap(ge.getMap());
+		}, this);
 		initialize();
 		initialized = true;
 	}
