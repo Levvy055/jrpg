@@ -12,7 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import lombok.Getter;
-import pl.hopelew.jrpg.entities.Player;
+import pl.hopelew.jrpg.Game;
 import pl.hopelew.jrpg.entities.data.Sex;
 import pl.hopelew.jrpg.utils.FileHandler;
 import pl.hopelew.jrpg.utils.Res;
@@ -42,24 +42,25 @@ public class SidebarController implements Initializable {
 	 * 
 	 * @param player
 	 */
-	public void init(Player player) {
+	public void init(Game game) {
+		var player = game.getPlayer();
 		setAvatar(player.getSex());
 		setHp(player.getHp());
 		pbHp.setSecondaryProgress(player.getHp() / 100d);
-		player.addListener(EventType.HP_CHANGED, ge -> {
+		game.addListener(EventType.HP_CHANGED, ge -> {
 			var vge = (ValueChangedGameEvent) ge;
 			Platform.runLater(() -> {
 				setHp((double) vge.getNewValue());
 				pbHp.setSecondaryProgress((double) vge.getOldValue() / 100d);
 			});
-		});
-		player.addListener(EventType.MP_CHANGED, ge -> {
+		}, player);
+		game.addListener(EventType.MP_CHANGED, ge -> {
 			var vge = (ValueChangedGameEvent) ge;
 			Platform.runLater(() -> {
 				setMp((double) vge.getNewValue());
 				pbMp.setSecondaryProgress((double) vge.getOldValue() / 100d);
 			});
-		});
+		}, player);
 	}
 
 	private void setHp(double hp) {

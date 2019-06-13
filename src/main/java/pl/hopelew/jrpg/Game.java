@@ -1,10 +1,10 @@
 package pl.hopelew.jrpg;
 
-import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 import java.util.concurrent.Semaphore;
 
@@ -12,6 +12,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
+import javafx.scene.input.KeyEvent;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.controllers.game.GameWindowController;
@@ -25,7 +26,9 @@ import pl.hopelew.jrpg.utils.TickTimer;
 import pl.hopelew.jrpg.utils.eventhandlers.EventType;
 import pl.hopelew.jrpg.utils.eventhandlers.GameEvent;
 import pl.hopelew.jrpg.utils.eventhandlers.GameEventHandler;
+import pl.hopelew.jrpg.utils.eventhandlers.KeyGameEvent;
 import pl.hopelew.jrpg.utils.eventhandlers.MapChangedGameEvent;
+import pl.hopelew.jrpg.utils.eventhandlers.MapSwitchedGameEvent;
 
 /**
  * Main Game thread loop container Started by {@link Thread} method
@@ -40,7 +43,7 @@ public class Game implements Runnable {
 	private static final float TPS = 20F;
 	private boolean running;
 	private @Getter Player player;
-	private Map<EventType, List<GameEventHandler>> listeners = new HashMap<>();
+	private Map<EventType, Map<Object, Set<GameEventHandler>>> listeners = new HashMap<>();
 	private Stack<GameMap> currentMap = new Stack<>();
 	private GameLoop loop;
 	private GameWindowController window;
@@ -62,14 +65,29 @@ public class Game implements Runnable {
 				this.window.removeEntitySprite(change.getElementRemoved());
 			}
 		});
+		setupKeysEventim();
 		addListener(EventType.MAP_SWITCHED, ge -> {
-			var mcge = (MapChangedGameEvent) ge;
-			GameMap map = mcge.getMap();
+			var msge = (MapSwitchedGameEvent) ge;
+			GameMap map = msge.getMap();
 
-		});
+		}, null);
+		addListener(EventType.MAP_CHANGED, ge -> {
+			var mcge = (MapChangedGameEvent) ge;
+
+		}, null);
 
 		addEntity(player);
 		initialized = true;
+	}
+
+	private void setupKeysEventim() {
+		window.getScene().addEventHandler(KeyEvent.KEY_PRESSED, e -> {
+			if (e.getCode().isLetterKey() || e.getCode().isDigitKey()) {
+				var event = new KeyGameEvent(e.getCode(), EventType.KEY_PRESSED, e.isShiftDown(), e.isShortcutDown(),
+						e.isAltDown());
+				fireEvent(event);
+			}
+		});
 	}
 
 	/**
@@ -83,7 +101,7 @@ public class Game implements Runnable {
 		GameMap map = GameMapBuilder.build(id);
 		log.info("Entering map <{}>", map.getName());
 		currentMap.add(map);
-		fireEvent(new MapChangedGameEvent(this, currentMap.lastElement()));
+		fireEvent(new MapSwitchedGameEvent(this, currentMap.lastElement()));
 		window.showSpinner(false);
 	}
 
@@ -95,7 +113,7 @@ public class Game implements Runnable {
 			GameMap map = currentMap.pop();
 			log.info("Exited from map <{}>", map.getName());
 		}
-		fireEvent(new MapChangedGameEvent(this, currentMap.lastElement()));
+		fireEvent(new MapSwitchedGameEvent(this, currentMap.lastElement()));
 		window.showSpinner(false);
 	}
 
@@ -106,11 +124,15 @@ public class Game implements Runnable {
 	 * @param event Type of event for handler to be fired on.
 	 * @param l     event handler
 	 */
-	public void addListener(EventType event, GameEventHandler l) {
+	public void addListener(EventType event, GameEventHandler l, Object target) {
 		if (!listeners.containsKey(event)) {
-			listeners.put(event, new ArrayList<>());
+			listeners.put(event, new HashMap<>());
 		}
-		listeners.get(event).add(l);
+		var handlers = listeners.get(event);
+		if (!handlers.containsKey(target)) {
+			handlers.put(target, new HashSet<GameEventHandler>());
+		}
+		handlers.get(target).add(l);
 	}
 
 	/**
@@ -118,11 +140,19 @@ public class Game implements Runnable {
 	 * 
 	 * @param ge
 	 */
-	private void fireEvent(GameEvent ge) {
+	public void fireEvent(GameEvent ge) {
 		if (!listeners.containsKey(ge.getType())) {
 			return;
 		}
-		listeners.get(ge.getType()).forEach(eh -> eh.actionPerformed(ge));
+		var handlers = listeners.get(ge.getType());
+		if (ge.getTarget() == null) {
+			handlers.values().parallelStream().forEach(s -> s.forEach(eh -> eh.actionPerformed(ge)));
+		} else {
+			handlers.get(ge.getTarget()).forEach(eh -> eh.actionPerformed(ge));
+			if (ge.getTarget() == null) {
+
+			}
+		}
 	}
 
 	/**
@@ -132,6 +162,7 @@ public class Game implements Runnable {
 	 */
 	public void addEntity(Entity entity) {
 		liveEntities.add(entity);
+		entity.initializeEntity(this);
 	}
 
 	/**
@@ -203,16 +234,16 @@ public class Game implements Runnable {
 	 *
 	 */
 	private class GameLoop {
-		private TickTimer timer;
+		private TickTimer timer = new TickTimer();
 		private Semaphore semaphore = new Semaphore(0);
 
 		private void run() throws Exception {
-			timer = new TickTimer();
 			timer.initTime(TPS);
 			while (running) {
 				if (timer.isFullCycle()) {
-					loop();
+					// System.out.println("TPS: " + timer.getLastTps());
 				}
+				loop();
 				timer.sync();
 			}
 		}
@@ -223,27 +254,43 @@ public class Game implements Runnable {
 		 * @throws InterruptedException
 		 */
 		private void loop() {
+			render();
+			update();
+		}
+
+		/**
+		 * Only renders game map when it is changed
+		 */
+		private void render() {
 			var map = getCurrentMap();
-			if (map == null) {
-				return;
+			if (map.isChanged()) {
+				Platform.runLater(() -> {
+					try {
+						MapRenderer mapRend = window.getMapRenderer();
+						mapRend.clearLayers();
+						mapRend.renderBottomTileLayers(map);
+						mapRend.renderBottomObjects(map);
+						mapRend.renderUpperTileLayers(map);
+						mapRend.renderUpperObjects(map);
+					} catch (Exception e) {
+						e.printStackTrace();
+						log.throwing(e);
+					} finally {
+						semaphore.release();
+						map.setChanged(false);
+					}
+				});
+				waitForFxThread();
 			}
-			Platform.runLater(() -> {
-				try {
-					MapRenderer mapRend = window.getMapRenderer();
-					mapRend.clearLayers();
-					mapRend.renderBottomTileLayers(map);
-					mapRend.renderBottomObjects(map);
-					mapRend.renderUpperTileLayers(map);
-					mapRend.renderUpperObjects(map);
-				} catch (Exception e) {
-					e.printStackTrace();
-					log.throwing(e);
-				} finally {
-					semaphore.release();
-				}
-			});
-			player.updateEntity(getCurrentMap());
-			waitForFxThread();
+		}
+
+		/**
+		 * Game Logic Update
+		 */
+		private void update() {
+			var map = getCurrentMap();
+			player.updateEntity(map);
+
 		}
 
 		/**

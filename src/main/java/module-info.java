@@ -18,16 +18,16 @@ open module jrpg {
 	requires org.controlsfx.controls;
 	requires com.jfoenix;
 	requires eu.hansolo.tilesfx;
-	
+
 	requires gson;
 	requires com.google.common;
 	requires org.apache.commons.lang3;
 	requires org.apache.logging.log4j;
-	
+
 	requires static lombok;
 	requires jdk.management.agent;
-	requires jnativehook;
-	
+// requires jnativehook;
+
 //  requires fxgl.all;
 
 //  opens pl.hopelew.jrpg.controllers to javafx.fxml;

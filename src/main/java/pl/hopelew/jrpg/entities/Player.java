@@ -1,13 +1,11 @@
 package pl.hopelew.jrpg.entities;
 
-import org.jnativehook.GlobalScreen;
-import org.jnativehook.keyboard.NativeKeyEvent;
-import org.jnativehook.keyboard.NativeKeyListener;
-
-import pl.hopelew.jrpg.entities.data.EntityState;
 import pl.hopelew.jrpg.entities.data.Sex;
 import pl.hopelew.jrpg.entities.data.Sprite;
+import pl.hopelew.jrpg.map.GameMap;
 import pl.hopelew.jrpg.utils.Res;
+import pl.hopelew.jrpg.utils.eventhandlers.EventType;
+import pl.hopelew.jrpg.utils.eventhandlers.KeyGameEvent;
 
 public class Player extends Entity {
 
@@ -21,49 +19,35 @@ public class Player extends Entity {
 			// TODO: sprite = new Sprite(Res.HERO_SPRITE_FEMALE);
 			break;
 		}
-		setupKeys();
-	}
 
-	private void setupKeys() {
-		GlobalScreen.addNativeKeyListener(new NativeKeyListener() {
-
-			@Override
-			public void nativeKeyTyped(NativeKeyEvent e) {
-			}
-
-			@Override
-			public void nativeKeyReleased(NativeKeyEvent e) {
-			}
-
-			@Override
-			public void nativeKeyPressed(NativeKeyEvent e) {
-				String key = NativeKeyEvent.getKeyText(e.getKeyCode());
-				switch (key) {
-				case "A":
-					position.moveX(-1);
-					state = EntityState.WALKING;
-					break;
-				case "D":
-					position.moveX(1);
-					state = EntityState.WALKING;
-					break;
-				case "W":
-					position.moveY(-1);
-					state = EntityState.WALKING;
-					break;
-				case "S":
-					position.moveY(1);
-					state = EntityState.WALKING;
-					break;
-				}
-				System.out.println(key+' '+position);
-			}
-		});
 	}
 
 	@Override
-	protected void update() {
-		sprite.update(position, state);
+	protected void initialize() {
+		game.addListener(EventType.KEY_PRESSED, e -> {
+			var ge = (KeyGameEvent) e;
+			switch (ge.getKey()) {
+			case D:
+				position.moveX(1);
+				break;
+			case A:
+				position.moveX(-1);
+				break;
+			case W:
+				position.moveY(-1);
+				break;
+			case S:
+				position.moveY(1);
+				break;
+			default:
+				break;
+			}
+		}, this);
+	}
 
+	@Override
+	protected void update(GameMap map) {
+		sprite.update(position, state);
+		map.canMoveTo(0, 0);
 	}
 }

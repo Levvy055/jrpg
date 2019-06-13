@@ -1,22 +1,16 @@
 package pl.hopelew.jrpg.entities;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
+import pl.hopelew.jrpg.Game;
 import pl.hopelew.jrpg.entities.data.EntityState;
 import pl.hopelew.jrpg.entities.data.Position;
 import pl.hopelew.jrpg.entities.data.Sex;
 import pl.hopelew.jrpg.entities.data.Sprite;
 import pl.hopelew.jrpg.map.GameMap;
 import pl.hopelew.jrpg.utils.eventhandlers.EventType;
-import pl.hopelew.jrpg.utils.eventhandlers.GameEvent;
-import pl.hopelew.jrpg.utils.eventhandlers.GameEventHandler;
 import pl.hopelew.jrpg.utils.eventhandlers.ValueChangedGameEvent;
 
 @Log4j2
@@ -25,11 +19,12 @@ public abstract class Entity {
 	protected @Getter Sex sex;
 	protected @Getter double hp = 100;
 	protected @Getter double mp = 10;
-	protected Map<EventType, List<GameEventHandler>> listeners = new HashMap<>();
 	protected @Getter Image avatar;
 	protected @Getter Sprite sprite;
 	protected @Getter Position position;
 	protected @Getter EntityState state;
+	private @Getter boolean initialized;
+	protected Game game;
 
 	protected Entity(String name, Sex sex) {
 		this.name = name;
@@ -38,30 +33,16 @@ public abstract class Entity {
 		state = EntityState.DEFAULT;
 	}
 
-	/**
-	 * Adds Event Handler to specified entities event.
-	 * 
-	 * @param event Event which entity will fire
-	 * @param l     event handler
-	 */
-	public void addListener(EventType event, GameEventHandler l) {
-		if (!listeners.containsKey(event)) {
-			listeners.put(event, new ArrayList<>());
-		}
-		listeners.get(event).add(l);
-	}
-
-	/**
-	 * Fires event to all listeners
-	 * 
-	 * @param ge
-	 */
-	protected void fireEvent(GameEvent ge) {
-		if (!listeners.containsKey(ge.getType())) {
+	public void initializeEntity(Game game) {
+		if (initialized) {
 			return;
 		}
-		listeners.get(ge.getType()).forEach(eh -> eh.actionPerformed(ge));
+		this.game = game;
+		initialize();
+		initialized = true;
 	}
+
+	protected abstract void initialize();
 
 	public double changeHp(double hpChange) {
 		var oldHp = hp;
@@ -71,7 +52,7 @@ public abstract class Entity {
 		}
 		log.debug("Entity [{}] HP: {}->{}", name, oldHp, hp);
 		var ge = new ValueChangedGameEvent(this, EventType.HP_CHANGED, oldHp, hp);
-		fireEvent(ge);
+		game.fireEvent(ge);
 		return hp;
 	}
 
@@ -87,7 +68,7 @@ public abstract class Entity {
 		}
 		log.debug("Entity [{}] MP: {}->{}", name, oldMp, mp);
 		var ge = new ValueChangedGameEvent(this, EventType.MP_CHANGED, oldMp, mp);
-		fireEvent(ge);
+		game.fireEvent(ge);
 		return mp;
 	}
 
@@ -98,8 +79,8 @@ public abstract class Entity {
 	}
 
 	public final void updateEntity(GameMap map) {
-		update();
+		update(map);
 	}
 
-	protected abstract void update();
+	protected abstract void update(GameMap map);
 }

@@ -1,11 +1,6 @@
 package pl.hopelew.jrpg;
 
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.jnativehook.GlobalScreen;
-import org.jnativehook.NativeHookException;
 
 import javafx.application.Application;
 import javafx.application.ConditionalFeature;
@@ -99,11 +94,6 @@ public class Main extends Application {
 			game.stop();
 		}
 		instance.stage.close();
-		try {
-			GlobalScreen.unregisterNativeHook();
-		} catch (NativeHookException e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -173,10 +163,6 @@ public class Main extends Application {
 		Thread.currentThread().setName("Main Thread");
 		try {
 			initLocale(args);
-			var logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
-			logger.setLevel(Level.WARNING);
-			logger.setUseParentHandlers(false);
-			GlobalScreen.registerNativeHook();
 			Application.launch(args);
 		} catch (Exception e) {
 			e.printStackTrace();

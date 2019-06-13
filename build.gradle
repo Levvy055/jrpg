@@ -31,7 +31,7 @@ dependencies {
     }
     //implementation 'com.github.almasb:fxgl:11.1-beta'
 
-    implementation 'com.1stleg:jnativehook:2.1.0' //global key listeners
+    //implementation 'com.1stleg:jnativehook:2.1.0' //global key listeners
     
     implementation 'commons-io:commons-io:2.6'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'

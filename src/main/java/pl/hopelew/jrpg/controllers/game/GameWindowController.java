@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXSpinner;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -37,6 +38,7 @@ public class GameWindowController implements Initializable {
 	private @Getter @FXML Pane entitiesLayer;
 	private @Getter @FXML Canvas upperLayer;
 	private @Getter MapRenderer mapRenderer;
+	private @Getter Scene scene;
 	private Game game;
 
 	@Override
@@ -58,7 +60,8 @@ public class GameWindowController implements Initializable {
 		this.game = game;
 		this.mapRenderer = new MapRenderer(bottomLayer, upperLayer);
 
-		sidebar().init(game.getPlayer());
+		sidebar().init(game);
+		scene = pane.getScene();
 		this.game.postInitialization(this);
 	}
 

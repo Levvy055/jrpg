@@ -10,8 +10,6 @@ public class MapTileLayer implements Comparable<MapTileLayer> {
 	private @Getter String name;
 	private @Getter Rectangle2D bounds;
 	private Tile[][] tileMap;
-	private @Getter Integer x;
-	private @Getter Integer y;
 	private @Getter Integer offsetX;
 	private @Getter Integer offsetY;
 	/** Player order is 100 */
@@ -19,12 +17,10 @@ public class MapTileLayer implements Comparable<MapTileLayer> {
 	private @Getter boolean visible;
 
 	@Builder
-	private MapTileLayer(String name, Rectangle2D bounds, Tile[][] tileMap, Integer offsetX, Integer offsetY, Integer x, Integer y,
+	private MapTileLayer(String name, Rectangle2D bounds, Tile[][] tileMap, Integer offsetX, Integer offsetY,
 			Integer order, boolean visible) {
 		this.bounds = bounds;
 		this.tileMap = tileMap;
-		this.x = x;
-		this.y = y;
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
 		this.order = order;
@@ -40,7 +36,7 @@ public class MapTileLayer implements Comparable<MapTileLayer> {
 	 *         outside this layer
 	 */
 	public Tile getTileAt(int tx, int ty) {
-		return getBounds().contains(tx, ty) ? tileMap[ty - this.y][tx - this.x] : null;
+		return getBounds().contains(tx, ty) ? tileMap[ty][tx] : null;
 	}
 
 	@Override
