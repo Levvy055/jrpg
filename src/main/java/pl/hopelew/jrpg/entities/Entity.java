@@ -34,6 +34,10 @@ public abstract class Entity {
 		state = EntityState.DEFAULT;
 	}
 
+	/**
+	 * Sets up all data
+	 * @param game
+	 */
 	public void initializeEntity(Game game) {
 		if (initialized) {
 			return;
@@ -47,8 +51,18 @@ public abstract class Entity {
 		initialized = true;
 	}
 
+	/**
+	 * Called from Entity class of {@link #initializeEntity(Game)} method to
+	 * initialize object
+	 */
 	protected abstract void initialize();
 
+	/**
+	 * Changes HP of entity
+	 * 
+	 * @param hpChange
+	 * @return
+	 */
 	public double changeHp(double hpChange) {
 		var oldHp = hp;
 		hp += hpChange;
@@ -61,6 +75,11 @@ public abstract class Entity {
 		return hp;
 	}
 
+	/**
+	 * Changes MP of entity
+	 * @param mpChange
+	 * @return
+	 */
 	public double changeMp(double mpChange) {
 		if (mpChange < 0 && -mpChange > mp) {
 			log.debug("Not enough MP! " + -mpChange + "/" + mp);
@@ -77,6 +96,10 @@ public abstract class Entity {
 		return mp;
 	}
 
+	/**
+	 * Adds entity sprite to Pane of JavaFX
+	 * @param entitiesLayer
+	 */
 	public void render(Pane entitiesLayer) {
 		if (!entitiesLayer.getChildren().contains(sprite)) {
 			entitiesLayer.getChildren().add(sprite);
@@ -87,5 +110,9 @@ public abstract class Entity {
 		update(map);
 	}
 
+	/**
+	 * Called from {@link #updateEntity(GameMap)}
+	 * @param map
+	 */
 	protected abstract void update(GameMap map);
 }

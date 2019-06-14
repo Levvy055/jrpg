@@ -56,6 +56,11 @@ public class Game implements Runnable {
 		loop = new GameLoop();
 	}
 
+	/**
+	 * Calledafter{@link GameWindowController} finishes loading
+	 * 
+	 * @param window
+	 */
 	public void postInitialization(GameWindowController window) {
 		this.window = window;
 		liveEntities.addListener((SetChangeListener<Entity>) change -> {
@@ -66,13 +71,18 @@ public class Game implements Runnable {
 			}
 		});
 		setupKeysEventim();
-		
+
 		addListener(EventType.MAP_CHANGED, ge -> {
 			var mcge = (MapChangedGameEvent) ge;
 
 		}, null);
 
 		addEntity(player);
+		try {
+			//addEntity(new Skeleton("Skeleton 1", Sex.MALE));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		initialized = true;
 	}
 

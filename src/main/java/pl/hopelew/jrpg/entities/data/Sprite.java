@@ -25,10 +25,12 @@ import pl.hopelew.jrpg.utils.ResType;
  */
 public class Sprite extends ImageView {
 	private Map<SpriteImageGroup, Pair<Image, List<Rectangle2D>>> images;
+	private Res res;
 
 	public Sprite(Res res) throws Exception {
-		if (res.getType() != ResType.SPRITE) {
-			throw new Exception("Res Type should be SPRITE, was " + res.getType());
+		this.res = res;
+		if (res.getType() != ResType.SPRITE_FULL) {
+			throw new Exception("Res Type should be SPRITE_FULL, was " + res.getType());
 		}
 		images = new HashMap<>();
 		FileHandler.getSprites(res).forEach((k, v) -> {
@@ -42,7 +44,7 @@ public class Sprite extends ImageView {
 				}
 			}
 			var clipedImages = new ImmutablePair<Image, List<Rectangle2D>>(v, clips);
-			images.put(k, clipedImages);
+			images.put(k, clipedImages); 
 		});
 
 	}

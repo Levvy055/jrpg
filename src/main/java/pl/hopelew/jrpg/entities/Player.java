@@ -1,5 +1,6 @@
 package pl.hopelew.jrpg.entities;
 
+import pl.hopelew.jrpg.entities.data.EntityState;
 import pl.hopelew.jrpg.entities.data.Sex;
 import pl.hopelew.jrpg.entities.data.Sprite;
 import pl.hopelew.jrpg.map.GameMap;
@@ -30,15 +31,19 @@ public class Player extends Entity {
 			switch (ge.getKey()) {
 			case D:
 				position.moveX(1);
+				state = EntityState.WALKING;
 				break;
 			case A:
 				position.moveX(-1);
+				state = EntityState.WALKING;
 				break;
 			case W:
 				position.moveY(-1);
+				state = EntityState.WALKING;
 				break;
 			case S:
 				position.moveY(1);
+				state = EntityState.WALKING;
 				break;
 			default:
 				break;

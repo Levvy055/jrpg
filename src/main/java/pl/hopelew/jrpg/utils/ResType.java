@@ -1,5 +1,5 @@
 package pl.hopelew.jrpg.utils;
 
 public enum ResType {
-	AUDIO, VIDEO, IMAGE, SPRITE
+	AUDIO, VIDEO, IMAGE, SPRITE, SPRITE_FULL
 }

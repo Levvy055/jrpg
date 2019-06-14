@@ -94,7 +94,7 @@ public class FileHandler {
 	 */
 	public static void validateResourcesAndLoad() {
 		for (Res res : Res.values()) {
-			if (res.getType() != ResType.SPRITE) {
+			if (res.getType() != ResType.SPRITE_FULL && res.getType() != ResType.SPRITE) {
 				try {
 					var path = getPath(res.getPath());
 					if (path == null) {
@@ -109,7 +109,7 @@ public class FileHandler {
 				}
 			} else {
 				String p = res.getPath();
-				Arrays.asList(SpriteImageGroup.values()).stream().forEach(s -> {
+				Arrays.asList(res.getGroups()).stream().forEach(s -> {
 					try {
 						String st = p + '_' + s.name().toLowerCase() + ".png";
 						var path = getPath(st);
@@ -223,7 +223,7 @@ public class FileHandler {
 		URL url = new URL(path.toString());
 		return url.openStream();
 	}
-	
+
 	public static Map<SpriteImageGroup, Image> getSprites(Res res) {
 		return sprites.get(res);
 	}

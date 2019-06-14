@@ -40,6 +40,13 @@ public class GameMap {
 	public GameMap() {
 	}
 
+	/**
+	 * Checks if a player can go onto {@link Tile} on position x, y
+	 * 
+	 * @param x
+	 * @param y
+	 * @return true if can move to the Tile at x,y
+	 */
 	public boolean canMoveTo(int x, int y) {
 		var tiles = getTilesAt(x, y);
 		for (Tile tile : tiles) {
