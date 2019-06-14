@@ -1,7 +1,13 @@
 package pl.hopelew.jrpg.entities.data;
 
+import com.google.gson.annotations.SerializedName;
+
 public enum Direction {
-	NORTH, EAST, SOUTH, WEST;
+	@SerializedName("SOUTH")
+	SOUTH, @SerializedName("WEST")
+	WEST, @SerializedName("NORTH")
+	NORTH, @SerializedName("EAST")
+	EAST;
 
 	public Direction rotateLeft() {
 		switch (this) {

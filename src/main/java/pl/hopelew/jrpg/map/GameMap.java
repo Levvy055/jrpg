@@ -12,6 +12,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.entities.MobEntity;
+import pl.hopelew.jrpg.entities.data.Position;
 
 @Data
 @Log4j2
@@ -25,6 +26,9 @@ public class GameMap {
 	@SerializedName("entities")
 	@Expose
 	private List<MobEntity> entities;
+	@SerializedName("entrance")
+	@Expose
+	private Position entrance;
 	private int vSize;
 	private int hSize;
 	private String backgroundColor;
@@ -39,7 +43,8 @@ public class GameMap {
 	public boolean canMoveTo(int x, int y) {
 		var tiles = getTilesAt(x, y);
 		for (Tile tile : tiles) {
-			if(tile.getType().equals("11")) {
+			String type = tile.getType();
+			if (type != null && type.equals("11")) {
 				return false;
 			}
 		}
@@ -51,7 +56,7 @@ public class GameMap {
 		for (MapTileLayer tileLayer : tileLayers) {
 			var tile = tileLayer.getTileAt(x, y);
 			if (tile != null) {
-				var tile2=tile.getTileSet().getTile(tile.getId());
+				var tile2 = tile.getTileSet().getTile(tile.getId());
 				list.add(tile2);
 			}
 		}

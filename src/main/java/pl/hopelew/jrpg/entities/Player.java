@@ -6,6 +6,7 @@ import pl.hopelew.jrpg.map.GameMap;
 import pl.hopelew.jrpg.utils.Res;
 import pl.hopelew.jrpg.utils.eventhandlers.EventType;
 import pl.hopelew.jrpg.utils.eventhandlers.KeyGameEvent;
+import pl.hopelew.jrpg.utils.eventhandlers.MapSwitchedGameEvent;
 
 public class Player extends Entity {
 
@@ -42,6 +43,12 @@ public class Player extends Entity {
 			default:
 				break;
 			}
+		}, this);
+		game.addListener(EventType.MAP_SWITCHED, ge -> {
+			var msge = (MapSwitchedGameEvent) ge;
+			GameMap map = msge.getMap();
+			var ep = map.getEntrance();
+			position.set(ep.getX(), ep.getY(), ep.getDirection());
 		}, this);
 	}
 

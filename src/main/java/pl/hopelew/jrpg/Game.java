@@ -66,11 +66,7 @@ public class Game implements Runnable {
 			}
 		});
 		setupKeysEventim();
-		addListener(EventType.MAP_SWITCHED, ge -> {
-			var msge = (MapSwitchedGameEvent) ge;
-			GameMap map = msge.getMap();
-
-		}, null);
+		
 		addListener(EventType.MAP_CHANGED, ge -> {
 			var mcge = (MapChangedGameEvent) ge;
 
