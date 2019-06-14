@@ -29,7 +29,7 @@ public class Sprite extends ImageView {
 
 	public Sprite(Res res) throws Exception {
 		this.res = res;
-		if (res.getType() != ResType.SPRITE_FULL) {
+		if (!(res.getType() == ResType.SPRITE_FULL || res.getType() == ResType.SPRITE)) {
 			throw new Exception("Res Type should be SPRITE_FULL, was " + res.getType());
 		}
 		images = new HashMap<>();
@@ -44,14 +44,16 @@ public class Sprite extends ImageView {
 				}
 			}
 			var clipedImages = new ImmutablePair<Image, List<Rectangle2D>>(v, clips);
-			images.put(k, clipedImages); 
+			images.put(k, clipedImages);
 		});
-
+		if (!images.containsKey(SpriteImageGroup.WALK)) {
+			images.put(SpriteImageGroup.WALK, images.values().stream().findFirst().get());
+		}
 	}
 
 	public void update(Position position, EntityState state) {
-		setX(position.getX()*32);
-		setY(position.getY()*32);
+		setX(position.getX() * 32);
+		setY(position.getY() * 32);
 		if (state == EntityState.DEFAULT) {
 			setImage(images.get(SpriteImageGroup.WALK).getLeft());
 			setViewport(images.get(SpriteImageGroup.WALK).getRight().get(0));

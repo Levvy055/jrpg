@@ -18,6 +18,8 @@ import lombok.extern.log4j.Log4j2;
 import pl.hopelew.jrpg.controllers.game.GameWindowController;
 import pl.hopelew.jrpg.entities.Entity;
 import pl.hopelew.jrpg.entities.Player;
+import pl.hopelew.jrpg.entities.Skeleton;
+import pl.hopelew.jrpg.entities.data.Sex;
 import pl.hopelew.jrpg.map.GameMap;
 import pl.hopelew.jrpg.map.GameMapBuilder;
 import pl.hopelew.jrpg.map.MapRenderer;
@@ -79,7 +81,7 @@ public class Game implements Runnable {
 
 		addEntity(player);
 		try {
-			//addEntity(new Skeleton("Skeleton 1", Sex.MALE));
+			addEntity(new Skeleton("Skeleton 1", Sex.MALE));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -295,8 +297,10 @@ public class Game implements Runnable {
 		 */
 		private void update() {
 			var map = getCurrentMap();
+			for (Entity entity : liveEntities) {
+				entity.updateEntity(map);
+			}
 			player.updateEntity(map);
-
 		}
 
 		/**

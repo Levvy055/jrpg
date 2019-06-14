@@ -1,5 +1,7 @@
 package pl.hopelew.jrpg.entities;
 
+import javafx.application.Platform;
+import javafx.scene.effect.BlendMode;
 import pl.hopelew.jrpg.entities.data.EntityState;
 import pl.hopelew.jrpg.entities.data.Sex;
 import pl.hopelew.jrpg.entities.data.Sprite;
@@ -26,6 +28,7 @@ public class Player extends Entity {
 
 	@Override
 	protected void initialize() {
+		sprite.setBlendMode(BlendMode.SRC_OVER);// lub SRC_OVER
 		game.addListener(EventType.KEY_PRESSED, e -> {
 			var ge = (KeyGameEvent) e;
 			switch (ge.getKey()) {
@@ -60,6 +63,6 @@ public class Player extends Entity {
 	@Override
 	protected void update(GameMap map) {
 		sprite.update(position, state);
-		map.canMoveTo(0, 0);
+		Platform.runLater(() -> sprite.toFront());
 	}
 }
